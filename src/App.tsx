@@ -13,6 +13,7 @@ export default function App() {
       <ModalProvider
         options={particleConnectConfig}
         theme={theme.current}
+        key={theme.current}
         walletSort={["Wallet", "Particle Auth"]}
       >
         <RouterProvider router={router} />
