@@ -1,5 +1,6 @@
 import { ConnectButton } from "@particle-network/connectkit";
 import "@particle-network/connectkit/dist/index.css";
+import ThemeButton from "./ThemeButton";
 
 export default function Navbar() {
   return (
@@ -9,6 +10,7 @@ export default function Navbar() {
       <div className=""></div>
       <div className="flex items-center">
         <ConnectButton />
+        <ThemeButton />
       </div>
     </nav>
   );
