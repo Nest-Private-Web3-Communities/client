@@ -9,6 +9,7 @@ import ErrorPage from "./ErrorPage/ErrorPage";
 import ProtectedRoute, { ProtectedTypes } from "../common/ProtectedRoute";
 import CommunitiesPage from "./CommunitiesPage/CommunitiesPage";
 import LandingPage from "./LandingPage/LandingPage";
+import CommunityPage from "./CommunityPage/CommunityPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,7 +20,9 @@ const router = createBrowserRouter(
         <Route
           path="/"
           element={<ProtectedRoute type={ProtectedTypes.PUBLICONLY} />}
-        ></Route>
+        >
+          <Route path="community" element={<CommunityPage />} />
+        </Route>
 
         <Route
           path="/"

@@ -12,8 +12,8 @@
   }
 
   :root {
-    --color-primary: 231 112 2;
-    --color-secondary: ;
+    --color-primary: 225 29 72;
+    --color-secondary: 28 25 23;
     --color-accent: 255 205 2;
     --color-foreground: 26 26 26;
     --color-background: 255 255 255;
@@ -33,6 +33,6 @@
 
 @layer utilities {
   .p-page {
-    @apply px-[8vw];
+    @apply px-[3vw];
   }
 }
