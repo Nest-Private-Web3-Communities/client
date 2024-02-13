@@ -5,7 +5,7 @@ import Chat from "./components/chat";
 
 export default function CommunityPage() {
   return (
-    <div className="bg-black p-page flex w-full">
+    <div className="bg-background p-page flex w-full">
       <SubgroupList />
       <Feed />
       <Chat />

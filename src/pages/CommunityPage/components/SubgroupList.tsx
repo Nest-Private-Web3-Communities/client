@@ -40,13 +40,12 @@ const dummy2 = [
     image: "https://randomuser.me/api/portraits/women/90.jpg",
   },
   {
-    name: "Daniel",
+    name: "Alice",
     active: false,
     lastActive: "12 Minutes ago",
-    image: "https://randomuser.me/api/portraits/men/8.jpg",
+    image: "https://randomuser.me/api/portraits/men/10.jpg",
   },
 
- 
   {
     name: "Ben Shapiro",
     active: true,
@@ -79,45 +78,45 @@ const dummy2 = [
 
 export default function SubgroupList() {
   return (
-    <div className="text-white py-10 flex flex-col gap-y-3 pr-8 h-screen">
-      <h1 className="text-xl border-b-2 font-bold border-white pb-1 border-opacity-20">
+    <div className="text-front py-10 flex flex-col gap-y-3 pr-8 h-screen">
+      <h1 className="text-xl border-b-2 font-bold border-front pb-1 border-opacity-20">
         Sub Groups
       </h1>
       <div className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary">
         {dummy.map((data, i) => (
           <div
             key={i}
-            className=" bg-secondary bg-opacity-60 hover:bg-opacity-100 duration-200 ease-in px-3 border-white border border-opacity-20 py-4 rounded-lg flex items-center min-w-[18vw] justify-between"
+            className=" bg-foreground bg-opacity-60 hover:bg-opacity-100 duration-200 ease-in px-3 border-front border border-opacity-20 py-4 rounded-lg flex items-center min-w-[18vw] justify-between"
           >
             <div className="flex gap-x-2">
               <img
                 src={data.icon}
-                className="rounded-full bg-white text-black text-center w-[3vw] aspect-square"
+                className="rounded-full bg-front text-background text-center w-[3vw] aspect-square"
               />
               <div className="flex flex-col">
                 <h2 className="font-bold">{data.name}</h2>
-                <h3 className="text-sm text-opacity-50 text-white">
+                <h3 className="text-sm text-opacity-50 text-front">
                   Active:{" "}
                   <span className="text-green">{data.active} members</span>
                 </h3>
               </div>
             </div>
-            <button className="bg-black rounded-full px-2 aspect-square border-white border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
+            <button className="bg-background rounded-full px-2 aspect-square border-front border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
               <Icon icon="forum" className="text-[1.5rem]" />
             </button>
           </div>
         ))}
       </div>
-      <div className="mt-4 border-b-2 border-white border-opacity-20 text-lg pb-1 font-bold">
+      <div className="mt-4 border-b-2 border-front border-opacity-20 text-lg pb-1 font-bold">
         Community Members
       </div>
-      <div className="flex flex-col gap-y-4 bg-secondary p-4 rounded-lg border border-white border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary">
+      <div className="flex flex-col gap-y-4 bg-foreground p-4 rounded-lg border border-front border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary">
         {dummy2
           .sort((a, b) => (a.active === b.active ? 0 : a.active ? -1 : 1))
           .map((member, i) => (
             <div
               key={i}
-              className="flex justify-between border-b pb-3 border-white border-opacity-20"
+              className="flex justify-between border-b pb-3 border-front border-opacity-20"
             >
               <div className="flex gap-x-2 justify-center items-center relative">
                 <div className="relative">
@@ -126,7 +125,7 @@ export default function SubgroupList() {
                     className="w-[3vw] aspect-square rounded-full"
                   />
                   {member.active && (
-                    <div className="bg-green-500 w-[12px] rounded-full right-0 bottom-0 border-2 border-white aspect-square absolute" />
+                    <div className="bg-green-500 w-[12px] rounded-full right-0 bottom-0 border-2 border-foreground aspect-square absolute" />
                   )}
                 </div>
                 <div className="flex flex-col">
@@ -134,13 +133,13 @@ export default function SubgroupList() {
                   {member.active ? (
                     <div className="text-sm text-green-500">Active Now</div>
                   ) : (
-                    <div className="text-sm text-white text-opacity-50">
+                    <div className="text-sm text-front text-opacity-50">
                       {member.lastActive}{" "}
                     </div>
                   )}
                 </div>
               </div>
-              <button className="bg-black rounded-full px-2 aspect-square border-white border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
+              <button className="bg-background rounded-full px-2 aspect-square border-front border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
                 <Icon icon="chat" className="text-[1.5rem] " />
               </button>
             </div>
