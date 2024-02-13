@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useTheme from "../hooks/useTheme";
-import Icon from "./Icon";
+import Icon, { IconType } from "./Icon";
 
 interface ThemeButtonProps {
   className?: string;
@@ -14,9 +14,16 @@ export default function ThemeButton(props: ThemeButtonProps) {
     if (theme.current == "light") theme.set("dark");
   }
 
+  const [icon, setIcon] = useState<IconType>("light_mode");
+
+  useEffect(() => {
+    if (theme.current == "dark") setIcon("light_mode");
+    if (theme.current == "light") setIcon("dark_mode");
+  }, [theme.current]);
+
   return (
-    <button onClick={toggleTheme}>
-      <Icon icon="dark_mode" />
+    <button onClick={toggleTheme} className={props.className}>
+      <Icon icon={icon} />
     </button>
   );
 }
