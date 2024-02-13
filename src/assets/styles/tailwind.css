@@ -13,26 +13,24 @@
 
   :root {
     --color-primary: 225 29 72;
-    --color-secondary: 28 25 23;
-    --color-accent: 255 205 2;
-    --color-foreground: 26 26 26;
+    --color-secondary: 244 244 245;
+    --color-foreground: 250 250 250;
     --color-background: 255 255 255;
-    --color-front: 26 26 26;
-    --color-back: 255 255 255;
+    --color-front: 9 9 11;
+    --color-back: 254 254 250;
   }
   :root[data-theme="dark"] {
-    --color-primary: 231 112 2;
+    --color-primary: 225 29 72;
     --color-secondary: ;
-    --color-accent: 255 205 2;
-    --color-foreground: 255 255 255;
-    --color-background: 0 0 0;
-    --color-front: 255 255 255;
-    --color-back: 26 26 26;
+    --color-foreground: 28 25 23;
+    --color-background: 9 9 11;
+    --color-front: 250 250 250;
+    --color-back: 250 250 250;
   }
 }
 
 @layer utilities {
   .p-page {
-    @apply px-[3vw];
+    @apply px-[8vw];
   }
 }
