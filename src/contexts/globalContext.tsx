@@ -13,19 +13,19 @@ interface GlobalContextType {
     setModal: React.Dispatch<React.SetStateAction<React.ReactNode>>;
   };
   themeState: {
-    theme: Theme;
-    setTheme: React.Dispatch<React.SetStateAction<Theme>>;
+    theme: Theme | undefined;
+    setTheme: React.Dispatch<React.SetStateAction<Theme | undefined>>;
   };
 }
 
 const GlobalContext = createContext<GlobalContextType>({} as GlobalContextType);
 
 export function GlobalContextProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>();
   const [modal, setModal] = useState<ReactNode | null>();
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("vitess__arewefastyet__theme");
+    const storedTheme = localStorage.getItem("nest-theme");
     if (storedTheme == "dark" || storedTheme == "light") {
       setTheme(storedTheme);
     } else {
@@ -40,7 +40,7 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (theme) {
       document.documentElement.setAttribute("data-theme", theme);
-      localStorage.setItem("vitess__arewefastyet__theme", theme);
+      localStorage.setItem("nest-theme", theme);
     }
   }, [theme]);
 
