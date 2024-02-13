@@ -25,35 +25,127 @@ const dummy = [
     active: 12,
     icon: "https://i0.wp.com/iitaza.com/wp-content/uploads/2023/02/PngItem_3517133.png?resize=354%2C354&ssl=1",
   },
+  {
+    name: "IIT Goa",
+    members: 200,
+    active: 42,
+    icon: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Indian_Institute_of_Technology_Goa_Logo.svg/1200px-Indian_Institute_of_Technology_Goa_Logo.svg.png"
+  }
+];
+
+const dummy2 = [
+  {
+    name: "Arial",
+    active: true,
+    image: "https://randomuser.me/api/portraits/women/90.jpg",
+  },
+  {
+    name: "Daniel",
+    active: false,
+    lastActive: "12 Minutes ago",
+    image: "https://randomuser.me/api/portraits/men/8.jpg",
+  },
+
+ 
+  {
+    name: "Ben Shapiro",
+    active: true,
+    image: "https://randomuser.me/api/portraits/men/5.jpg",
+  },
+  {
+    name: "Luis",
+    active: false,
+    lastActive: "7 hours ago",
+    image: "https://randomuser.me/api/portraits/women/22.jpg",
+  },
+  {
+    name: "Remo Singh",
+    active: false,
+    lastActive: "1 week ago",
+    image: "https://randomuser.me/api/portraits/men/54.jpg",
+  },
+  {
+    name: "Desuza",
+    active: false,
+    lastActive: "1 Day ago",
+    image: "https://randomuser.me/api/portraits/men/22.jpg",
+  },
+  {
+    name: "Stepahno",
+    active: true,
+    image: "https://randomuser.me/api/portraits/men/8.jpg",
+  },
 ];
 
 export default function SubgroupList() {
   return (
-    <div className="text-white py-10 flex flex-col gap-y-3 pr-8">
-    <div className="text-xl border-b-2 border-white pb-1 border-opacity-20">Sub Groups</div>
-      {dummy.map((data, i) => (
-        <div
-          key={i}
-          className="bg-secondary bg-opacity-60 hover:bg-opacity-100 duration-200 ease-in px-3 border-white border border-opacity-20 py-4 rounded-lg flex items-center min-w-[18vw] justify-between"
-        >
-          <div className="flex gap-x-2">
-            <img
-              src={data.icon}
-              className="rounded-full bg-white text-black text-center w-[3vw] aspect-square"
-            />
-            <div className="flex flex-col">
-              <div className="font-bold">{data.name}</div>
-              <div className="text-sm text-opacity-50 text-white">
-                Active:{" "}
-                <span className="text-green">{data.active} members</span>
+    <div className="text-white py-10 flex flex-col gap-y-3 pr-8 h-screen">
+      <h1 className="text-xl border-b-2 font-bold border-white pb-1 border-opacity-20">
+        Sub Groups
+      </h1>
+      <div className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary">
+        {dummy.map((data, i) => (
+          <div
+            key={i}
+            className=" bg-secondary bg-opacity-60 hover:bg-opacity-100 duration-200 ease-in px-3 border-white border border-opacity-20 py-4 rounded-lg flex items-center min-w-[18vw] justify-between"
+          >
+            <div className="flex gap-x-2">
+              <img
+                src={data.icon}
+                className="rounded-full bg-white text-black text-center w-[3vw] aspect-square"
+              />
+              <div className="flex flex-col">
+                <h2 className="font-bold">{data.name}</h2>
+                <h3 className="text-sm text-opacity-50 text-white">
+                  Active:{" "}
+                  <span className="text-green">{data.active} members</span>
+                </h3>
               </div>
             </div>
+            <button className="bg-black rounded-full px-2 aspect-square border-white border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
+              <Icon icon="forum" className="text-[1.5rem]" />
+            </button>
           </div>
-          <button className="bg-black rounded-full px-2 aspect-square border-white border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
-            <Icon icon="forum" className="text-[1.5rem] " />
-          </button>
-        </div>
-      ))}
+        ))}
+      </div>
+      <div className="mt-4 border-b-2 border-white border-opacity-20 text-lg pb-1 font-bold">
+        Community Members
+      </div>
+      <div className="flex flex-col gap-y-4 bg-secondary p-4 rounded-lg border border-white border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary">
+        {dummy2
+          .sort((a, b) => (a.active === b.active ? 0 : a.active ? -1 : 1))
+          .map((member, i) => (
+            <div
+              key={i}
+              className="flex justify-between border-b pb-3 border-white border-opacity-20"
+            >
+              <div className="flex gap-x-2 justify-center items-center relative">
+                <div className="relative">
+                  <img
+                    src={member.image}
+                    className="w-[3vw] aspect-square rounded-full"
+                  />
+                  {member.active && (
+                    <div className="bg-green-500 w-[12px] rounded-full right-0 bottom-0 border-2 border-white aspect-square absolute" />
+                  )}
+                </div>
+                <div className="flex flex-col">
+                  <h2 className="font-semibold">{member.name}</h2>
+                  {member.active ? (
+                    <div className="text-sm text-green-500">Active Now</div>
+                  ) : (
+                    <div className="text-sm text-white text-opacity-50">
+                      {member.lastActive}{" "}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <button className="bg-black rounded-full px-2 aspect-square border-white border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
+                <Icon icon="chat" className="text-[1.5rem] " />
+              </button>
+            </div>
+          ))}
+      </div>
     </div>
   );
 }
