@@ -1,23 +1,12 @@
-import { ModalProvider } from "@particle-network/connectkit";
-
+import { ModalProvider } from "@particle-network/connect-react-ui";
 import { RouterProvider } from "react-router-dom";
-import router from "./pages/router";
 import particleConnectConfig from "./config/particle";
-import useTheme from "./hooks/useTheme";
+import router from "./pages/router";
 
 export default function App() {
-  const theme = useTheme();
-
   return (
-    <>
-      <ModalProvider
-        options={particleConnectConfig}
-        theme={theme.current}
-        key={theme.current}
-        walletSort={["Wallet", "Particle Auth"]}
-      >
-        <RouterProvider router={router} />
-      </ModalProvider>
-    </>
+    <ModalProvider options={particleConnectConfig}>
+      <RouterProvider router={router} />
+    </ModalProvider>
   );
 }

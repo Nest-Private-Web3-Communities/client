@@ -1,5 +1,4 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAccount } from "@particle-network/connectkit";
 
 export enum ProtectedTypes {
   PRIVATEONLY,
@@ -11,7 +10,7 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute(props: ProtectedRouteProps) {
-  const account = useAccount();
+  const account = true; //useAccount();
 
   const loading = false;
   const authenticated = account ? true : false;

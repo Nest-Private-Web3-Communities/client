@@ -1,6 +1,4 @@
 import React, { createContext, useContext } from "react";
-import { WagmiConfig } from "wagmi";
-import wagmiConfig from "../config/wagmi";
 import getContracts from "../contracts";
 
 interface Web3ContextType {
@@ -12,9 +10,9 @@ const Web3Context = createContext<Web3ContextType>({} as Web3ContextType);
 export function Web3Provider({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <WagmiConfig config={wagmiConfig}>
-        <Wrapper>{children}</Wrapper>
-      </WagmiConfig>
+      {/* <WagmiProvider config={wagmiConfig}> */}
+      <Wrapper>{children}</Wrapper>
+      {/* </WagmiProvider> */}
     </>
   );
 }

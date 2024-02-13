@@ -1,20 +1,37 @@
-import { ConnectButton } from "@particle-network/connectkit";
-import "@particle-network/connectkit/dist/index.css";
 import ThemeButton from "./ThemeButton";
+import { Link } from "react-router-dom";
+import { ConnectButton } from "@particle-network/connect-react-ui";
+import "@particle-network/connect-react-ui/dist/index.css";
 
 export default function Navbar() {
   return (
     <nav className="flex p-page fixed w-full z-10 py-3 border-b border-front border-opacity-20 bg-background">
-      <div className="flex gap-x-3 items-center">
+      <div className="flex gap-x-1 items-center">
         <img src="/logo.png" className="h-[2.3em]" />
-        <h1 className="">lazy</h1>
+        <h1 className="text-2xl font-medium text-primary tracking-tighter">
+          NEST
+        </h1>
       </div>
-      <div className="flex-1" role="separator" />
-      <div className=""></div>
-      <div className="flex items-center gap-x-3">
+
+      <ul className="flex items-center gap-x-8 text-sm ml-12">
+        {navLinks.map((item, key) => (
+          <li key={key}>
+            <Link to={item.to}>{item.title}</Link>
+          </li>
+        ))}
+      </ul>
+
+      <div className="flex-1 flex items-center gap-x-5">
+        <figure className="flex-1" role="separator" />
         <ConnectButton />
         <ThemeButton className="text-2xl p-2 aspect-square bg-foreground rounded-full flex justify-center items-center border border-front border-opacity-40" />
       </div>
     </nav>
   );
 }
+
+const navLinks = [
+  { title: "Communities", to: "/communities" },
+  { title: "About", to: "/about" },
+  { title: "FAQs", to: "/faq" },
+];
