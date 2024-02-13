@@ -25,6 +25,7 @@ export default {
       fontFamily: {
         poppins: '"Poppins", sans-serif',
         raleway: '"Raleway", sans-serif',
+        geistSans: '"Geist Sans", sans-serif',
       },
       zIndex: {
         1: 1,

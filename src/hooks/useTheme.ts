@@ -10,4 +10,4 @@ export default function useTheme() {
   return { current: themeState.theme, set };
 }
 
-export type Theme = "default" | "dark";
+export type Theme = "light" | "dark";

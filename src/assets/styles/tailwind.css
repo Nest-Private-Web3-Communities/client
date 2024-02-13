@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    @apply bg-background text-front font-poppins scroll-smooth;
+    @apply bg-background text-front font-geistSans scroll-smooth;
   }
 
   body {
@@ -28,5 +28,11 @@
     --color-background: 0 0 0;
     --color-front: 255 255 255;
     --color-back: 26 26 26;
+  }
+}
+
+@layer utilities {
+  .p-page {
+    @apply px-[8vw];
   }
 }

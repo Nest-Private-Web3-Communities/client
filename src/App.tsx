@@ -1,14 +1,22 @@
+import { ModalProvider } from "@particle-network/connectkit";
+
 import { RouterProvider } from "react-router-dom";
-import { GlobalContextProvider } from "./contexts/globalContext";
-import { Web3Provider } from "./contexts/web3context";
 import router from "./pages/router";
+import particleConnectConfig from "./config/particle";
+import useTheme from "./hooks/useTheme";
 
 export default function App() {
+  const theme = useTheme();
+
   return (
-    <GlobalContextProvider>
-      <Web3Provider>
+    <>
+      <ModalProvider
+        options={particleConnectConfig}
+        theme={theme.current}
+        walletSort={["Wallet", "Particle Auth"]}
+      >
         <RouterProvider router={router} />
-      </Web3Provider>
-    </GlobalContextProvider>
+      </ModalProvider>
+    </>
   );
 }

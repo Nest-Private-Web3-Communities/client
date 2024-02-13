@@ -21,19 +21,19 @@ interface GlobalContextType {
 const GlobalContext = createContext<GlobalContextType>({} as GlobalContextType);
 
 export function GlobalContextProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("default");
+  const [theme, setTheme] = useState<Theme>("light");
   const [modal, setModal] = useState<ReactNode | null>();
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("vitess__arewefastyet__theme");
-    if (storedTheme == "dark" || storedTheme == "default") {
+    if (storedTheme == "dark" || storedTheme == "light") {
       setTheme(storedTheme);
     } else {
       const darkColorPreference = window.matchMedia(
         "(prefers-color-scheme: dark)"
       );
 
-      setTheme(darkColorPreference.matches ? "dark" : "default");
+      setTheme(darkColorPreference.matches ? "dark" : "light");
     }
   }, []);
 
