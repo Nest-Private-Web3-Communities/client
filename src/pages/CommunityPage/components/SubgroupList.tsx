@@ -78,7 +78,7 @@ const dummy2 = [
 
 export default function SubgroupList() {
   return (
-    <div className="text-front py-10 flex flex-col gap-y-3 pr-8 h-screen">
+    <div className="text-front py-10 flex flex-col gap-y-3 pr-4 h-screen">
       <h1 className="text-xl border-b-2 font-bold border-front pb-1 border-opacity-20">
         Sub Groups
       </h1>
