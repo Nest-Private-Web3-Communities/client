@@ -5,6 +5,8 @@ import {
 import React, { createContext, useContext, useEffect, useState } from "react";
 import {
   Abi,
+  Chain,
+  CustomTransport,
   createWalletClient,
   custom,
   getContract,
@@ -13,14 +15,11 @@ import {
 import nest from "../contracts/nest";
 import { avalancheFuji } from "viem/chains";
 import { EVMProvider } from "@particle-network/connect";
-import TClient from "../client";
 
 interface Web3ContextType {
-  contracts:
-    | {
-        nest: ContractType<typeof nest.abi>;
-      }
-    | undefined;
+  contracts: {
+    nest: ContractType<typeof nest.abi>;
+  };
 
   enabled: boolean;
 }
@@ -32,9 +31,11 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
   const account = useAccount() as `0x${string}` | undefined;
   const enabled = provider && account ? true : false;
 
+  const [loading, setLoading] = useState(true);
+
   const [contracts, setContracts] = useState<{
     nest: ContractType<typeof nest.abi>;
-  }>();
+  }>({} as any);
 
   useEffect(() => {
     if (provider && account) {
@@ -46,12 +47,17 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
       const nContract = getContract({ ...nest, client });
 
       setContracts({ nest: nContract });
+      setLoading(false);
     }
   }, [provider, account]);
 
   const value: Web3ContextType = { contracts, enabled };
 
-  return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
+  return (
+    <Web3Context.Provider value={value}>
+      {!loading && children}
+    </Web3Context.Provider>
+  );
 }
 
 export default function useWeb3() {
@@ -59,5 +65,10 @@ export default function useWeb3() {
 }
 
 type ContractType<TAbi extends Abi> = ReturnType<
-  typeof getContract<any, any, TAbi, TClient>
+  typeof getContract<
+    any,
+    any,
+    TAbi,
+    ReturnType<typeof createWalletClient<CustomTransport, Chain, `0x4`>>
+  >
 >;

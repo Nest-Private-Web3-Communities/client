@@ -1,9 +1,22 @@
-const address = "0xc3134b25fFac3165481Da9baE4fF293df4e82e43" as const;
+const address = "0xfa9CA2f6FEE0287c91b89A78df98Be60583949eE" as const;
 
 const abi = [
   {
     inputs: [],
     name: "DHparam",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "DHprimitive",
     outputs: [
       {
         internalType: "uint256",
@@ -45,6 +58,11 @@ const abi = [
       {
         internalType: "string",
         name: "description",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "imageUrl",
         type: "string",
       },
       {
@@ -122,36 +140,12 @@ const abi = [
         type: "tuple",
       },
       {
-        internalType: "uint256",
-        name: "keyExpiryEpoch",
-        type: "uint256",
-      },
-      {
         internalType: "bool",
         name: "flag",
         type: "bool",
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_number",
-        type: "uint256",
-      },
-    ],
-    name: "hashNumber",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "pure",
     type: "function",
   },
   {
@@ -208,9 +202,9 @@ const abi = [
         type: "string",
       },
       {
-        internalType: "uint256",
-        name: "keyExpiryEpoch",
-        type: "uint256",
+        internalType: "string",
+        name: "imageUrl",
+        type: "string",
       },
     ],
     name: "newGroup",

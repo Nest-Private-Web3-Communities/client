@@ -1,6 +1,7 @@
 import PageSeparator from "../../common/PageSeparator";
 import useWeb3 from "../../contexts/web3context";
 import useModal from "../../hooks/useModal";
+import CommunitiesList from "./components/CommunitiesList";
 import Header from "./components/Header";
 
 export default function CommunitiesPage() {
@@ -14,11 +15,7 @@ export default function CommunitiesPage() {
 
       <PageSeparator />
 
-      <section className="p-page">
-        <button onClick={() => console.log(window.ethereum)}>
-          {JSON.stringify({ account: "!" })}
-        </button>
-      </section>
+      <CommunitiesList />
     </>
   );
 }

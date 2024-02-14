@@ -1,8 +1,10 @@
-import React from "react";
 import DataForm from "../../common/DataForm";
 import PageSeparator from "../../common/PageSeparator";
+import useWeb3 from "../../contexts/web3context";
 
 export default function NewCommunityPage() {
+  const web3 = useWeb3();
+
   return (
     <>
       <header className="pt-24 p-page flex flex-col gap-y-2">
@@ -15,9 +17,21 @@ export default function NewCommunityPage() {
 
       <PageSeparator />
 
-      {/* <DataForm.Container className="p-page">
-        <DataForm.Input name="name" />
-      </DataForm.Container> */}
+      <DataForm.Container
+        className="p-page"
+        onSubmit={(data) => {
+          web3.contracts?.nest.write.newGroup([
+            data.name,
+            data.description,
+            data.img,
+          ]);
+        }}
+      >
+        <DataForm.Input name="img" className="bg-background border" />
+        <DataForm.Input name="name" className="bg-background border" />
+        <DataForm.Input name="description" className="bg-background border" />
+        <DataForm.Input type="submit" />
+      </DataForm.Container>
 
       <div className="h-screen" />
       <div className="h-screen" />
