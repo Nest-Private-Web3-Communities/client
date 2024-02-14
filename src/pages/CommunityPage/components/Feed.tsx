@@ -1,6 +1,15 @@
 import React from "react";
 import Icon from "../../../common/Icon";
 
+const dummy = [
+  {
+    name: "Riya Jain",
+    content:
+      "Something is coming tonight. If i like your reply, you are whitelisted.",
+    comments: 353,
+  },
+];
+
 export default function Feed() {
   return (
     <div className="text-front h-screen border-x border-opacity-20 border-front px-4 py-10 w-[40vw] z-10 ">
@@ -25,7 +34,10 @@ export default function Feed() {
 
             <figure role="separator" className="flex-1" />
 
-            <button className="text-front text-sm px-4 py-1 border border-primary hover:bg-primary duration-200 ease-in rounded-2xl font-medium">
+            <button
+              className="text-white bg-primary text-sm px-4 py-1 rounded-3xl font-medium disabled:opacity-30 disabled:cursor-not-allowed"
+              disabled={true}
+            >
               Post
             </button>
           </div>
