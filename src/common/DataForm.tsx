@@ -60,6 +60,16 @@ function MappedInputs(props: {
                 }));
               },
             });
+          else if (child.type === Textarea)
+            return React.cloneElement(child as React.ReactElement, {
+              key,
+              onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
+                props.setData((p) => ({
+                  ...p,
+                  [child.props.name]: event.target.value,
+                }));
+              },
+            });
           else if (child.type === Dropdown.Container) {
             return React.cloneElement(child as React.ReactElement, {
               key,
@@ -98,6 +108,18 @@ function Input(props: InputProps & Partial<Omit<InputAttributes, "name">>) {
   return <input {...props} />;
 }
 
-const DataForm = { Container, Input };
+type TextareaProps = {
+  name: string;
+};
+
+type TextareaAttributes = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+
+function Textarea(
+  props: TextareaProps & Partial<Omit<TextareaAttributes, "name">>
+) {
+  return <textarea {...props} />;
+}
+
+const DataForm = { Container, Input, Textarea };
 
 export default DataForm;

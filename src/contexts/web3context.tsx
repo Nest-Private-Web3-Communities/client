@@ -11,7 +11,7 @@ import {
   publicActions,
 } from "viem";
 import nest from "../contracts/nest";
-import { sepolia } from "viem/chains";
+import { avalancheFuji } from "viem/chains";
 import { EVMProvider } from "@particle-network/connect";
 import TClient from "../client";
 
@@ -39,7 +39,7 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (provider && account) {
       const client = createWalletClient({
-        chain: sepolia,
+        chain: avalancheFuji,
         account,
         transport: custom(provider),
       }).extend(publicActions);
