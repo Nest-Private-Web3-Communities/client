@@ -1,7 +1,7 @@
 import React from "react";
 import SubgroupList from "./components/SubgroupList";
 import Feed from "./components/Feed";
-import Chat from "./components/chat";
+import Chat from "./components/Chat";
 
 export default function CommunityPage() {
   return (
