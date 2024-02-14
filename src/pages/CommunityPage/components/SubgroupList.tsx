@@ -124,19 +124,19 @@ export default function SubgroupList() {
                     src={member.image}
                     className="w-[3vw] aspect-square rounded-full"
                   />
-                  {member.active && (
+                  {/* {member.active && (
                     <div className="bg-green-500 w-[12px] rounded-full right-0 bottom-0 border-2 border-foreground aspect-square absolute" />
-                  )}
+                  )} */}
                 </div>
                 <div className="flex flex-col">
                   <h2 className="font-semibold">{member.name}</h2>
-                  {member.active ? (
+                  {/* {member.active ? (
                     <div className="text-sm text-green-500">Active Now</div>
                   ) : (
                     <div className="text-sm text-front text-opacity-50">
                       {member.lastActive}{" "}
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
               <button className="bg-background rounded-full px-2 aspect-square border-front border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">

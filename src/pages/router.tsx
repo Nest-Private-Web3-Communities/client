@@ -20,9 +20,7 @@ const router = createBrowserRouter(
         <Route
           path="/"
           element={<ProtectedRoute type={ProtectedTypes.PUBLICONLY} />}
-        >
-          <Route path="community" element={<CommunityPage />} />
-        </Route>
+        ></Route>
 
         <Route
           path="/"
@@ -33,6 +31,7 @@ const router = createBrowserRouter(
 
         <Route path="*" element={<ErrorPage />} />
       </Route>
+      <Route path="community" element={<CommunityPage />} />
     </>
   )
 );
