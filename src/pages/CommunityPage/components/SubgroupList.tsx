@@ -102,13 +102,20 @@ export default function SubgroupList() {
               </div>
             </div>
             <button className="bg-background rounded-full px-2 aspect-square border-front border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
-              <Icon icon="forum" className="text-[1.5rem]" />
+              <Icon icon="forum" className="text-[1.2rem]" />
             </button>
           </div>
         ))}
       </div>
       <div className="mt-4 border-b-2 border-front border-opacity-20 text-lg pb-1 font-bold">
         Community Members
+      </div>
+      <div className="flex gap-x-2 items-center border border-primary rounded-lg py-2 border-opacity-80">
+        <input
+          placeholder="Search your friend"
+          className="focus:outline-none bg-background px-3 w-[85%] border-r border-primary"
+        />
+        <Icon icon="search" className="text-[1.4rem] text-primary" />
       </div>
       <div
         ref={membersContainerRef}
@@ -125,26 +132,16 @@ export default function SubgroupList() {
                   src={member.image}
                   className="w-[3vw] aspect-square rounded-full"
                 />
-                {/* {member.active && (
-                    <div className="bg-green-500 w-[12px] rounded-full right-0 bottom-0 border-2 border-foreground aspect-square absolute" />
-                  )} */}
               </div>
               <div className="flex flex-col">
                 <h2 className="font-semibold">{member.name}</h2>
                 <div className="text-sm text-front text-opacity-50">
                   3 mutual Community
                 </div>
-                {/* {member.active ? (
-                    <div className="text-sm text-green-500">Active Now</div>
-                  ) : (
-                    <div className="text-sm text-front text-opacity-50">
-                      {member.lastActive}{" "}
-                    </div>
-                  )} */}
               </div>
             </div>
             <button className="hover:bg-background rounded-full px-3 py-1 aspect-square border-front border-opacity-0 hover:border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
-              <Icon icon="chat" className="text-[1.1rem] " />
+              <Icon icon="chat" className="text-[1.2rem] " />
             </button>
           </div>
         ))}
