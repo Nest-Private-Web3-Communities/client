@@ -21,6 +21,8 @@ interface Web3ContextType {
         nest: ContractType<typeof nest.abi>;
       }
     | undefined;
+
+  enabled: boolean;
 }
 
 const Web3Context = createContext<Web3ContextType>({} as Web3ContextType);
@@ -28,6 +30,7 @@ const Web3Context = createContext<Web3ContextType>({} as Web3ContextType);
 export function Web3Provider({ children }: { children: React.ReactNode }) {
   const provider = useParticleProvider() as EVMProvider | undefined;
   const account = useAccount() as `0x${string}` | undefined;
+  const enabled = provider && account ? true : false;
 
   const [contracts, setContracts] = useState<{
     nest: ContractType<typeof nest.abi>;
@@ -46,7 +49,7 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
     }
   }, [provider, account]);
 
-  const value: Web3ContextType = { contracts };
+  const value: Web3ContextType = { contracts, enabled };
 
   return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
 }

@@ -1,9 +1,22 @@
 import ThemeButton from "./ThemeButton";
 import { Link } from "react-router-dom";
-import { ConnectButton } from "@particle-network/connect-react-ui";
+import {
+  ConnectButton,
+  useParticleTheme,
+} from "@particle-network/connect-react-ui";
 import "@particle-network/connect-react-ui/dist/index.css";
+import useTheme from "../hooks/useTheme";
+import { useEffect } from "react";
 
 export default function Navbar() {
+  const theme = useTheme();
+  const particleTheme = useParticleTheme();
+
+  useEffect(() => {
+    if (particleTheme.setTheme && theme.current)
+      particleTheme.setTheme(theme.current);
+  }, [theme.current]);
+
   return (
     <nav className="flex p-page fixed w-full z-10 py-3 border-b border-front border-opacity-20 bg-background">
       <div className="flex gap-x-1 items-center">
