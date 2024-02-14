@@ -36,42 +36,31 @@ const dummy = [
 const dummy2 = [
   {
     name: "Arial",
-    active: true,
     image: "https://randomuser.me/api/portraits/women/90.jpg",
   },
   {
     name: "Alice",
-    active: false,
-    lastActive: "12 Minutes ago",
     image: "https://randomuser.me/api/portraits/men/10.jpg",
   },
 
   {
     name: "Ben Shapiro",
-    active: true,
     image: "https://randomuser.me/api/portraits/men/5.jpg",
   },
   {
     name: "Luis",
-    active: false,
-    lastActive: "7 hours ago",
     image: "https://randomuser.me/api/portraits/women/22.jpg",
   },
   {
     name: "Remo Singh",
-    active: false,
-    lastActive: "1 week ago",
     image: "https://randomuser.me/api/portraits/men/54.jpg",
   },
   {
     name: "Desuza",
-    active: false,
-    lastActive: "1 Day ago",
     image: "https://randomuser.me/api/portraits/men/22.jpg",
   },
   {
     name: "Stepahno",
-    active: true,
     image: "https://randomuser.me/api/portraits/men/8.jpg",
   },
 ];
@@ -111,12 +100,10 @@ export default function SubgroupList() {
         Community Members
       </div>
       <div className="flex flex-col gap-y-4 bg-foreground p-4 rounded-lg border border-front border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary">
-        {dummy2
-          .sort((a, b) => (a.active === b.active ? 0 : a.active ? -1 : 1))
-          .map((member, i) => (
+        {dummy2.map((member, i) => (
             <div
               key={i}
-              className="flex justify-between border-b pb-3 border-front border-opacity-20"
+              className="flex justify-between border-b pb-3 border-front border-opacity-20 gap-x-6"
             >
               <div className="flex gap-x-2 justify-center items-center relative">
                 <div className="relative">
@@ -130,6 +117,7 @@ export default function SubgroupList() {
                 </div>
                 <div className="flex flex-col">
                   <h2 className="font-semibold">{member.name}</h2>
+                  <div className="text-sm text-front text-opacity-50">3 mutual Community</div>
                   {/* {member.active ? (
                     <div className="text-sm text-green-500">Active Now</div>
                   ) : (
@@ -139,8 +127,8 @@ export default function SubgroupList() {
                   )} */}
                 </div>
               </div>
-              <button className="bg-background rounded-full px-2 aspect-square border-front border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
-                <Icon icon="chat" className="text-[1.5rem] " />
+              <button className="hover:bg-background rounded-full px-3 py-1 aspect-square border-front border-opacity-0 hover:border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
+                <Icon icon="chat" className="text-[1.1rem] " />
               </button>
             </div>
           ))}
