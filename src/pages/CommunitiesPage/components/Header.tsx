@@ -3,9 +3,11 @@ import { twMerge } from "tailwind-merge";
 import { IconType } from "../../../common/Icon";
 import useModal from "../../../hooks/useModal";
 import ModalNewCommunity from "./ModalNewCommunity";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const modal = useModal();
+  const navigate = useNavigate();
 
   return (
     <header className="pt-32 flex p-page">
@@ -38,11 +40,12 @@ export default function Header() {
         <CustomHeaderButton
           title="Create Community"
           className="bg-primary text-back w-1/2"
-          onClick={() => modal.show(<ModalNewCommunity />)}
+          onClick={() => navigate("/communities/new")}
         />
         <CustomHeaderButton
           title="Join Community"
           className="bg-primary text-back w-1/2"
+          onClick={() => modal.show(<ModalNewCommunity />)}
         />
       </div>
     </header>
