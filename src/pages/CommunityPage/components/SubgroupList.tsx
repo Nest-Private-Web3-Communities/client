@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import Icon from "../../../common/Icon";
+import useIdleScrollbar from "../../../hooks/useIdleScrollbar";
 const dummy = [
   {
     name: "IIT Bombay",
@@ -29,8 +30,8 @@ const dummy = [
     name: "IIT Goa",
     members: 200,
     active: 42,
-    icon: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Indian_Institute_of_Technology_Goa_Logo.svg/1200px-Indian_Institute_of_Technology_Goa_Logo.svg.png"
-  }
+    icon: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Indian_Institute_of_Technology_Goa_Logo.svg/1200px-Indian_Institute_of_Technology_Goa_Logo.svg.png",
+  },
 ];
 
 const dummy2 = [
@@ -66,12 +67,22 @@ const dummy2 = [
 ];
 
 export default function SubgroupList() {
+  const subgroupContainerRef =
+    useRef() as React.MutableRefObject<HTMLDivElement>;
+  const membersContainerRef =
+    useRef() as React.MutableRefObject<HTMLDivElement>;
+  useIdleScrollbar(subgroupContainerRef);
+  useIdleScrollbar(membersContainerRef);
+
   return (
     <div className="text-front py-10 flex flex-col gap-y-3 pr-4 h-screen">
       <h1 className="text-xl border-b-2 font-bold border-front pb-1 border-opacity-20">
         Sub Groups
       </h1>
-      <div className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary">
+      <div
+        ref={subgroupContainerRef}
+        className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary"
+      >
         {dummy.map((data, i) => (
           <div
             key={i}
@@ -91,7 +102,7 @@ export default function SubgroupList() {
               </div>
             </div>
             <button className="bg-background rounded-full px-2 aspect-square border-front border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
-              <Icon icon="forum" className="text-[1.5rem]" />
+              <Icon icon="forum" className="text-[1.2rem]" />
             </button>
           </div>
         ))}
@@ -99,39 +110,41 @@ export default function SubgroupList() {
       <div className="mt-4 border-b-2 border-front border-opacity-20 text-lg pb-1 font-bold">
         Community Members
       </div>
-      <div className="flex flex-col gap-y-4 bg-foreground p-4 rounded-lg border border-front border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary">
+      <div className="flex gap-x-2 items-center border border-primary rounded-lg py-2 border-opacity-80">
+        <input
+          placeholder="Search your friend"
+          className="focus:outline-none bg-background px-3 w-[85%] border-r border-primary"
+        />
+        <Icon icon="search" className="text-[1.4rem] text-primary" />
+      </div>
+      <div
+        ref={membersContainerRef}
+        className="flex flex-col gap-y-4 bg-foreground p-4 rounded-lg border border-front border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary"
+      >
         {dummy2.map((member, i) => (
-            <div
-              key={i}
-              className="flex justify-between border-b pb-3 border-front border-opacity-20 gap-x-6"
-            >
-              <div className="flex gap-x-2 justify-center items-center relative">
-                <div className="relative">
-                  <img
-                    src={member.image}
-                    className="w-[3vw] aspect-square rounded-full"
-                  />
-                  {/* {member.active && (
-                    <div className="bg-green-500 w-[12px] rounded-full right-0 bottom-0 border-2 border-foreground aspect-square absolute" />
-                  )} */}
-                </div>
-                <div className="flex flex-col">
-                  <h2 className="font-semibold">{member.name}</h2>
-                  <div className="text-sm text-front text-opacity-50">3 mutual Community</div>
-                  {/* {member.active ? (
-                    <div className="text-sm text-green-500">Active Now</div>
-                  ) : (
-                    <div className="text-sm text-front text-opacity-50">
-                      {member.lastActive}{" "}
-                    </div>
-                  )} */}
+          <div
+            key={i}
+            className="flex justify-between border-b pb-3 border-front border-opacity-20 gap-x-6"
+          >
+            <div className="flex gap-x-2 justify-center items-center relative">
+              <div className="relative">
+                <img
+                  src={member.image}
+                  className="w-[3vw] aspect-square rounded-full"
+                />
+              </div>
+              <div className="flex flex-col">
+                <h2 className="font-semibold">{member.name}</h2>
+                <div className="text-sm text-front text-opacity-50">
+                  3 mutual Community
                 </div>
               </div>
-              <button className="hover:bg-background rounded-full px-3 py-1 aspect-square border-front border-opacity-0 hover:border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
-                <Icon icon="chat" className="text-[1.1rem] " />
-              </button>
             </div>
-          ))}
+            <button className="hover:bg-background rounded-full px-3 py-1 aspect-square border-front border-opacity-0 hover:border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
+              <Icon icon="chat" className="text-[1.2rem] " />
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -11,6 +11,10 @@
     @apply m-0 p-0;
   }
 
+  ::-webkit-scrollbar-thumb {
+    transition-duration: 300ms;
+  }
+
   :root {
     --page-padding: 8vw;
   }
@@ -45,6 +49,13 @@
     @apply bg-background;
   }
   .scrollbar-primary::-webkit-scrollbar-thumb {
-    @apply bg-primary rounded hover:bg-opacity-50;
+    @apply bg-primary rounded hover:saturate-200;
+  }
+
+  .scrollbar-idle::-webkit-scrollbar-thumb {
+    @apply bg-opacity-30;
+  }
+  .scrollbar-active::-webkit-scrollbar-thumb {
+    @apply bg-opacity-100;
   }
 }
