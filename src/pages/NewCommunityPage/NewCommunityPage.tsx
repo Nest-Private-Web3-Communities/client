@@ -1,4 +1,6 @@
 import React from "react";
+import DataForm from "../../common/DataForm";
+import PageSeparator from "../../common/PageSeparator";
 
 export default function NewCommunityPage() {
   return (
@@ -10,6 +12,12 @@ export default function NewCommunityPage() {
           You can make a nest community which represents a real life community
         </p>
       </header>
+
+      <PageSeparator />
+
+      {/* <DataForm.Container className="p-page">
+        <DataForm.Input name="name" />
+      </DataForm.Container> */}
 
       <div className="h-screen" />
       <div className="h-screen" />
