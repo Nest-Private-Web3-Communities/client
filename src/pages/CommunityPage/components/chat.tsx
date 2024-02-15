@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import Icon from "../../../common/Icon";
 import { twMerge } from "tailwind-merge";
+import useIdleScrollbar from "../../../hooks/useIdleScrollbar";
 
 const messages = [
   { timestamp: "09:00", sender: "A", message: "Hey, how's it going?" },
@@ -90,6 +91,9 @@ const messages = [
 ];
 
 export default function Chat() {
+  const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+  useIdleScrollbar(containerRef);
+
   return (
     <div className="text-front flex-1 flex flex-col bg-foreground">
       <div className="text-xl w-full pl-4 pr-2 border-b border-front border-opacity-25 pb-1 items-center flex justify-between bg-foreground pt-4">
@@ -117,13 +121,16 @@ export default function Chat() {
         </button>
       </div>
 
-      <div className="flex flex-col gap-y-4 overflow-y-scroll scrollbar-primary px-2 border-r-2 border-r-foreground w-full">
+      <div
+        className="flex flex-col gap-y-4 overflow-y-scroll scrollbar-primary px-2 border-r-2 border-r-foreground w-full"
+        ref={containerRef}
+      >
         {messages.map((data, i) => (
           <div
             className={twMerge(
               "max-w-[70%]",
               data.sender == "A"
-                ? "self-end text-end bg-background py-2 px-4"
+                ? "self-end text-end bg-primary py-2 px-4"
                 : "self-start text-start bg-secondary"
             )}
             key={i}
