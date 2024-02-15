@@ -115,7 +115,7 @@ export default function Feed() {
       >
         {dummy.map((data, i) => (
           <div key={i}>
-            <div className="flex py-4 px-8 border-b border-front border-opacity-25 justify-start gap-x-4">
+            <div className="flex py-4 px-4 border-b border-front border-opacity-25 justify-start gap-x-3">
               <img
                 src={data.userImage}
                 className="rounded-full w-[3vw] aspect-square h-max"
@@ -136,10 +136,16 @@ export default function Feed() {
                   {data.timestamp}
                 </div>
                 <div className="mt-2 flex justify-between">
-                  <button className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in">
-                    <Icon icon="chatBubble" className="text-[1.2rem]" />
-                    <p className="text-xs">{data.comments}</p>
-                  </button>
+                  <div className="flex gap-x-4">
+                    <button className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in">
+                      <Icon icon="addReaction" className="text-[1.2rem]" />
+                      <p className="text-xs">{data.comments}</p>
+                    </button>
+                    <button className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in">
+                      <Icon icon="chatBubble" className="text-[1.2rem]" />
+                      <p className="text-xs">{data.comments}</p>
+                    </button>
+                  </div>
                   <button className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in hover:border-primary border px-2 py-1 rounded-full border-front">
                     <Icon icon="share" className="text-[1rem]" />
                   </button>

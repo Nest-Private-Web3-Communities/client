@@ -77,7 +77,7 @@ export default function SubgroupList() {
 
   return (
     <div className="text-front py-2 flex flex-col gap-y-3 pr-4 h-screen">
-      <ThemeButton className="text-2xl p-2 aspect-square bg-foreground rounded-full flex justify-center w-max items-center border border-front border-opacity-40" />
+      {/* <ThemeButton className="text-2xl p-2 aspect-square bg-foreground rounded-full flex justify-center w-max items-center border border-front border-opacity-40" /> */}
       <h1 className="text-xl border-b-2 font-bold border-front pb-1 border-opacity-20">
         Sub Groups
       </h1>
