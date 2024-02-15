@@ -83,7 +83,7 @@ export default function SubgroupList() {
       </h1>
       <div
         ref={subgroupContainerRef}
-        className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary border border-opacity-25 border-front p-2 rounded-lg"
+        className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary border border-opacity-25 border-front p-2 rounded-lg bg-secondary"
       >
         {dummy.map((data, i) => (
           <div
@@ -112,16 +112,16 @@ export default function SubgroupList() {
       <div className="mt-4 border-b-2 border-front border-opacity-20 text-lg pb-1 font-bold">
         Community Members
       </div>
-      <div className="flex gap-x-2 items-center border border-primary rounded-lg py-2 border-opacity-40 focus-within:border-opacity-80 duration-200 ease-in">
+      <div className="flex gap-x-2 items-center border border-primary rounded-lg py-2 border-opacity-80">
         <input
           placeholder="Search your friend"
-          className="focus:outline-none bg-background px-3 w-[85%] border-r border-primary border-opacity-40 duration-200 ease-in focus:border-opacity-80"
+          className="focus:outline-none bg-background px-3 w-[85%] border-r border-primary border-opacity-40"
         />
         <Icon icon="search" className="text-[1.4rem] text-primary" />
       </div>
       <div
         ref={membersContainerRef}
-        className="flex flex-col gap-y-4 bg-foreground p-4 rounded-lg border border-front border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary"
+        className="flex flex-col gap-y-4 bg-secondary p-4 rounded-lg border border-front border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary"
       >
         {dummy2.map((member, i) => (
           <div

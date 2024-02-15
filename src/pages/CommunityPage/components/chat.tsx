@@ -95,8 +95,8 @@ export default function Chat() {
   useIdleScrollbar(containerRef);
 
   return (
-    <div className="text-front flex-1 flex flex-col bg-foreground">
-      <div className="text-xl w-full pl-4 pr-2 border-b border-front border-opacity-25 pb-1 items-center flex justify-between bg-foreground pt-4">
+    <div className="text-front flex-1 flex flex-col bg-foreground border-r border-front border-opacity-25">
+      <div className="text-xl w-full pl-4 pr-2 border-b bg-secondary border-front border-opacity-25 pb-1 items-center flex justify-between pt-4">
         <h1 className="tracking-wide font-semibold">Chat</h1>
         <button className="p-2 duration-200 ease-in hover:bg-background text-primary border border-front hover:border-opacity-25 border-opacity-0 rounded-full">
           <Icon icon="personAdd" className="text-[1.2rem] " />
@@ -122,7 +122,7 @@ export default function Chat() {
       </div>
 
       <div
-        className="flex flex-col gap-y-3 overflow-y-scroll scrollbar-primary px-2 border-r-2 border-r-foreground w-full"
+        className="flex flex-col gap-y-3 overflow-y-scroll scrollbar-primary px-2 border-r border-r-foreground w-full"
         ref={containerRef}
       >
         {messages.map((data, i) => (

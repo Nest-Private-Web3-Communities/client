@@ -75,38 +75,40 @@ export default function Feed() {
   }
 
   return (
-    <div className="text-front flex flex-col h-screen border-x border-opacity-20 border-front pt-2 w-[40vw] z-10 overflow-y-hidden">
-      <div className="flex gap-x-3 bg-foreground p-2 rounded-md border border-front border-opacity-25 mx-4">
-        <div className="relative h-max">
-          <img
-            src="https://randomuser.me/api/portraits/women/12.jpg"
-            className="rounded-full w-[4vw] aspect-square self-start"
-          />
-          <div className="bg-green-500 w-[2ch] rounded-full -right-1 bottom-0 border-4 border-foreground aspect-square absolute" />
-        </div>
+    <div className="text-front flex flex-col h-screen border-x border-opacity-20 border-front w-[40vw] z-10 overflow-y-hidden">
+      <div className="bg-foreground py-4 px-4">
+        <div className="flex gap-x-3 bg-secondary p-2 rounded-md border border-front border-opacity-25">
+          <div className="relative h-max">
+            <img
+              src="https://randomuser.me/api/portraits/women/12.jpg"
+              className="rounded-full w-[4vw] aspect-square self-start"
+            />
+            <div className="bg-green-500 w-[2ch] rounded-full -right-1 bottom-0 border-4 border-foreground aspect-square absolute" />
+          </div>
 
-        <div className="w-full">
-          <textarea
-            placeholder="What's on your mind?!"
-            className="text-front w-full bg-foreground focus:outline-none pt-2"
-          />
-          <div className="flex text-primary text-xl gap-x-1 items-center w-full">
-            <Icon icon="photoLibrary" />
-            <Icon icon="gif" />
-            <Icon icon="mood" />
+          <div className="w-full">
+            <textarea
+              placeholder="What's on your mind?!"
+              className="text-front w-full bg-secondary focus:outline-none pt-2"
+            />
+            <div className="flex text-primary text-xl gap-x-1 items-center w-full">
+              <Icon icon="photoLibrary" />
+              <Icon icon="gif" />
+              <Icon icon="mood" />
 
-            <figure role="separator" className="flex-1" />
+              <figure role="separator" className="flex-1" />
 
-            <button
-              className="text-white bg-primary text-sm px-4 py-1 rounded-3xl font-medium disabled:opacity-30 disabled:cursor-not-allowed"
-              disabled={true}
-            >
-              Post
-            </button>
+              <button
+                className="text-white bg-primary text-sm px-4 py-1 rounded-3xl font-medium disabled:opacity-30 disabled:cursor-not-allowed"
+                disabled={true}
+              >
+                Post
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div className="w-full border-b border-front border-opacity-25 mt-4" />
+      <div className="w-full border-b border-front border-opacity-25" />
       <div
         className="overflow-y-scroll scrollbar-primary flex-1"
         ref={containerRef}
