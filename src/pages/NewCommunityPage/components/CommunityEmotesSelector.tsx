@@ -3,7 +3,7 @@ import Emote, { EmoteType, emoteDeclarations } from "../../../common/Emote";
 import Icon from "../../../common/Icon";
 import useModal from "../../../hooks/useModal";
 import { getTypedKeys } from "../../../utils";
-import { GithubPicker, TwitterPicker } from "react-color";
+import { TwitterPicker } from "react-color";
 import useClickOutside from "../../../hooks/useClickOutside";
 
 export default function CommunityEmotesSelector() {
@@ -30,7 +30,7 @@ export default function CommunityEmotesSelector() {
           <button
             type="button"
             className="absolute top-0 right-0 bg-red-500 translate-x-1/2 -translate-y-1/2 p-1 rounded-full text-lg text-black"
-            onClick={() => setEmotes((p) => [...p].filter((o, i) => i != key))}
+            onClick={() => setEmotes((p) => [...p].filter((_, i) => i != key))}
           >
             <Icon icon="delete" />
           </button>

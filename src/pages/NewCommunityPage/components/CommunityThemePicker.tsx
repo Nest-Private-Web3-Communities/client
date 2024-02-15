@@ -1,9 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 import useClickOutside from "../../../hooks/useClickOutside";
 import CommunityPage from "../../CommunityPage/CommunityPage";
 
-export default function CommunityThemePicker() {
+export default function CommunityThemePicker(props: {
+  setter: React.Dispatch<React.SetStateAction<string>>;
+}) {
   function getThemeColor(theme: string) {
     const col = getComputedStyle(document.documentElement).getPropertyValue(
       `--color-${theme}`
@@ -20,9 +22,15 @@ export default function CommunityThemePicker() {
     back: getThemeColor("back"),
   });
 
-  console.log(theme);
-
   const state = { value: theme, setter: setTheme };
+
+  useEffect(() => {
+    const themeString = padNumbersInStringTo3(
+      `${theme.primary} ${theme.secondary} ${theme.background} ${theme.foreground} ${theme.front} ${theme.back}`
+    );
+
+    props.setter(themeString);
+  }, [theme]);
 
   return (
     <div className="flex">
@@ -87,12 +95,7 @@ function ColorPicker(props: {
             background: currentColor,
           }}
         />
-        <p
-          //  style={{ color: currentColor }}
-          className="whitespace-nowrap font-extralight"
-        >
-          {props.title}
-        </p>
+        <p className="whitespace-nowrap font-extralight">{props.title}</p>
       </button>
 
       {showPicker && (
@@ -109,4 +112,19 @@ function ColorPicker(props: {
       )}
     </div>
   );
+}
+
+function padNumbersInStringTo3(input: string): string {
+  const numbers = input.split(" ");
+
+  const paddedNumbers = numbers.map((num) => {
+    const numString = num.toString();
+    const numLength = numString.length;
+    const zerosToAdd = 3 - numLength;
+    return "0".repeat(zerosToAdd) + numString;
+  });
+
+  const paddedString = paddedNumbers.join(" ");
+
+  return paddedString;
 }
