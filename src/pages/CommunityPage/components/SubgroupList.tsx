@@ -4,34 +4,34 @@ import useIdleScrollbar from "../../../hooks/useIdleScrollbar";
 import ThemeButton from "../../../common/ThemeButton";
 const dummy = [
   {
-    name: "IIT Bombay",
+    name: "Decentralize Devs",
     members: 30,
     active: 10,
-    icon: "https://qph.cf2.quoracdn.net/main-qimg-2f77f788f5dd67e52133595d1153522b.webp",
+    icon: "https://hbr.org/resources/images/article_assets/2022/04/01-BI_WEB3_STACKPOLE_HERO.jpg",
   },
   {
-    name: "IIT Dhanbad",
+    name: "Crypto Crew",
     members: 70,
     active: 27,
-    icon: "https://qph.cf2.quoracdn.net/main-qimg-e3a6ac2523f4f85d3830be83e1e94082",
+    icon: "https://knowledge.wharton.upenn.edu/wp-content/uploads/2022/10/10.19.22-hosanagar-web3-GettyImages-1384870944.jpg",
   },
   {
-    name: "IIT Kharagpur",
+    name: "Web3 Wizards",
     members: 50,
     active: 23,
-    icon: "https://i0.wp.com/iitaza.com/wp-content/uploads/2023/02/pngfind.com-little-krishna-png-1079961.png?resize=336%2C376&ssl=1",
+    icon: "https://www.xrtoday.com/wp-content/uploads/2022/10/What_Web3_Going_2023.jpg",
   },
   {
-    name: "IIT Kanpur",
+    name: "DigiAssets Alliance",
     members: 30,
     active: 12,
-    icon: "https://i0.wp.com/iitaza.com/wp-content/uploads/2023/02/PngItem_3517133.png?resize=354%2C354&ssl=1",
+    icon: "https://www.gettingsmart.com/wp-content/uploads/2022/08/c0e334cb-b270-4be4-a8a2-59f14426370b_Group20562-1024x456.png",
   },
   {
-    name: "IIT Goa",
+    name: "Distributed Developers",
     members: 200,
     active: 42,
-    icon: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Indian_Institute_of_Technology_Goa_Logo.svg/1200px-Indian_Institute_of_Technology_Goa_Logo.svg.png",
+    icon: "https://digiday.com/wp-content/uploads/sites/3/2022/01/Future-1030x600-1.png",
   },
 ];
 
@@ -76,7 +76,7 @@ export default function SubgroupList() {
   useIdleScrollbar(membersContainerRef);
 
   return (
-    <div className="text-front py-2 flex flex-col gap-y-3 h-screen border-l border-back border-opacity-25">
+    <div className="text-front py-2 flex flex-col gap-y-3 h-screen border-l border-back border-opacity-25 w-[25%]">
       {/* <ThemeButton className="text-2xl p-2 aspect-square bg-foreground rounded-full flex justify-center w-max items-center border border-front border-opacity-40" /> */}
       <h1 className="text-xl font-bold px-4 ">Sub Groups</h1>
       <div
@@ -91,10 +91,12 @@ export default function SubgroupList() {
             <div className="flex gap-x-2">
               <img
                 src={data.icon}
-                className="rounded-full bg-front text-background text-center w-[3vw] aspect-square"
+                className="rounded-full bg-front text-background text-center w-[3vw] aspect-square object-cover"
               />
               <div className="flex flex-col">
-                <h2 className="font-bold">{data.name}</h2>
+                <h2 className="font-semibold whitespace-nowrap truncate w-[80%]">
+                  {data.name}
+                </h2>
                 <h3 className="text-sm text-opacity-50 text-front">
                   Active:{" "}
                   <span className="text-green">{data.active} members</span>

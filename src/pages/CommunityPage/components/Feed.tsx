@@ -4,6 +4,27 @@ import useIdleScrollbar from "../../../hooks/useIdleScrollbar";
 
 const dummy = [
   {
+    name: "Katherine",
+    address: "1Bm6jeIxA6aTCGSLU0iJLljE9OUPmEBjjU",
+    content: "I am loving this Web3 space, what about you people?",
+    comments: "23",
+    imageUrl:
+      "https://dailycoin.com/wp-content/uploads/2023/05/gaming_vr_money_dollar_world__metaverse_pixel_web.jpg",
+    userImage: "https://randomuser.me/api/portraits/women/42.jpg",
+    timestamp: "12:23, 2nd Feb' 2023",
+  },
+  {
+    name: "Sanjana Sangani",
+    address: "1Bm6jeIxA6aTCGSLU0iJLljE9OUPmEBjjU",
+    content:
+      "Just staked my $AVAX on the Avalanche network! 💎 Excited to be part of the decentralized future and earn rewards while securing the network. #Avalanche #DeFi #Web3",
+    comments: "23",
+    imageUrl:
+      "https://assets.finbold.com/uploads/2022/10/Final-Fantasy-developer-partners-with-Avalanche-to-launch-its-first-Web3-game.jpg",
+    userImage: "https://randomuser.me/api/portraits/women/94.jpg",
+    timestamp: "12:23, 2nd Feb' 2023",
+  },
+  {
     name: "Jasmine",
     address: "1dIHQCQ6Nd80a45Yuk4ibkgc4vzMgvQBno",
     content:
@@ -23,13 +44,12 @@ const dummy = [
     timestamp: "12:23, 2nd Feb' 2023",
   },
   {
-    name: "Sanjana Sangani",
-    address: "1Bm6jeIxA6aTCGSLU0iJLljE9OUPmEBjjU",
-    content: "Git Cheat Sheet:",
-    comments: "23",
-    imageUrl:
-      "https://pbs.twimg.com/media/GGR6bhfXEAA8CIg?format=jpg&name=900x900",
-    userImage: "https://randomuser.me/api/portraits/women/94.jpg",
+    name: "Nikola",
+    address: "1txWphwRPsAeQmoLPhFdIBV9Emhloxhb8l",
+    content:
+      "Drop your wallet addys, Will pick one for a free airdrop ;) Have your DMs open",
+    comments: 23,
+    userImage: "https://randomuser.me/api/portraits/men/3.jpg",
     timestamp: "12:23, 2nd Feb' 2023",
   },
   {
@@ -40,25 +60,6 @@ const dummy = [
     userImage: "https://randomuser.me/api/portraits/women/45.jpg",
     imageUrl:
       "https://pbs.twimg.com/media/GGLDb_3WwAAakuj?format=jpg&name=900x900",
-    timestamp: "12:23, 2nd Feb' 2023",
-  },
-  {
-    name: "Nikola",
-    address: "1txWphwRPsAeQmoLPhFdIBV9Emhloxhb8l",
-    content:
-      "Drop your wallet addys, Will pick one for a free airdrop ;) Have your DMs open",
-    comments: 23,
-    userImage: "https://randomuser.me/api/portraits/men/3.jpg",
-    timestamp: "12:23, 2nd Feb' 2023",
-  },
-  {
-    name: "Sanjana Sangani",
-    address: "1Bm6jeIxA6aTCGSLU0iJLljE9OUPmEBjjU",
-    content: "Git Cheat Sheet:",
-    comments: "23",
-    imageUrl:
-      "https://pbs.twimg.com/media/GGR6bhfXEAA8CIg?format=jpg&name=900x900",
-    userImage: "https://randomuser.me/api/portraits/women/94.jpg",
     timestamp: "12:23, 2nd Feb' 2023",
   },
 ];
@@ -75,7 +76,7 @@ export default function Feed() {
   }
 
   return (
-    <div className="text-front flex flex-col h-screen border-x border-opacity-20 border-front w-[40vw] z-10 overflow-y-hidden">
+    <div className="text-front flex flex-col h-screen border-x border-opacity-20 border-front w-[46%] z-10 overflow-y-hidden">
       <div className="bg-foreground py-4 px-4">
         <div className="flex gap-x-3 bg-secondary py-2 px-3 rounded-md border border-front border-opacity-25">
           <div className="relative h-max">
