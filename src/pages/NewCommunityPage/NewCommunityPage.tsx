@@ -63,12 +63,11 @@ export default function NewCommunityPage() {
             </p>
           </div>
           <CommunityThemePicker />
-          {/* <CommunityThemePicker /> */}
         </div>
 
         <DataForm.Input
           type="submit"
-          className="cursor-pointer w-max px-10 py-2 rounded-md bg-primary mt-6"
+          className="cursor-pointer w-max px-10 py-2 rounded-md bg-primary mt-6 text-back"
         />
       </DataForm.Container>
 

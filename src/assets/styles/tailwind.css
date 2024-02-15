@@ -19,7 +19,7 @@
     --page-padding: 8vw;
   }
 
-  :root {
+  :root[data-theme="light"] {
     --color-primary: 225 29 72;
     --color-secondary: 244 244 245;
     --color-foreground: 255 255 255;
