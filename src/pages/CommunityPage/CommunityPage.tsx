@@ -5,11 +5,10 @@ import Chat from "./components/Chat";
 
 export default function CommunityPage() {
   return (
-    <div className="bg-background p-page flex w-full">
+    <main className="bg-background px-[8vw] flex h-screen w-full">
       <SubgroupList />
       <Feed />
       <Chat />
-    </div>
-
+    </main>
   );
 }

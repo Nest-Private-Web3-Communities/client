@@ -75,7 +75,7 @@ export default function Feed() {
   }
 
   return (
-    <div className="text-front h-screen border-x border-opacity-20 border-front pt-2 w-[40vw] z-10 overflow-y-hidden">
+    <div className="text-front flex flex-col h-screen border-x border-opacity-20 border-front pt-2 w-[40vw] z-10 overflow-y-hidden">
       <div className="flex gap-x-3 bg-foreground p-2 rounded-md border border-front border-opacity-25 mx-4">
         <div className="relative h-max">
           <img
@@ -108,7 +108,7 @@ export default function Feed() {
       </div>
       <div className="w-full border-b border-front border-opacity-25 mt-4" />
       <div
-        className="overflow-y-scroll scrollbar-primary h-[84%]"
+        className="overflow-y-scroll scrollbar-primary flex-1"
         ref={containerRef}
       >
         {dummy.map((data, i) => (
@@ -146,11 +146,14 @@ export default function Feed() {
             </div>
           </div>
         ))}
-        <div className="items-center w-full justify-center pt-6 pb-4 animate-pulse text-primary text-xl font-bold flex flex-col">
-          <button className="text-[2.5rem]" onClick={() => scrollBack()}>
+        <div className="items-center w-full justify-center pt-6 pb-4 text-primary text-lg font-semibold tracking-wider flex flex-col">
+          <button
+            className="text-[2.5rem] animate-bounce"
+            onClick={() => scrollBack()}
+          >
             <Icon icon="keyboardDoubleArrowUp" />
           </button>
-          You have seen it all!
+          <span className="">You have seen it all!</span>
         </div>
       </div>
     </div>

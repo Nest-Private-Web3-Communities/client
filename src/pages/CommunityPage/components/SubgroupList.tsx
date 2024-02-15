@@ -88,7 +88,7 @@ export default function SubgroupList() {
         {dummy.map((data, i) => (
           <div
             key={i}
-            className=" bg-foreground bg-opacity-60 hover:bg-opacity-100 duration-200 ease-in px-3 border-front border border-opacity-20 py-4 rounded-lg flex items-center min-w-[18vw] justify-between"
+            className=" bg-foreground bg-opacity-60 hover:bg-opacity-100 duration-200 ease-in px-3 border-front border border-opacity-20 py-4 rounded-lg flex items-center min-w-[15vw] justify-between"
           >
             <div className="flex gap-x-2">
               <img
@@ -112,10 +112,10 @@ export default function SubgroupList() {
       <div className="mt-4 border-b-2 border-front border-opacity-20 text-lg pb-1 font-bold">
         Community Members
       </div>
-      <div className="flex gap-x-2 items-center border border-primary rounded-lg py-2 border-opacity-80">
+      <div className="flex gap-x-2 items-center border border-primary rounded-lg py-2 border-opacity-40 focus-within:border-opacity-80 duration-200 ease-in">
         <input
           placeholder="Search your friend"
-          className="focus:outline-none bg-background px-3 w-[85%] border-r border-primary"
+          className="focus:outline-none bg-background px-3 w-[85%] border-r border-primary border-opacity-40 duration-200 ease-in focus:border-opacity-80"
         />
         <Icon icon="search" className="text-[1.4rem] text-primary" />
       </div>

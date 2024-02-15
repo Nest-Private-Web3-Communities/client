@@ -1,5 +1,151 @@
 import React from "react";
+import Icon from "../../../common/Icon";
+import { twMerge } from "tailwind-merge";
+
+const messages = [
+  { timestamp: "09:00", sender: "A", message: "Hey, how's it going?" },
+  {
+    timestamp: "09:05",
+    sender: "B",
+    message: "Not bad, just catching up on some work. You?",
+  },
+  {
+    timestamp: "09:10",
+    sender: "A",
+    message: "Same here, trying to stay productive. Any plans for the weekend?",
+  },
+  {
+    timestamp: "09:15",
+    sender: "B",
+    message:
+      "Not really, just going to relax and maybe watch some movies. You?",
+  },
+  {
+    timestamp: "09:20",
+    sender: "A",
+    message:
+      "Thinking of going for a hike if the weather's good. Need some fresh air!",
+  },
+  {
+    timestamp: "09:25",
+    sender: "B",
+    message: "That sounds nice, wish I could join. Maybe next time!",
+  },
+  {
+    timestamp: "09:30",
+    sender: "A",
+    message: "Definitely! We should plan something soon.",
+  },
+  {
+    timestamp: "09:35",
+    sender: "B",
+    message: "Absolutely, looking forward to it.",
+  },
+  {
+    timestamp: "09:40",
+    sender: "A",
+    message:
+      "By the way, did you hear about the new restaurant that opened downtown?",
+  },
+  {
+    timestamp: "09:45",
+    sender: "B",
+    message: "Yeah, I saw some posts about it. Heard the food is amazing.",
+  },
+  {
+    timestamp: "09:50",
+    sender: "A",
+    message: "We should check it out sometime. How about next Friday?",
+  },
+  {
+    timestamp: "09:55",
+    sender: "B",
+    message: "Sounds like a plan! Count me in.",
+  },
+  {
+    timestamp: "10:00",
+    sender: "A",
+    message: "Great, I'll make a reservation. Can't wait to try their menu.",
+  },
+  {
+    timestamp: "10:05",
+    sender: "B",
+    message: "Me too! It's been a while since we tried a new place.",
+  },
+  {
+    timestamp: "10:10",
+    sender: "A",
+    message: "Well, it's settled then. Friday it is!",
+  },
+  {
+    timestamp: "10:15",
+    sender: "B",
+    message: "Looking forward to it. Catch you later!",
+  },
+  {
+    timestamp: "10:20",
+    sender: "A",
+    message: "Take care! See you soon.",
+  },
+];
 
 export default function Chat() {
-  return <div className="text-front h-screen p-2"></div>;
+  return (
+    <div className="text-front flex-1 flex flex-col bg-foreground">
+      <div className="text-xl w-full pl-4 pr-2 border-b border-front border-opacity-25 pb-1 items-center flex justify-between bg-foreground pt-4">
+        <h1 className="tracking-wide font-semibold">Chat</h1>
+        <button className="p-2 duration-200 ease-in hover:bg-background text-primary border border-front hover:border-opacity-25 border-opacity-0 rounded-full">
+          <Icon icon="personAdd" className="text-[1.2rem] " />
+        </button>
+      </div>
+
+      <div className="flex items-center justify-between pl-4 pr-2 py-2 bg-foreground">
+        <div className="flex gap-x-2">
+          <img
+            src="https://randomuser.me/api/portraits/women/33.jpg"
+            className="w-[3vw] rounded-full"
+          />
+          <div>
+            <h1>Cassidy Williams</h1>
+            <p className="text-sm text-front text-opacity-50 ">
+              +3 New messages
+            </p>
+          </div>
+        </div>
+        <button className="p-2 duration-200 ease-in hover:bg-background text-primary border border-front hover:border-opacity-25 border-opacity-0 rounded-full">
+          <Icon icon="arrow_forward" className="rotate-180 text-[1.2rem]" />
+        </button>
+      </div>
+
+      <div className="flex flex-col gap-y-4 overflow-y-scroll scrollbar-primary px-2 border-r-2 border-r-foreground w-full">
+        {messages.map((data, i) => (
+          <div
+            className={twMerge(
+              "max-w-[70%]",
+              data.sender == "A"
+                ? "self-end text-end bg-background py-2 px-4"
+                : "self-start text-start bg-secondary"
+            )}
+            key={i}
+          >
+            {data.message}
+          </div>
+        ))}
+      </div>
+      <div className="px-2 py-2 mt-2">
+        <div className="flex gap-x-2 border px-1 py-2 rounded-3xl border-front border-opacity-25">
+          <button className="p-1 rounded-full bg-background text-[1.2rem]">
+            <Icon icon="add" />
+          </button>
+          <input
+            className="w-full focus:outline-none bg-foreground"
+            placeholder="Aa.."
+          />
+          <button className="  text-[1.2rem] text-primary px-1 duration-200 ease-in hover:bg-background border border-front hover:border-opacity-25 border-opacity-0 rounded-full ">
+            <Icon icon="mood" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
