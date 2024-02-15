@@ -2,6 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 import useClickOutside from "../../../hooks/useClickOutside";
 import CommunityPage from "../../CommunityPage/CommunityPage";
+import SubgroupList from "../../CommunityPage/components/SubgroupList";
+import Chat from "../../CommunityPage/components/Chat";
+import Feed from "../../CommunityPage/components/Feed";
+import { twMerge } from "tailwind-merge";
 
 export default function CommunityThemePicker(props: {
   setter: React.Dispatch<React.SetStateAction<string>>;
@@ -22,7 +26,11 @@ export default function CommunityThemePicker(props: {
     back: getThemeColor("back"),
   });
 
+  console.log(theme);
+  const components = [<SubgroupList />, <Feed />, <Chat />];
+
   const state = { value: theme, setter: setTheme };
+  const [currComponent, setCurrComponent] = useState(1);
 
   useEffect(() => {
     const themeString = padNumbersInStringTo3(
@@ -43,9 +51,9 @@ export default function CommunityThemePicker(props: {
         <ColorPicker state={state} name="back" title="Back text color" />
       </div>
 
-      <div className="flex flex-1 relative">
+      <div className="flex flex-col flex-1 relative w-[30vw] h-[40vw] items-center gap-y-4">
         <div
-          className="w-[30vw] h-[25vw] flex-1 overflow-hidden"
+          className="flex-1 overflow-hidden flex justify-center pointer-events-none cursor-not-allowed"
           style={
             {
               "--color-primary": theme.primary,
@@ -57,7 +65,20 @@ export default function CommunityThemePicker(props: {
             } as React.CSSProperties
           }
         >
-          <CommunityPage />
+          {components[currComponent]}
+        </div>
+        <div className="flex gap-x-6 border-t border-front pt-4 w-full justify-center border-opacity-25">
+          {components.map((_, i) => (
+            <button
+              className={twMerge(
+                "rounded-full w-4 aspect-square bg-front bg-opacity-30 duration-300",
+                i == currComponent ? "bg-opacity-80" : "scale-90"
+              )}
+              type="button"
+              key={i}
+              onClick={() => setCurrComponent(i)}
+            />
+          ))}
         </div>
       </div>
     </div>
