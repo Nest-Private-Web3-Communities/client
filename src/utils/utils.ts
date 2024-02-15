@@ -1,3 +1,5 @@
+import { UnionToTuple } from "../types";
+
 export function generateRandomString(length: number, seed?: string) {
   let result = "";
   const characters =
@@ -137,4 +139,8 @@ export function getObjectKeys<T extends object>(obj: T) {
 export function getRandomFromArray<T>(array: Array<T>): T {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
+}
+
+export function getTypedKeys<T extends object>(obj: T) {
+  return Object.keys(obj) as UnionToTuple<keyof T>;
 }

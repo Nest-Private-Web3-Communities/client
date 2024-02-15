@@ -4,6 +4,7 @@ import PageSeparator from "../../common/PageSeparator";
 import useWeb3 from "../../contexts/web3context";
 import CommunityThemePicker from "./components/CommunityThemePicker";
 import AdvancedCommunityConfiguration from "./components/AdvancedCommunityConfiguration";
+import CommunityEmotesSelector from "./components/CommunityEmotesSelector";
 
 export default function NewCommunityPage() {
   const web3 = useWeb3();
@@ -69,24 +70,21 @@ export default function NewCommunityPage() {
 
         <div className="mt-10">
           <div className="px-0">
-            <h1 className="text-xl font-medium">Advanced Configuration</h1>
+            <h1 className="text-xl font-medium">Reactions</h1>
             <p className="text-sm font-extralight text-front text-opacity-75">
-              Choose what methods of communication and content sharing the
-              community will support
+              These are how people can react to each other's posts in your
+              community. Don't pick any if you would like to disable reactions.
             </p>
           </div>
 
-          <AdvancedCommunityConfiguration />
+          <CommunityEmotesSelector />
         </div>
 
         <DataForm.Input
           type="submit"
-          className="cursor-pointer w-max px-10 py-2 rounded-md bg-primary mt-6 text-back"
+          className="cursor-pointer w-max px-10 py-2 rounded-md bg-primary my-6 text-back"
         />
       </DataForm.Container>
-
-      <div className="h-screen" />
-      <div className="h-screen" />
     </>
   );
 }
