@@ -2,6 +2,7 @@ import { twMerge } from "tailwind-merge";
 import DataForm from "../../common/DataForm";
 import PageSeparator from "../../common/PageSeparator";
 import useWeb3 from "../../contexts/web3context";
+import CommunityThemePicker from "./components/CommunityThemePicker";
 
 export default function NewCommunityPage() {
   const web3 = useWeb3();
@@ -51,9 +52,23 @@ export default function NewCommunityPage() {
           className={twMerge(inputStyle, "resize-none")}
         />
 
+        <div className="flex flex-col gap-y-6 mt-5">
+          <div className="px-0">
+            <h1 className="text-xl font-medium">
+              Create a color theme for your community
+            </h1>
+            <p className="text-sm font-extralight text-front text-opacity-75">
+              Let your creativity come out. Your community page is your own.
+              Represent your community with colors
+            </p>
+          </div>
+          <CommunityThemePicker />
+          {/* <CommunityThemePicker /> */}
+        </div>
+
         <DataForm.Input
           type="submit"
-          className="cursor-pointer w-max px-10 py-2 rounded-md bg-primary"
+          className="cursor-pointer w-max px-10 py-2 rounded-md bg-primary mt-6"
         />
       </DataForm.Container>
 
