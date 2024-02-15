@@ -4,6 +4,7 @@ import PageSeparator from "../../common/PageSeparator";
 import useWeb3 from "../../contexts/web3context";
 import CommunityThemePicker from "./components/CommunityThemePicker";
 import AdvancedCommunityConfiguration from "./components/AdvancedCommunityConfiguration";
+import CommunityEmotesSelector from "./components/CommunityEmotesSelector";
 
 export default function NewCommunityPage() {
   const web3 = useWeb3();
@@ -76,6 +77,7 @@ export default function NewCommunityPage() {
             </p>
           </div>
 
+          <CommunityEmotesSelector />
           <AdvancedCommunityConfiguration />
         </div>
 
