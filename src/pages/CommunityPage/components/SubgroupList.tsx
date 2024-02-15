@@ -76,14 +76,12 @@ export default function SubgroupList() {
   useIdleScrollbar(membersContainerRef);
 
   return (
-    <div className="text-front py-2 flex flex-col gap-y-3 pr-4 h-screen">
+    <div className="text-front py-2 flex flex-col gap-y-3 h-screen border-l border-back border-opacity-25">
       {/* <ThemeButton className="text-2xl p-2 aspect-square bg-foreground rounded-full flex justify-center w-max items-center border border-front border-opacity-40" /> */}
-      <h1 className="text-xl border-b-2 font-bold border-front pb-1 border-opacity-20">
-        Sub Groups
-      </h1>
+      <h1 className="text-xl font-bold px-4 ">Sub Groups</h1>
       <div
         ref={subgroupContainerRef}
-        className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary border border-opacity-25 border-front p-2 rounded-lg bg-secondary"
+        className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary  px-2 py-2 rounded-lg border border-opacity-25 border-front mx-4 bg-secondary"
       >
         {dummy.map((data, i) => (
           <div
@@ -109,10 +107,8 @@ export default function SubgroupList() {
           </div>
         ))}
       </div>
-      <div className="mt-4 border-b-2 border-front border-opacity-20 text-lg pb-1 font-bold">
-        Community Members
-      </div>
-      <div className="flex gap-x-2 items-center border border-primary rounded-lg py-2 border-opacity-80">
+      <div className="mt-4 text-lg font-bold px-4">Community Members</div>
+      <div className="flex gap-x-2 items-center border border-primary rounded-lg py-2 border-opacity-80 mx-4">
         <input
           placeholder="Search your friend"
           className="focus:outline-none bg-background px-3 w-[85%] border-r border-primary border-opacity-40"
@@ -121,7 +117,7 @@ export default function SubgroupList() {
       </div>
       <div
         ref={membersContainerRef}
-        className="flex flex-col gap-y-4 bg-secondary p-4 rounded-lg border border-front border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary"
+        className="mx-4 flex flex-col gap-y-4 bg-secondary p-4 rounded-lg border border-front border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary"
       >
         {dummy2.map((member, i) => (
           <div
@@ -137,8 +133,8 @@ export default function SubgroupList() {
               </div>
               <div className="flex flex-col">
                 <h2 className="font-semibold">{member.name}</h2>
-                <div className="text-sm text-front text-opacity-50">
-                  3 mutual Community
+                <div className="text-sm text-front text-opacity-50 w-[8vw] truncate">
+                  1txWphwRPsAeQmoLPhFdIBV9Emhloxhb8l
                 </div>
               </div>
             </div>
