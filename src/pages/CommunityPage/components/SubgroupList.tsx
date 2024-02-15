@@ -76,7 +76,7 @@ export default function SubgroupList() {
   useIdleScrollbar(membersContainerRef);
 
   return (
-    <div className="text-front py-2 flex flex-col gap-y-3 h-screen border-l border-back border-opacity-25 w-[25%]">
+    <div className="text-front py-2 flex flex-col gap-y-3 h-screen border-l border-back border-opacity-25 w-[20vw]">
       {/* <ThemeButton className="text-2xl p-2 aspect-square bg-foreground rounded-full flex justify-center w-max items-center border border-front border-opacity-40" /> */}
       <h1 className="text-xl font-bold px-4 ">Sub Groups</h1>
       <div
