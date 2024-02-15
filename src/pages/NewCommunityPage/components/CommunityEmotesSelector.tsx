@@ -24,9 +24,16 @@ export default function CommunityEmotesSelector() {
   useClickOutside(outclickRef, () => setShowingColorPickerFor(-1));
 
   return (
-    <div className="flex gap-x-5 my-5">
+    <div ref={outclickRef} className="flex gap-x-5 my-5">
       {emotes.map((emote, key) => (
-        <div className="relative" ref={outclickRef}>
+        <div className="relative">
+          <button
+            type="button"
+            className="absolute top-0 right-0 bg-red-500 translate-x-1/2 -translate-y-1/2 p-1 rounded-full text-lg text-black"
+            onClick={() => setEmotes((p) => [...p].filter((o, i) => i != key))}
+          >
+            <Icon icon="delete" />
+          </button>
           <div
             key={key}
             role="button"
@@ -66,17 +73,19 @@ export default function CommunityEmotesSelector() {
         </div>
       ))}
 
-      <button
-        type="button"
-        className="text-[3vw]"
-        onClick={() =>
-          modal.show(
-            <ModalNewEmote state={state} remainingEmotes={remainingEmotes} />
-          )
-        }
-      >
-        <Icon icon="add" />
-      </button>
+      {emotes.length < 6 && (
+        <button
+          type="button"
+          className="text-[3vw]"
+          onClick={() =>
+            modal.show(
+              <ModalNewEmote state={state} remainingEmotes={remainingEmotes} />
+            )
+          }
+        >
+          <Icon icon="add" />
+        </button>
+      )}
     </div>
   );
 }
