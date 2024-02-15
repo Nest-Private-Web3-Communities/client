@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import Icon from "../../../common/Icon";
 import useIdleScrollbar from "../../../hooks/useIdleScrollbar";
+import ThemeButton from "../../../common/ThemeButton";
 const dummy = [
   {
     name: "IIT Bombay",
@@ -75,13 +76,14 @@ export default function SubgroupList() {
   useIdleScrollbar(membersContainerRef);
 
   return (
-    <div className="text-front py-10 flex flex-col gap-y-3 pr-4 h-screen">
+    <div className="text-front py-2 flex flex-col gap-y-3 pr-4 h-screen">
+      <ThemeButton className="text-2xl p-2 aspect-square bg-foreground rounded-full flex justify-center w-max items-center border border-front border-opacity-40" />
       <h1 className="text-xl border-b-2 font-bold border-front pb-1 border-opacity-20">
         Sub Groups
       </h1>
       <div
         ref={subgroupContainerRef}
-        className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary"
+        className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary border border-opacity-25 border-front p-2 rounded-lg"
       >
         {dummy.map((data, i) => (
           <div

@@ -10,16 +10,17 @@ const dummy = [
       "Something is coming tonight. If i like your reply, you are whitelisted.",
     comments: 353,
     userImage: "https://randomuser.me/api/portraits/women/19.jpg",
+    timestamp: "12:23, 2nd Feb' 2023",
   },
   {
     name: "Sarthak Singh",
     address: "1dkAmfiK9945y77Sfs2GyDf5ay018oug7J",
-    content:
-      "🚨 Delhi to become the 3rd largest city globally in terms of electric buses. CM Arvind Kejriwal to flag off 350 new e-buses today.",
+    content: "We are thinking about doing a giveaway soon? Should we?!?! 😁",
     comments: 23,
     imageUrl:
-      "https://pbs.twimg.com/media/GGRcseZWIAAkpJb?format=jpg&name=small",
+      "https://pbs.twimg.com/media/GGVbVhabkAAPRjF?format=jpg&name=900x900",
     userImage: "https://randomuser.me/api/portraits/men/23.jpg",
+    timestamp: "12:23, 2nd Feb' 2023",
   },
   {
     name: "Sanjana Sangani",
@@ -29,6 +30,7 @@ const dummy = [
     imageUrl:
       "https://pbs.twimg.com/media/GGR6bhfXEAA8CIg?format=jpg&name=900x900",
     userImage: "https://randomuser.me/api/portraits/women/94.jpg",
+    timestamp: "12:23, 2nd Feb' 2023",
   },
   {
     name: "MooPals",
@@ -38,6 +40,7 @@ const dummy = [
     userImage: "https://randomuser.me/api/portraits/women/45.jpg",
     imageUrl:
       "https://pbs.twimg.com/media/GGLDb_3WwAAakuj?format=jpg&name=900x900",
+    timestamp: "12:23, 2nd Feb' 2023",
   },
   {
     name: "Nikola",
@@ -46,6 +49,7 @@ const dummy = [
       "Drop your wallet addys, Will pick one for a free airdrop ;) Have your DMs open",
     comments: 23,
     userImage: "https://randomuser.me/api/portraits/men/3.jpg",
+    timestamp: "12:23, 2nd Feb' 2023",
   },
   {
     name: "Sanjana Sangani",
@@ -55,6 +59,7 @@ const dummy = [
     imageUrl:
       "https://pbs.twimg.com/media/GGR6bhfXEAA8CIg?format=jpg&name=900x900",
     userImage: "https://randomuser.me/api/portraits/women/94.jpg",
+    timestamp: "12:23, 2nd Feb' 2023",
   },
 ];
 
@@ -62,6 +67,12 @@ export default function Feed() {
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   useIdleScrollbar(containerRef);
+
+  function scrollBack() {
+    if (containerRef.current !== null) {
+      containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
 
   return (
     <div className="text-front h-screen border-x border-opacity-20 border-front pt-2 w-[40vw] z-10 overflow-y-hidden">
@@ -117,8 +128,11 @@ export default function Feed() {
                 </div>
                 <div className="text-opacity-80 text-front">{data.content}</div>
                 {data.imageUrl && (
-                  <img src={data.imageUrl} className="mt-2 rounded-xl" />
+                  <img src={data.imageUrl} className="my-2 rounded-xl" />
                 )}
+                <div className="text-sm text-front text-opacity-40 self-end">
+                  {data.timestamp}
+                </div>
                 <div className="mt-2 flex justify-between">
                   <button className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in">
                     <Icon icon="chatBubble" className="text-[1.2rem]" />
@@ -132,6 +146,12 @@ export default function Feed() {
             </div>
           </div>
         ))}
+        <div className="items-center w-full justify-center pt-6 pb-4 animate-pulse text-primary text-xl font-bold flex flex-col">
+          <button className="text-[2.5rem]" onClick={() => scrollBack()}>
+            <Icon icon="keyboardDoubleArrowUp" />
+          </button>
+          You have seen it all!
+        </div>
       </div>
     </div>
   );
