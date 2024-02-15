@@ -1,21 +1,14 @@
 import React, { useRef, useState } from "react";
-import { TwitterPicker } from "react-color";
+import { SketchPicker } from "react-color";
 import useClickOutside from "../../../hooks/useClickOutside";
 import CommunityPage from "../../CommunityPage/CommunityPage";
 
 export default function CommunityThemePicker() {
   function getThemeColor(theme: string) {
-    return `rgb(var(--color-${theme}))`;
-  }
-
-  function getTwString(hex: string) {
-    hex = hex.replace("#", "");
-
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-
-    return `${r} ${g} ${b}`;
+    const col = getComputedStyle(document.documentElement).getPropertyValue(
+      `--color-${theme}`
+    );
+    return col;
   }
 
   const [theme, setTheme] = useState<Record<string, string>>({
@@ -27,11 +20,13 @@ export default function CommunityThemePicker() {
     back: getThemeColor("back"),
   });
 
+  console.log(theme);
+
   const state = { value: theme, setter: setTheme };
 
   return (
     <div className="flex">
-      <div className="flex flex-col basis-1/3 gap-y-10">
+      <div className="flex flex-col basis-1/3 pr-10 gap-y-10">
         <ColorPicker state={state} name="primary" title="Primary color" />
         <ColorPicker state={state} name="secondary" title="Secondary color" />
         <ColorPicker state={state} name="background" title="Background color" />
@@ -45,12 +40,12 @@ export default function CommunityThemePicker() {
           className="w-[30vw] h-[25vw] flex-1 overflow-hidden"
           style={
             {
-              "--color-primary": getTwString(theme.primary),
-              "--color-secondary": getTwString(theme.secondary),
-              "--color-background": getTwString(theme.background),
-              "--color-foreground": getTwString(theme.foreground),
-              "--color-front": getTwString(theme.front),
-              "--color-back": getTwString(theme.back),
+              "--color-primary": theme.primary,
+              "--color-secondary": theme.secondary,
+              "--color-background": theme.background,
+              "--color-foreground": theme.foreground,
+              "--color-front": theme.front,
+              "--color-back": theme.back,
             } as React.CSSProperties
           }
         >
@@ -69,7 +64,7 @@ function ColorPicker(props: {
     setter: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   };
 }) {
-  const currentColor = props.state.value[props.name];
+  const currentColor = `rgb(${props.state.value[props.name]})`;
 
   const [showPicker, setShowPicker] = useState(false);
 
@@ -101,10 +96,14 @@ function ColorPicker(props: {
       </button>
 
       {showPicker && (
-        <TwitterPicker
+        <SketchPicker
           color={currentColor}
-          onChangeComplete={(color) => {
-            props.state.setter((t) => ({ ...t, [props.name]: color.hex }));
+          disableAlpha
+          onChange={(color) => {
+            props.state.setter((t) => ({
+              ...t,
+              [props.name]: `${color.rgb.r} ${color.rgb.g} ${color.rgb.b}`,
+            }));
           }}
         />
       )}
