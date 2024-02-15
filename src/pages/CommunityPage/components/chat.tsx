@@ -122,20 +122,28 @@ export default function Chat() {
       </div>
 
       <div
-        className="flex flex-col gap-y-4 overflow-y-scroll scrollbar-primary px-2 border-r-2 border-r-foreground w-full"
+        className="flex flex-col gap-y-3 overflow-y-scroll scrollbar-primary px-2 border-r-2 border-r-foreground w-full"
         ref={containerRef}
       >
         {messages.map((data, i) => (
           <div
             className={twMerge(
-              "max-w-[70%]",
+              "max-w-[70%] py-2 px-4 rounded-t-3xl text-sm flex items-end",
               data.sender == "A"
-                ? "self-end text-end bg-primary py-2 px-4"
-                : "self-start text-start bg-secondary"
+                ? "self-end text-end bg-primary rounded-l-3xl flex-row-reverse"
+                : "self-start text-start bg-secondary rounded-r-3xl"
             )}
             key={i}
           >
-            {data.message}
+            <span>{data.message}</span>
+            {/* <span
+              className={twMerge(
+                "text-xs font-bold text-front",
+                data.sender == "A" ? "text-secondary" : ""
+              )}
+            >
+              {data.timestamp}
+            </span> */}
           </div>
         ))}
       </div>
