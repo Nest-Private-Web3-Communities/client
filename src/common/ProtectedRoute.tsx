@@ -1,4 +1,5 @@
-import { useAccount } from "@particle-network/connect-react-ui";
+import { useAccount, useConnectKit } from "@particle-network/connect-react-ui";
+import { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
 export enum ProtectedTypes {
@@ -11,9 +12,11 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute(props: ProtectedRouteProps) {
-  const account = useAccount();
+  const [loading, setLoading] = useState(false);
 
-  const loading = false;
+  const account = useAccount();
+  const connect = useConnectKit();
+
   const authenticated = account ? true : false;
 
   if (props.type === ProtectedTypes.PRIVATEONLY) {

@@ -53,11 +53,7 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
 
   const value: Web3ContextType = { contracts, enabled };
 
-  return (
-    <Web3Context.Provider value={value}>
-      {!loading && children}
-    </Web3Context.Provider>
-  );
+  return <Web3Context.Provider value={value}>{children}</Web3Context.Provider>;
 }
 
 export default function useWeb3() {
