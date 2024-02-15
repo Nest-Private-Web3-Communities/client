@@ -3,6 +3,7 @@ import DataForm from "../../common/DataForm";
 import PageSeparator from "../../common/PageSeparator";
 import useWeb3 from "../../contexts/web3context";
 import CommunityThemePicker from "./components/CommunityThemePicker";
+import AdvancedCommunityConfiguration from "./components/AdvancedCommunityConfiguration";
 
 export default function NewCommunityPage() {
   const web3 = useWeb3();
@@ -62,7 +63,20 @@ export default function NewCommunityPage() {
               Represent your community with colors
             </p>
           </div>
+
           <CommunityThemePicker />
+        </div>
+
+        <div className="mt-10">
+          <div className="px-0">
+            <h1 className="text-xl font-medium">Advanced Configuration</h1>
+            <p className="text-sm font-extralight text-front text-opacity-75">
+              Choose what methods of communication and content sharing the
+              community will support
+            </p>
+          </div>
+
+          <AdvancedCommunityConfiguration />
         </div>
 
         <DataForm.Input
