@@ -8,3 +8,57 @@
   font-family: "Geist Sans";
   src: url("../fonts/GeistVF.ttf");
 }
+
+@keyframes anim--loader-pulse {
+  0% {
+    opacity: 100%;
+  }
+  25% {
+    opacity: 50%;
+  }
+  50% {
+    opacity: 80%;
+  }
+  75% {
+    opacity: 30%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes anim--loader-border {
+  0% {
+    border-width: 1em;
+  }
+  25% {
+    border-width: 0.5em;
+  }
+  50% {
+    border-width: 2em;
+  }
+  75% {
+    border-width: 0.1em;
+  }
+  100% {
+    border-width: 1em;
+  }
+}
+
+@keyframes anim--loader-scale {
+  0% {
+    transform: scale(90%);
+  }
+  25% {
+    transform: scale(108%);
+  }
+  50% {
+    transform: scale(96%);
+  }
+  75% {
+    transform: scale(100%);
+  }
+  100% {
+    transform: scale(90%);
+  }
+}

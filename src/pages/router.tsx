@@ -20,12 +20,12 @@ const router = createBrowserRouter(
 
         <Route
           path="/"
-          element={<ProtectedRoute type={ProtectedTypes.PUBLICONLY} />}
+          element={<ProtectedRoute type={ProtectedTypes.UNAUTHENTICATEDONLY} />}
         ></Route>
 
         <Route
           path="/"
-          element={<ProtectedRoute type={ProtectedTypes.PRIVATEONLY} />}
+          element={<ProtectedRoute type={ProtectedTypes.AUTHENTICATEDONLY} />}
         >
           <Route path="communities/new" element={<NewCommunityPage />} />
           <Route path="communities" element={<CommunitiesPage />} />
@@ -36,7 +36,7 @@ const router = createBrowserRouter(
 
       <Route
         path="/"
-        element={<ProtectedRoute type={ProtectedTypes.PRIVATEONLY} />}
+        element={<ProtectedRoute type={ProtectedTypes.AUTHENTICATEDONLY} />}
       >
         <Route path="community" element={<CommunityPage />} />
         <Route path="community/:uuid" element={<CommunityPage />} />

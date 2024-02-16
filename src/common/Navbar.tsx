@@ -18,9 +18,9 @@ export default function Navbar() {
   }, [theme.current]);
 
   return (
-    <nav className="flex p-page fixed w-full z-[999] py-3 border-b border-front border-opacity-20 bg-background">
+    <nav className="flex p-page fixed w-full z-[999] py-3 border-b border-front border-opacity-20 bg-background select-none">
       <Link to="/" className="flex gap-x-1 items-center">
-        <img src="/logo.png" className="h-[2.3em]" />
+        <img src="/logo.png" className="h-[2.3em]" draggable={false} />
         <h1 className="text-2xl font-medium text-primary tracking-tighter">
           NEST
         </h1>

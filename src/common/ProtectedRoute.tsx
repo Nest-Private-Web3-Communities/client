@@ -1,9 +1,12 @@
 import { useAccount, useConnectKit } from "@particle-network/connect-react-ui";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import Loader from "./Loader";
 
 export enum ProtectedTypes {
-  PRIVATEONLY,
+  AUTHENTICATEDONLY,
+  UNAUTHENTICATEDONLY,
+  CONNECTEDONLY,
   PUBLICONLY,
 }
 
@@ -12,26 +15,51 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute(props: ProtectedRouteProps) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const timeout = useRef() as React.MutableRefObject<NodeJS.Timeout>;
 
   const account = useAccount();
-  const connect = useConnectKit();
 
-  const authenticated = account ? true : false;
+  const connected = account ? true : false;
+  const authenticated = true;
 
-  if (props.type === ProtectedTypes.PRIVATEONLY) {
-    return (
-      <>{!loading && <>{authenticated ? <Outlet /> : <Navigate to="/" />}</>}</>
-    );
+  useEffect(() => {
+    if (timeout.current == undefined) {
+      timeout.current = setTimeout(() => {
+        setLoading(false);
+      }, 4000);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (account != undefined) {
+      clearInterval(timeout.current);
+      setLoading(false);
+    }
+  }, [account]);
+
+  let condition = false;
+  switch (props.type) {
+    case ProtectedTypes.PUBLICONLY:
+      condition = true;
+    case ProtectedTypes.CONNECTEDONLY:
+      condition = connected;
+    case ProtectedTypes.UNAUTHENTICATEDONLY:
+      condition = connected && !authenticated;
+    case ProtectedTypes.AUTHENTICATEDONLY:
+      condition = connected && authenticated;
   }
 
-  if (props.type === ProtectedTypes.PUBLICONLY) {
-    return (
-      <>
-        {!loading && <>{!authenticated ? <Outlet /> : <Navigate to="/" />}</>}
-      </>
-    );
-  }
-
-  return <Navigate to="/" />;
+  return (
+    <>
+      {loading ? (
+        <main className="h-screen flex justify-center items-center">
+          <Loader className="w-1/2" />
+        </main>
+      ) : (
+        <>{condition ? <Outlet /> : <Navigate to="/" />}</>
+      )}
+    </>
+  );
 }
