@@ -9,8 +9,11 @@ def generate_primitive_element(bit_length):
 
     return primitive_element, prime
 
-if __name__ == "__main__":
+alpha = 0
+
+while alpha <= 2:
     bit_length = 256  # Adjust this according to your requirements
     primitive_element, prime = generate_primitive_element(bit_length)
-    print("Primitive element:", primitive_element)
+    print("\n\n\nPrimitive element:", primitive_element)
     print("Prime modulus:", prime)
+    alpha = primitive_element

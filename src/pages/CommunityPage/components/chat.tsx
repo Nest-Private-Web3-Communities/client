@@ -136,14 +136,6 @@ export default function Chat() {
             key={i}
           >
             <span>{data.message}</span>
-            {/* <span
-              className={twMerge(
-                "text-xs font-bold text-front",
-                data.sender == "A" ? "text-secondary" : ""
-              )}
-            >
-              {data.timestamp}
-            </span> */}
           </div>
         ))}
       </div>

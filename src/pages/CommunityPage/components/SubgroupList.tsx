@@ -76,12 +76,19 @@ export default function SubgroupList() {
   useIdleScrollbar(membersContainerRef);
 
   return (
-    <div className="text-front py-2 flex flex-col gap-y-3 h-screen border-l border-back border-opacity-25 w-[20vw]">
-      {/* <ThemeButton className="text-2xl p-2 aspect-square bg-foreground rounded-full flex justify-center w-max items-center border border-front border-opacity-40" /> */}
-      <h1 className="text-xl font-bold px-4 ">Sub Groups</h1>
+    <div className="text-front py-2 flex flex-col h-screen border-l border-front border-opacity-25 w-[20vw]">
+      <div className="px-4 flex gap-x-3 justify-end">
+        <ThemeButton className="text-2xl p-1 aspect-square bg-foreground rounded-full flex justify-center w-max items-center border border-front border-opacity-40" />
+        <button>
+          <Icon icon="manageAccounts" className="text-[1.8em]" />
+        </button>
+      </div>
+      <h1 className="text-xl font-bold px-4 border-b border-front border-opacity-25 pb-1 pt-2">
+        Sub Groups
+      </h1>
       <div
         ref={subgroupContainerRef}
-        className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary  px-2 py-2 rounded-lg border border-opacity-25 border-front mx-4 bg-secondary"
+        className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary mt-2 px-2 py-2 rounded-lg border border-opacity-25 border-front mx-4 bg-secondary"
       >
         {dummy.map((data, i) => (
           <div
@@ -94,12 +101,14 @@ export default function SubgroupList() {
                 className="rounded-full bg-front text-background text-center w-[3vw] aspect-square object-cover"
               />
               <div className="flex flex-col">
-                <h2 className="font-semibold whitespace-nowrap truncate w-[80%]">
+                <h2 className="font-semibold whitespace-nowrap truncate w-[75%]">
                   {data.name}
                 </h2>
                 <h3 className="text-sm text-opacity-50 text-front">
                   Active:{" "}
-                  <span className="text-green">{data.active} members</span>
+                  <span className="text-green text-xs">
+                    {data.active} members
+                  </span>
                 </h3>
               </div>
             </div>
@@ -109,8 +118,10 @@ export default function SubgroupList() {
           </div>
         ))}
       </div>
-      <div className="mt-4 text-lg font-bold px-4">Community Members</div>
-      <div className="flex gap-x-2 items-center border border-primary rounded-lg py-2 border-opacity-80 mx-4">
+      <div className="mt-6 text-lg font-bold px-4 border-b border-front border-opacity-25 pb-1">
+        Community Members
+      </div>
+      <div className="flex gap-x-2 items-center border border-primary rounded-lg py-2 border-opacity-80 mx-4 my-2">
         <input
           placeholder="Search your friend"
           className="focus:outline-none bg-background px-3 w-[85%] border-r border-primary border-opacity-40"
@@ -124,7 +135,7 @@ export default function SubgroupList() {
         {dummy2.map((member, i) => (
           <div
             key={i}
-            className="flex justify-between border-b pb-3 border-front border-opacity-20 gap-x-6"
+            className="flex justify-between border-b pb-2 border-front border-opacity-20 gap-x-4"
           >
             <div className="flex gap-x-2 justify-center items-center relative">
               <div className="relative">
