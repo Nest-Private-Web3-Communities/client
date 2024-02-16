@@ -5,6 +5,7 @@ import useModal from "../../../hooks/useModal";
 import { getTypedKeys } from "../../../utils";
 import { TwitterPicker } from "react-color";
 import useClickOutside from "../../../hooks/useClickOutside";
+import { encodeAbiParameters } from "viem";
 
 export default function CommunityEmotesSelector() {
   const [emotes, setEmotes] = useState<Array<Emote>>([]);
@@ -22,6 +23,15 @@ export default function CommunityEmotesSelector() {
   const outclickRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   useClickOutside(outclickRef, () => setShowingColorPickerFor(-1));
+
+  // const ss = encodeAbiParameters(
+  //   [
+  //     { name: "x", type: "string" },
+  //     { name: "y", type: "uint" },
+  //     { name: "z", type: "bytes" },
+  //   ],
+  //   ["wagmi", 420n, encodedData]
+  // );
 
   return (
     <div ref={outclickRef} className="flex gap-x-5 my-5">
