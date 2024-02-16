@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 import useClickOutside from "../../../hooks/useClickOutside";
-import SubgroupList from "../../CommunityPage/components/SubgroupList";
-import Chat from "../../CommunityPage/components/Chat";
-import Feed from "../../CommunityPage/components/Feed";
 import { twMerge } from "tailwind-merge";
 import { padNumbersInStringTo3 } from "../../../utils";
+import ChatPreview from "../../PreviewComponent/ChatPreview";
+import FeedPreview from "../../PreviewComponent/FeedPreview";
+import SublistPreview from "../../PreviewComponent/SublistPreview";
 
 export default function CommunityThemePicker(props: {
   setter: React.Dispatch<React.SetStateAction<string>>;
@@ -26,7 +26,7 @@ export default function CommunityThemePicker(props: {
     back: getThemeColor("back"),
   });
 
-  const components = [<SubgroupList />, <Feed />, <Chat />];
+  const components = [<SublistPreview />, <FeedPreview />, <ChatPreview />];
 
   const state = { value: theme, setter: setTheme };
   const [currComponent, setCurrComponent] = useState(1);
