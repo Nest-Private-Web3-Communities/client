@@ -3,7 +3,6 @@ import DataForm from "../../common/DataForm";
 import PageSeparator from "../../common/PageSeparator";
 import useWeb3 from "../../contexts/web3context";
 import CommunityThemePicker from "./components/CommunityThemePicker";
-import AdvancedCommunityConfiguration from "./components/AdvancedCommunityConfiguration";
 import CommunityEmotesSelector from "./components/CommunityEmotesSelector";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
