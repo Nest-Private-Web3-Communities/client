@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SketchPicker } from "react-color";
 import useClickOutside from "../../../hooks/useClickOutside";
-import CommunityPage from "../../CommunityPage/CommunityPage";
 import SubgroupList from "../../CommunityPage/components/SubgroupList";
 import Chat from "../../CommunityPage/components/Chat";
 import Feed from "../../CommunityPage/components/Feed";
