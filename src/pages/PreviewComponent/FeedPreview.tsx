@@ -96,7 +96,7 @@ export default function FeedPreview() {
               src="https://randomuser.me/api/portraits/women/12.jpg"
               className="rounded-full w-[4vw] aspect-square self-start"
             />
-            <div className="bg-green-500 w-[2ch] rounded-full -right-1 bottom-0 border-4 border-foreground aspect-square absolute" />
+            <div className="bg-green-500 w-[2ch] rounded-full -right-1 bottom-0 border-4 border-secondary aspect-square absolute" />
           </div>
 
           <div className="w-full">
