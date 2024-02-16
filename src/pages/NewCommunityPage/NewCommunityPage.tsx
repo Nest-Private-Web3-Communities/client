@@ -5,9 +5,12 @@ import useWeb3 from "../../contexts/web3context";
 import CommunityThemePicker from "./components/CommunityThemePicker";
 import AdvancedCommunityConfiguration from "./components/AdvancedCommunityConfiguration";
 import CommunityEmotesSelector from "./components/CommunityEmotesSelector";
+import { useState } from "react";
 
 export default function NewCommunityPage() {
   const web3 = useWeb3();
+
+  const [themeSeting, setThemeString] = useState("");
 
   const inputStyle =
     "bg-background border border-front border-opacity-30 outline-none p-2 rounded-md";
@@ -65,7 +68,7 @@ export default function NewCommunityPage() {
             </p>
           </div>
 
-          <CommunityThemePicker />
+          <CommunityThemePicker setter={setThemeString} />
         </div>
 
         <div className="mt-10">
@@ -75,6 +78,9 @@ export default function NewCommunityPage() {
               These are how people can react to each other's posts in your
               community. Don't pick any if you would like to disable reactions.
             </p>
+            <p className="text-red-500 text-xs font-light">
+              Note : You can not change these later
+            </p>
           </div>
 
           <CommunityEmotesSelector />
@@ -82,6 +88,7 @@ export default function NewCommunityPage() {
 
         <DataForm.Input
           type="submit"
+          value="Confirm"
           className="cursor-pointer w-max px-10 py-2 rounded-md bg-primary my-6 text-back"
         />
       </DataForm.Container>
