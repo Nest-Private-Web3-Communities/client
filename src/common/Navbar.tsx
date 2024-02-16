@@ -19,12 +19,12 @@ export default function Navbar() {
 
   return (
     <nav className="flex p-page fixed w-full z-[999] py-3 border-b border-front border-opacity-20 bg-background">
-      <div className="flex gap-x-1 items-center">
+      <Link to="/" className="flex gap-x-1 items-center">
         <img src="/logo.png" className="h-[2.3em]" />
         <h1 className="text-2xl font-medium text-primary tracking-tighter">
           NEST
         </h1>
-      </div>
+      </Link>
 
       <ul className="flex items-center gap-x-8 text-sm ml-12">
         {navLinks.map((item, key) => (

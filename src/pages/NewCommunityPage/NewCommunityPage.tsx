@@ -6,14 +6,37 @@ import CommunityThemePicker from "./components/CommunityThemePicker";
 import AdvancedCommunityConfiguration from "./components/AdvancedCommunityConfiguration";
 import CommunityEmotesSelector from "./components/CommunityEmotesSelector";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function NewCommunityPage() {
   const web3 = useWeb3();
 
-  const [themeSeting, setThemeString] = useState("");
+  const [themeString, setThemeString] = useState("");
+  const [emoteString, setEmoteString] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const inputStyle =
     "bg-background border border-front border-opacity-30 outline-none p-2 rounded-md";
+
+  const navigate = useNavigate();
+
+  function createCommunityHandler(data: Record<string, string>) {
+    const args = [
+      data.name,
+      data.description,
+      data.img,
+      themeString,
+      emoteString,
+    ] as const;
+
+    setLoading(true);
+
+    web3.contracts.nest.write
+      .newCommunity(args)
+      .then(() => navigate("/communities"))
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
+  }
 
   return (
     <>
@@ -29,13 +52,7 @@ export default function NewCommunityPage() {
 
       <DataForm.Container
         className="p-page flex flex-col gap-y-5"
-        onSubmit={(data) => {
-          web3.contracts?.nest.write.newGroup([
-            data.name,
-            data.description,
-            data.img,
-          ]);
-        }}
+        onSubmit={createCommunityHandler}
       >
         <div className="flex gap-x-5">
           <DataForm.Input
@@ -83,13 +100,14 @@ export default function NewCommunityPage() {
             </p>
           </div>
 
-          <CommunityEmotesSelector />
+          <CommunityEmotesSelector setter={setEmoteString} />
         </div>
 
         <DataForm.Input
           type="submit"
           value="Confirm"
-          className="cursor-pointer w-max px-10 py-2 rounded-md bg-primary my-6 text-back"
+          className="cursor-pointer w-max px-10 py-2 rounded-md bg-primary my-6 text-back disabled:opacity-70 disabled:cursor-not-allowed disabled:animate-pulse"
+          disabled={loading}
         />
       </DataForm.Container>
     </>

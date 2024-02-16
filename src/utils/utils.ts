@@ -144,3 +144,18 @@ export function getRandomFromArray<T>(array: Array<T>): T {
 export function getTypedKeys<T extends object>(obj: T) {
   return Object.keys(obj) as UnionToTuple<keyof T>;
 }
+
+export function padNumbersInStringTo3(input: string): string {
+  const numbers = input.split(" ");
+
+  const paddedNumbers = numbers.map((num) => {
+    const numString = num.toString();
+    const numLength = numString.length;
+    const zerosToAdd = 3 - numLength;
+    return "0".repeat(zerosToAdd) + numString;
+  });
+
+  const paddedString = paddedNumbers.join(" ");
+
+  return paddedString;
+}

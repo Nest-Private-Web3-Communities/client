@@ -5,6 +5,7 @@ import SubgroupList from "../../CommunityPage/components/SubgroupList";
 import Chat from "../../CommunityPage/components/Chat";
 import Feed from "../../CommunityPage/components/Feed";
 import { twMerge } from "tailwind-merge";
+import { padNumbersInStringTo3 } from "../../../utils";
 
 export default function CommunityThemePicker(props: {
   setter: React.Dispatch<React.SetStateAction<string>>;
@@ -25,7 +26,6 @@ export default function CommunityThemePicker(props: {
     back: getThemeColor("back"),
   });
 
-  console.log(theme);
   const components = [<SubgroupList />, <Feed />, <Chat />];
 
   const state = { value: theme, setter: setTheme };
@@ -133,19 +133,4 @@ function ColorPicker(props: {
       )}
     </div>
   );
-}
-
-function padNumbersInStringTo3(input: string): string {
-  const numbers = input.split(" ");
-
-  const paddedNumbers = numbers.map((num) => {
-    const numString = num.toString();
-    const numLength = numString.length;
-    const zerosToAdd = 3 - numLength;
-    return "0".repeat(zerosToAdd) + numString;
-  });
-
-  const paddedString = paddedNumbers.join(" ");
-
-  return paddedString;
 }

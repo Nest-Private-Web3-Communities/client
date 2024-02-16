@@ -1,13 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Emote, { EmoteType, emoteDeclarations } from "../../../common/Emote";
 import Icon from "../../../common/Icon";
 import useModal from "../../../hooks/useModal";
-import { getTypedKeys } from "../../../utils";
+import { getTypedKeys, padNumbersInStringTo3 } from "../../../utils";
 import { TwitterPicker } from "react-color";
 import useClickOutside from "../../../hooks/useClickOutside";
-import { encodeAbiParameters } from "viem";
 
-export default function CommunityEmotesSelector() {
+export default function CommunityEmotesSelector(props: {
+  setter: React.Dispatch<React.SetStateAction<string>>;
+}) {
   const [emotes, setEmotes] = useState<Array<Emote>>([]);
 
   const modal = useModal();
@@ -24,19 +25,18 @@ export default function CommunityEmotesSelector() {
 
   useClickOutside(outclickRef, () => setShowingColorPickerFor(-1));
 
-  // const ss = encodeAbiParameters(
-  //   [
-  //     { name: "x", type: "string" },
-  //     { name: "y", type: "uint" },
-  //     { name: "z", type: "bytes" },
-  //   ],
-  //   ["wagmi", 420n, encodedData]
-  // );
+  useEffect(() => {
+    let emotesString = "";
+    emotes.forEach(
+      (e) => (emotesString += `${e.name} ${padNumbersInStringTo3(e.color)} `)
+    );
+    props.setter(emotesString.padEnd(100, "nil "));
+  }, [emotes]);
 
   return (
     <div ref={outclickRef} className="flex gap-x-5 my-5">
       {emotes.map((emote, key) => (
-        <div className="relative">
+        <div className="relative" key={key}>
           <button
             type="button"
             className="absolute top-0 right-0 bg-red-500 translate-x-1/2 -translate-y-1/2 p-1 rounded-full text-lg text-black"
