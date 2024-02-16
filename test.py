@@ -1,16 +1,17 @@
-from sympy import randprime, primitive_root
+emotes = "abc 142 209 252 aab 247 141 167 aae 225 029 072 aaa 000 208 132 aaf 252 185 000 nil nil nil nil nil ######################################################"
 
-def generate_primitive_element(bit_length):
-    # Generate a large prime
-    prime = randprime(2**(bit_length-1), 2**bit_length)
+print(len(emotes))
 
-    # Find a primitive element modulo the prime
-    primitive_element = primitive_root(prime)
+emotesEnd = False
+i = 0;
 
-    return primitive_element, prime
-
-if __name__ == "__main__":
-    bit_length = 256  # Adjust this according to your requirements
-    primitive_element, prime = generate_primitive_element(bit_length)
-    print("Primitive element:", primitive_element)
-    print("Prime modulus:", prime)
+while not emotesEnd and i < 100:
+    # if "nil" == emotes[i:i + 3]:
+    #     emotesEnd = True
+    # else:
+        # Reaction storage nEmote = nGroup.reactions.push();
+    a = emotes[i:i + 3];
+    b = emotes[i + 4:i + 16]
+    print(f"name : {a}, color : {b}")
+    
+    i += 16
