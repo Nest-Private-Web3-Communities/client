@@ -39,6 +39,7 @@ const router = createBrowserRouter(
         element={<ProtectedRoute type={ProtectedTypes.PRIVATEONLY} />}
       >
         <Route path="community" element={<CommunityPage />} />
+        <Route path="community/:uuid" element={<CommunityPage />} />
       </Route>
     </>
   )

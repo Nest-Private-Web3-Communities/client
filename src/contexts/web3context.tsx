@@ -68,3 +68,7 @@ type ContractType<TAbi extends Abi> = ReturnType<
     ReturnType<typeof createWalletClient<CustomTransport, Chain, `0x4`>>
   >
 >;
+
+export type AbiReadResponseType<
+  T extends keyof Web3ContextType["contracts"]["nest"]["read"]
+> = Awaited<ReturnType<Web3ContextType["contracts"]["nest"]["read"][T]>>;

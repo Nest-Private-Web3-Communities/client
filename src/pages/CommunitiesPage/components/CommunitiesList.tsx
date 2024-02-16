@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import useWeb3 from "../../../contexts/web3context";
+import useWeb3, { AbiReadResponseType } from "../../../contexts/web3context";
 import { twMerge } from "tailwind-merge";
+import { Link } from "react-router-dom";
 
 export default function CommunitiesList() {
   const web3 = useWeb3();
@@ -34,10 +35,12 @@ function CommunityCard(props: { communityUUID: string; className?: string }) {
   const web3 = useWeb3();
 
   const [community, setCommunity] =
-    useState<Awaited<ReturnType<typeof web3.contracts.nest.read.groups>>>();
+    useState<AbiReadResponseType<"communities">>();
 
   async function loadData() {
-    const data = await web3.contracts.nest.read.groups([props.communityUUID]);
+    const data = await web3.contracts.nest.read.communities([
+      props.communityUUID,
+    ]);
     if (data) setCommunity(data);
   }
 
@@ -46,9 +49,10 @@ function CommunityCard(props: { communityUUID: string; className?: string }) {
   }, []);
 
   return (
-    <div
+    <Link
+      to={`/community/${props.communityUUID}`}
       className={twMerge(
-        "rounded-lg border border-front/30 overflow-hidden p-5 flex flex-col gap-y-3 relative bg-foreground duration-300 hover:scale-105",
+        "rounded-lg border border-front/30 overflow-hidden p-5 flex flex-col gap-y-3 relative bg-foreground duration-300 hover:scale-105 text-start",
         props.className
       )}
     >
@@ -66,6 +70,6 @@ function CommunityCard(props: { communityUUID: string; className?: string }) {
         {community?.[1].slice(0, 50)}
         {(community?.[1].length || 0) > 51 && "..."}
       </p>
-    </div>
+    </Link>
   );
 }

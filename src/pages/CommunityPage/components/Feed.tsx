@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
 import Icon from "../../../common/Icon";
 import useIdleScrollbar from "../../../hooks/useIdleScrollbar";
-import Emote from "../../../common/Emote";
+import Emote, { EmoteType } from "../../../common/Emote";
 import { emoteDeclarations } from "../../../common/Emote";
+import { AbiReadResponseType } from "../../../contexts/web3context";
 
 const dummy = [
   {
@@ -66,26 +67,18 @@ const dummy = [
   },
 ];
 
-export default function Feed() {
+export default function Feed(props: {
+  emotes: AbiReadResponseType<"getCommunityReactionSet">;
+}) {
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   useIdleScrollbar(containerRef);
-  const emojis = [
-    "smile_face",
-    "sad_face",
-    "natural_face",
-    "heart",
-    "like",
-    "dislike",
-  ];
 
   function scrollBack() {
     if (containerRef.current !== null) {
       containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
-
-  const [showReactions, setShowReactions] = useState(false);
 
   return (
     <div className="text-front flex flex-col h-screen border-x border-opacity-20 border-front w-[40vw] z-10 overflow-y-hidden bg-background">
@@ -150,44 +143,26 @@ export default function Feed() {
                 </div>
                 <div className="mt-2 flex justify-between">
                   <div className="flex gap-x-4 relative">
-                    <button className="flex items-center gap-x-1 text-front duration-150 ease-in group">
-                      <div className="absolute hidden duration-300 ease-in group-hover:-translate-y-9 shadow-primary gap-x-2 rounded-lg shadow-sm border border-primary bg-background p-1 group-hover:flex">
-                        <Emote
-                          name="aaa"
-                          color={`rgb(199 196 51)`}
-                          className="text-[1.8vw] hover:-translate-y-3 duration-150 ease-in bg-background rounded-full"
-                        />
-                        <Emote
-                          name="aab"
-                          color={`rgb(33 101 219`}
-                          className="text-[1.8vw]  hover:-translate-y-3 duration-150 ease-in bg-background rounded-full"
-                        />
-                        <Emote
-                          name="aac"
-                          color={`rgb(219 33 33)`}
-                          className="text-[1.8vw]  hover:-translate-y-3 duration-150 ease-in bg-background rounded-full"
-                        />
-                        <Emote
-                          name="aad"
-                          color={`rgb(44 219 33))`}
-                          className="text-[1.8vw]  hover:-translate-y-3 duration-150 ease-in bg-background rounded-full"
-                        />
-                        <Emote
-                          name="aae"
-                          color={`rgb(241 250 15)`}
-                          className="text-[1.8vw] hover:-translate-y-3 duration-150 ease-in bg-background rounded-full"
-                        />
-                        <Emote
-                          name="aaf"
-                          color={`rgb(180 33 219)`}
-                          className="text-[1.8vw]  hover:-translate-y-3 duration-150 ease-in bg-background rounded-full"
-                        />
+                    <div className="flex gap-x-1 group/open cursor-pointer">
+                      <div className="opacity-0 duration-100 pointer-events-none group-hover/open:pointer-events-auto group-hover/open:opacity-100 absolute bottom-full py-2">
+                        <div className="bg-background p-1 flex items-center gap-x-1 rounded-md border border-front border-opacity-30">
+                          {props.emotes.map((emote, key) => (
+                            <button className="group/emote">
+                              <Emote
+                                key={key}
+                                name={emote.icon as EmoteType}
+                                color={`rgb(${emote.color})`}
+                                className="text-[1.8vw] group-hover/emote:-translate-y-3 duration-150 bg-background rounded-full"
+                              />
+                            </button>
+                          ))}
+                        </div>
                       </div>
-                      <div className="hover:text-primary flex gap-x-1 items-center duration-200 ease-in">
+                      <figure className="flex gap-x-1 items-center duration-200 ease-in">
                         <Icon icon="addReaction" className="text-[1.2rem]  " />
                         <p className="text-xs">{data.comments}</p>
-                      </div>
-                    </button>
+                      </figure>
+                    </div>
                     <button className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in">
                       <Icon icon="chatBubble" className="text-[1.2rem]" />
                       <p className="text-xs">{data.comments}</p>
