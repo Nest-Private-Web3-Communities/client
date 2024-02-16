@@ -103,7 +103,7 @@ function ColorPicker(props: {
   });
 
   return (
-    <div className="flex flex-col gap-y-4" ref={pickerRef}>
+    <div className="flex flex-col gap-y-4 text-front" ref={pickerRef}>
       <button
         onClick={() => setShowPicker((d) => !d)}
         type="button"
@@ -120,6 +120,7 @@ function ColorPicker(props: {
 
       {showPicker && (
         <SketchPicker
+          className="text-front"
           color={currentColor}
           disableAlpha
           onChange={(color) => {

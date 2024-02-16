@@ -96,7 +96,7 @@ export default function Chat() {
 
   return (
     <div className="text-front flex-1 flex flex-col bg-foreground border-r border-front border-opacity-25 w-[35vw]">
-      <div className="text-xl w-full pl-4 pr-2 border-b bg-secondary border-front border-opacity-25 pb-1 items-center flex justify-between pt-4">
+      <div className="text-xl w-full pl-4 pr-2 border-b bg-background border-front border-opacity-25 pb-1 items-center flex justify-between pt-4">
         <h1 className="tracking-wide font-semibold">Chat</h1>
         <button className="p-2 duration-200 ease-in hover:bg-background text-primary border border-front hover:border-opacity-25 border-opacity-0 rounded-full">
           <Icon icon="personAdd" className="text-[1.2rem] " />
@@ -131,7 +131,7 @@ export default function Chat() {
               "max-w-[70%] py-2 px-4 rounded-t-3xl text-sm flex items-end",
               data.sender == "A"
                 ? "self-end text-end bg-primary rounded-l-3xl flex-row-reverse"
-                : "self-start text-start bg-secondary rounded-r-3xl"
+                : "self-start text-start bg-secondary rounded-r-3xl text-back"
             )}
             key={i}
           >
@@ -140,7 +140,7 @@ export default function Chat() {
         ))}
       </div>
       <div className="px-2 py-2 mt-2">
-        <div className="flex gap-x-2 border px-1 py-2 rounded-3xl border-front border-opacity-25">
+        <div className="flex gap-x-2 border px-2 py-2 rounded-3xl border-front border-opacity-25">
           <button className="p-1 rounded-full bg-background text-[1.2rem]">
             <Icon icon="add" />
           </button>

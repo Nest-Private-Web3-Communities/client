@@ -88,7 +88,7 @@ export default function Feed() {
   const [showReactions, setShowReactions] = useState(false);
 
   return (
-    <div className="text-front flex flex-col h-screen border-x border-opacity-20 border-front w-[40vw] z-10 overflow-y-hidden">
+    <div className="text-front flex flex-col h-screen border-x border-opacity-20 border-front w-[40vw] z-10 overflow-y-hidden bg-background">
       <div className="bg-foreground py-4 px-4">
         <div className="flex gap-x-3 bg-secondary py-2 px-3 rounded-md border border-front border-opacity-25">
           <div className="relative h-max">
