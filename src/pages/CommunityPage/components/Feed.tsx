@@ -153,32 +153,32 @@ export default function Feed() {
                     <button className="flex items-center gap-x-1 text-front duration-150 ease-in group">
                       <div className="absolute hidden duration-300 ease-in group-hover:-translate-y-9 shadow-primary gap-x-2 rounded-lg shadow-sm border border-primary bg-background p-1 group-hover:flex">
                         <Emote
-                          name="smile_face"
+                          name="aaa"
                           color={`rgb(199 196 51)`}
                           className="text-[1.8vw] hover:-translate-y-3 duration-150 ease-in bg-background rounded-full"
                         />
                         <Emote
-                          name="netural_face"
+                          name="aab"
                           color={`rgb(33 101 219`}
                           className="text-[1.8vw]  hover:-translate-y-3 duration-150 ease-in bg-background rounded-full"
                         />
                         <Emote
-                          name="dislike"
+                          name="aac"
                           color={`rgb(219 33 33)`}
                           className="text-[1.8vw]  hover:-translate-y-3 duration-150 ease-in bg-background rounded-full"
                         />
                         <Emote
-                          name="like"
+                          name="aad"
                           color={`rgb(44 219 33))`}
                           className="text-[1.8vw]  hover:-translate-y-3 duration-150 ease-in bg-background rounded-full"
                         />
                         <Emote
-                          name="trophy"
+                          name="aae"
                           color={`rgb(241 250 15)`}
                           className="text-[1.8vw] hover:-translate-y-3 duration-150 ease-in bg-background rounded-full"
                         />
                         <Emote
-                          name="sad_face"
+                          name="aaf"
                           color={`rgb(180 33 219)`}
                           className="text-[1.8vw]  hover:-translate-y-3 duration-150 ease-in bg-background rounded-full"
                         />
