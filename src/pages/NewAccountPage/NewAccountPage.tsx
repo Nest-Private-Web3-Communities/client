@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from "react";
-import DataForm from "../../common/DataForm";
 import useWeb3 from "../../contexts/web3context";
 import useEncryptionContext from "../../contexts/encryptionContext";
+import { useNavigate } from "react-router-dom";
 
 export default function NewAccountPage() {
   const inputStyle: React.CSSProperties = {
@@ -13,6 +13,10 @@ export default function NewAccountPage() {
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
 
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
   const web3 = useWeb3();
   const encryption = useEncryptionContext();
 
@@ -20,8 +24,14 @@ export default function NewAccountPage() {
     event.preventDefault();
     const key = encryption.keyPvt.toString(16);
 
-    web3.contracts.nest.write.createAccount([key, name, image]);
-    // console.log([key, name, image]);
+    setLoading(true);
+
+    web3.contracts.nest.write
+      .createAccount([key, name, image])
+      .then(() => navigate("/communities"))
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   return (
@@ -58,6 +68,7 @@ export default function NewAccountPage() {
               className="border border-front/20 bg-background"
               type="text"
               onChange={(e) => setName(e.target.value)}
+              disabled={loading}
             />
             <input
               name="image"
@@ -66,12 +77,14 @@ export default function NewAccountPage() {
               className="border border-front/20 bg-background"
               type="url"
               onChange={(e) => setImage(e.target.value)}
+              disabled={loading}
             />
             <input
               type="submit"
               value="Proceed"
               role="button"
-              className="text-xl font-bold text-back bg-primary p-4 rounded-md mt-1 cursor-pointer"
+              disabled={loading}
+              className="text-xl font-bold text-back bg-primary p-4 rounded-md mt-1 cursor-pointer disabled:opacity-50 disabled:animate-pulse"
             />
           </form>
         </div>
