@@ -11,8 +11,6 @@ import CommunitiesPage from "./CommunitiesPage/CommunitiesPage";
 import LandingPage from "./LandingPage/LandingPage";
 import CommunityPage from "./CommunityPage/CommunityPage";
 import NewCommunityPage from "./NewCommunityPage/NewCommunityPage";
-import FAQsPage from "./FAQsPage/FAQsPage";
-import TestingPage from "./TestingPage/TestingPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,11 +23,18 @@ const router = createBrowserRouter(
         <Route
           path="/"
           element={<ProtectedRoute type={ProtectedTypes.UNAUTHENTICATEDONLY} />}
-        ></Route>
+        >
+          <Route path="auth/new" element={<NewAccountPage />} />
+        </Route>
 
         <Route
           path="/"
-          element={<ProtectedRoute type={ProtectedTypes.AUTHENTICATEDONLY} />}
+          element={
+            <ProtectedRoute
+              type={ProtectedTypes.AUTHENTICATEDONLY}
+              failRedirect="/auth/new"
+            />
+          }
         >
           <Route path="communities/new" element={<NewCommunityPage />} />
           <Route path="communities" element={<CommunitiesPage />} />

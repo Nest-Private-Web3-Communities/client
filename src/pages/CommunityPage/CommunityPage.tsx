@@ -4,6 +4,7 @@ import Feed from "./components/Feed";
 import Chat from "./components/Chat";
 import { useNavigate, useParams } from "react-router-dom";
 import useWeb3, { AbiReadResponseType } from "../../contexts/web3context";
+import Loader from "../../common/Loader";
 
 export default function CommunityPage() {
   const [data, setData] = useState<AbiReadResponseType<"communities">>();
@@ -58,7 +59,12 @@ export default function CommunityPage() {
         </main>
       )}
 
-      {loading && <p>Loading...</p>}
+      {loading && (
+        <main className="flex flex-col h-screen justify-center items-center">
+          <Loader className="w-1/5" />
+          <p className="mt-[10vh] text-primary font-medium">Powered by NEST</p>
+        </main>
+      )}
     </>
   );
 }
