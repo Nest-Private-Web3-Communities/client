@@ -68,7 +68,7 @@ const dummy = [
 ];
 
 export default function Feed(props: {
-  emotes: AbiReadResponseType<"getCommunityReactionSet">;
+  emotes: AbiReadResponseType<"community", "getReactions">;
 }) {
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 

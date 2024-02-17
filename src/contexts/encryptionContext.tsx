@@ -29,12 +29,12 @@ export function EncryptionContextProvider({
   const web3 = useWeb3();
   const account = useAccount();
 
-  const [prime, setPrime] = useState<AbiReadResponseType<"DHprime">>(
+  const [prime, setPrime] = useState<AbiReadResponseType<"nest", "DHprime">>(
     BigInt(-1)
   );
-  const [primitive, setPrimitive] = useState<AbiReadResponseType<"DHprime">>(
-    BigInt(-1)
-  );
+  const [primitive, setPrimitive] = useState<
+    AbiReadResponseType<"nest", "DHprime">
+  >(BigInt(-1));
   const [keyPvt, setKeyPvt] = useState<number>(-1);
 
   const [loading, setLoading] = useState(true);

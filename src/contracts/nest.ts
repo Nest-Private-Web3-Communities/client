@@ -1,6 +1,58 @@
-const address = "0x16c6b7324863e34C0Ff0FB39CE0E569AA385f442" as const;
+const address = "0x112A5c10416a1e6839C676dc0B4997ee34219186" as const;
 
 const abi = [
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "Kpub",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "imageUrl",
+        type: "string",
+      },
+    ],
+    name: "createAccount",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "community",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "userAddress",
+        type: "address",
+      },
+    ],
+    name: "registerCommunityForUser",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
   {
     inputs: [],
     name: "DHprime",
@@ -28,119 +80,6 @@ const abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "string",
-        name: "communityUUID",
-        type: "string",
-      },
-    ],
-    name: "checkParticipationStage",
-    outputs: [
-      {
-        internalType: "uint8",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    name: "communities",
-    outputs: [
-      {
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "description",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "imageUrl",
-        type: "string",
-      },
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "primary",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "secondary",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "background",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "foreground",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "front",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "back",
-            type: "string",
-          },
-        ],
-        internalType: "struct Nest.ColorTheme",
-        name: "theme",
-        type: "tuple",
-      },
-      {
-        internalType: "bool",
-        name: "flag",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "Kpub",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "imageUrl",
-        type: "string",
-      },
-    ],
-    name: "createAccount",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "doesSenderHaveAnAccount",
     outputs: [
@@ -158,9 +97,9 @@ const abi = [
     name: "getCommunitiesOfSender",
     outputs: [
       {
-        internalType: "string[]",
+        internalType: "address[]",
         name: "",
-        type: "string[]",
+        type: "address[]",
       },
     ],
     stateMutability: "view",
@@ -169,88 +108,52 @@ const abi = [
   {
     inputs: [
       {
-        internalType: "string",
-        name: "communityUUID",
-        type: "string",
+        internalType: "address",
+        name: "userAddress",
+        type: "address",
       },
     ],
-    name: "getCommunityReactionSet",
+    name: "getUserByAddress",
     outputs: [
       {
         components: [
           {
             internalType: "string",
-            name: "icon",
+            name: "Kpub",
             type: "string",
           },
           {
             internalType: "string",
-            name: "color",
+            name: "name",
             type: "string",
           },
+          {
+            internalType: "string",
+            name: "imageUrl",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "createdAt",
+            type: "uint256",
+          },
+          {
+            internalType: "address[]",
+            name: "communities",
+            type: "address[]",
+          },
+          {
+            internalType: "bool",
+            name: "flag",
+            type: "bool",
+          },
         ],
-        internalType: "struct Nest.Reaction[]",
+        internalType: "struct Nest.User",
         name: "",
-        type: "tuple[]",
+        type: "tuple",
       },
     ],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "communityUUID",
-        type: "string",
-      },
-      {
-        internalType: "string[]",
-        name: "keys",
-        type: "string[]",
-      },
-      {
-        internalType: "address[]",
-        name: "correspondingUsers",
-        type: "address[]",
-      },
-    ],
-    name: "join",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "description",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "imageUrl",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "theme",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "emotes",
-        type: "string",
-      },
-    ],
-    name: "newCommunity",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -287,6 +190,19 @@ const abi = [
         internalType: "bool",
         name: "flag",
         type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "utils",
+    outputs: [
+      {
+        internalType: "contract Utils",
+        name: "",
+        type: "address",
       },
     ],
     stateMutability: "view",

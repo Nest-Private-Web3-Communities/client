@@ -5,7 +5,10 @@ import useWeb3 from "../../contexts/web3context";
 import CommunityThemePicker from "./components/CommunityThemePicker";
 import CommunityEmotesSelector from "./components/CommunityEmotesSelector";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import community from "../../contracts/community";
+import { useCurrentChain } from "@particle-network/connect-react-ui/dist/hooks";
+import nest from "../../contracts/nest";
+import { avalancheFuji } from "viem/chains";
 
 export default function NewCommunityPage() {
   const web3 = useWeb3();
@@ -17,10 +20,9 @@ export default function NewCommunityPage() {
   const inputStyle =
     "bg-background border border-front border-opacity-30 outline-none p-2 rounded-md";
 
-  const navigate = useNavigate();
-
   function createCommunityHandler(data: Record<string, string>) {
     const args = [
+      nest.address,
       data.name,
       data.description,
       data.img,
@@ -30,11 +32,17 @@ export default function NewCommunityPage() {
 
     setLoading(true);
 
-    web3.contracts.nest.write
-      .newCommunity(args)
-      .then(() => navigate("/communities"))
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
+    web3.client?.deployContract({
+      abi: community.abi,
+      bytecode: `0x${community.bytecode}`,
+      args,
+    });
+
+    // web3.contracts.nest.write
+    //   .newCommunity(args)
+    //   .then(() => navigate("/communities"))
+    //   .catch((err) => console.error(err))
+    //   .finally(() => setLoading(false));
   }
 
   return (

@@ -54,10 +54,11 @@ export default function NewAccountPage() {
           >
             <img
               src={image}
-              onError={(e) =>
-                (e.currentTarget.src =
-                  "https://pics.craiyon.com/2023-11-11/9jWcbVArTPGpAod1GkLSlg.webp")
-              }
+              onError={(e) => {
+                e.currentTarget.src =
+                  "https://pics.craiyon.com/2023-11-11/9jWcbVArTPGpAod1GkLSlg.webp";
+                setImage(e.currentTarget.src);
+              }}
               draggable={false}
               className="rounded-full mb-3 w-1/2 self-center border border-front border-opacity-30 aspect-square object-cover"
             />
