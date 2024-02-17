@@ -18,7 +18,7 @@ export default function CommunitiesList() {
   }, []);
 
   return (
-    <section className="p-page flex gap-x-4">
+    <section className="p-page flex gap-x-6">
       {list &&
         list.map((uuid, key) => (
           <CommunityCard
@@ -52,23 +52,23 @@ function CommunityCard(props: { communityUUID: string; className?: string }) {
     <Link
       to={`/community/${props.communityUUID}`}
       className={twMerge(
-        "rounded-lg border border-front/30 overflow-hidden p-5 flex flex-col gap-y-3 relative bg-foreground duration-300 hover:scale-105 text-start",
+        "rounded-lg shadow shadow-front/25 overflow-hidden p-5 flex flex-col items-center gap-y-3 relative bg-background border-foreground duration-300 hover:scale-105 text-start min-w-[18vw]",
         props.className
       )}
     >
-      <h1 className="text-lg font-medium tracking-tight truncate">
+      <h1 className="text-lg font-medium tracking-tight truncate border-b w-full text-center border-front border-opacity-20 pb-1">
         {community?.[0]}
       </h1>
 
       <img
         src={community?.[2]}
         alt={community?.[0]}
-        className="aspect-square object-cover rounded-lg"
+        className="aspect-square object-cover rounded-lg w-[12vw]"
       />
 
-      <p className="text-sm font-light">
-        {community?.[1].slice(0, 50)}
-        {(community?.[1].length || 0) > 51 && "..."}
+      <p className="text-sm font-light text-center">
+        {community?.[1].slice(0, 150)}
+        {(community?.[1].length || 0) > 151 && "..."}
       </p>
     </Link>
   );
