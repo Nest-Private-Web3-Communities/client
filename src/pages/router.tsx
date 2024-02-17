@@ -11,6 +11,9 @@ import CommunitiesPage from "./CommunitiesPage/CommunitiesPage";
 import LandingPage from "./LandingPage/LandingPage";
 import CommunityPage from "./CommunityPage/CommunityPage";
 import NewCommunityPage from "./NewCommunityPage/NewCommunityPage";
+import FAQsPage from "./FAQsPage/FAQsPage";
+import TestingPage from "./TestingPage/TestingPage";
+import NewAccountPage from "./NewAccountPage/NewAccountPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
