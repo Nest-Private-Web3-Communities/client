@@ -1,4 +1,4 @@
-const address = "0x3613023bc26573A24406c41B231bF16c64378647" as const;
+const address = "0x16c6b7324863e34C0Ff0FB39CE0E569AA385f442" as const;
 
 const abi = [
   {
@@ -22,6 +22,25 @@ const abi = [
         internalType: "uint256",
         name: "",
         type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "communityUUID",
+        type: "string",
+      },
+    ],
+    name: "checkParticipationStage",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
       },
     ],
     stateMutability: "view",
@@ -258,6 +277,11 @@ const abi = [
         internalType: "string",
         name: "imageUrl",
         type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "createdAt",
+        type: "uint256",
       },
       {
         internalType: "bool",
