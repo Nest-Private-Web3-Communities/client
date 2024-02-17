@@ -13,7 +13,7 @@ export default function NewAccountPage() {
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
