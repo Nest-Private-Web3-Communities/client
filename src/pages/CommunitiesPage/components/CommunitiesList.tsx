@@ -21,7 +21,7 @@ export default function CommunitiesList() {
   }, []);
 
   return (
-    <section className="p-page flex gap-x-4">
+    <section className="p-page flex gap-x-6">
       {list &&
         list.map((addr, key) => (
           <CommunityCard
@@ -65,7 +65,7 @@ function CommunityCard(props: {
     <Link
       to={`/community/${props.communityAddress}`}
       className={twMerge(
-        "rounded-lg border border-front/30 overflow-hidden p-5 flex flex-col gap-y-3 relative bg-foreground duration-300 hover:scale-105 text-start",
+        "rounded-lg shadow shadow-front/25 overflow-hidden p-5 flex flex-col items-center gap-y-3 relative bg-background border-foreground duration-300 hover:scale-105 text-start min-w-[18vw]",
         props.className
       )}
     >
