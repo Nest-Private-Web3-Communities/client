@@ -1,78 +1,30 @@
-const address = "0x3CeBd6a3cBa4174c15e041FC7C98728279E040bf" as const;
+const address = "0x3613023bc26573A24406c41B231bF16c64378647" as const;
 
 const abi = [
   {
-    inputs: [
+    inputs: [],
+    name: "DHprime",
+    outputs: [
       {
-        internalType: "string",
-        name: "groupUUID",
-        type: "string",
-      },
-      {
-        internalType: "string[]",
-        name: "keys",
-        type: "string[]",
-      },
-      {
-        internalType: "address[]",
-        name: "correspondingUsers",
-        type: "address[]",
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
-    name: "join",
-    outputs: [],
-    stateMutability: "nonpayable",
+    stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
+    inputs: [],
+    name: "DHprimitive",
+    outputs: [
       {
-        internalType: "string",
-        name: "Kpub",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "name",
-        type: "string",
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
-    name: "makeAccount",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "description",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "imageUrl",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "theme",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "emotes",
-        type: "string",
-      },
-    ],
-    name: "newCommunity",
-    outputs: [],
-    stateMutability: "nonpayable",
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -133,7 +85,7 @@ const abi = [
             type: "string",
           },
         ],
-        internalType: "struct GroupKeyExchange.ColorTheme",
+        internalType: "struct Nest.ColorTheme",
         name: "theme",
         type: "tuple",
       },
@@ -147,26 +99,36 @@ const abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "DHprime",
-    outputs: [
+    inputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: "string",
+        name: "Kpub",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "imageUrl",
+        type: "string",
       },
     ],
-    stateMutability: "view",
+    name: "createAccount",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [],
-    name: "DHprimitive",
+    name: "doesSenderHaveAnAccount",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "bool",
         name: "",
-        type: "uint256",
+        type: "bool",
       },
     ],
     stateMutability: "view",
@@ -189,7 +151,7 @@ const abi = [
     inputs: [
       {
         internalType: "string",
-        name: "groupUUID",
+        name: "communityUUID",
         type: "string",
       },
     ],
@@ -208,12 +170,68 @@ const abi = [
             type: "string",
           },
         ],
-        internalType: "struct GroupKeyExchange.Reaction[]",
+        internalType: "struct Nest.Reaction[]",
         name: "",
         type: "tuple[]",
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "communityUUID",
+        type: "string",
+      },
+      {
+        internalType: "string[]",
+        name: "keys",
+        type: "string[]",
+      },
+      {
+        internalType: "address[]",
+        name: "correspondingUsers",
+        type: "address[]",
+      },
+    ],
+    name: "join",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "description",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "imageUrl",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "theme",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "emotes",
+        type: "string",
+      },
+    ],
+    name: "newCommunity",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -234,6 +252,11 @@ const abi = [
       {
         internalType: "string",
         name: "name",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "imageUrl",
         type: "string",
       },
       {

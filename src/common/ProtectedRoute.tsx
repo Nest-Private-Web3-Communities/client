@@ -2,6 +2,7 @@ import { useAccount, useConnectKit } from "@particle-network/connect-react-ui";
 import { useEffect, useRef, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import Loader from "./Loader";
+import useWeb3 from "../contexts/web3context";
 
 export enum ProtectedTypes {
   AUTHENTICATEDONLY,
@@ -12,30 +13,39 @@ export enum ProtectedTypes {
 
 interface ProtectedRouteProps {
   type: ProtectedTypes;
+  failRedirect?: string;
 }
 
 export default function ProtectedRoute(props: ProtectedRouteProps) {
+  const account = useAccount();
+  const connected = account ? true : false;
+
+  const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const timeout = useRef() as React.MutableRefObject<NodeJS.Timeout>;
 
-  const account = useAccount();
+  const web3 = useWeb3();
 
-  const connected = account ? true : false;
-  const authenticated = true;
+  async function verifyAuthentication() {
+    const res = await web3.contracts.nest.read.doesSenderHaveAnAccount();
+    setAuthenticated(res);
+  }
 
   useEffect(() => {
     if (timeout.current == undefined) {
       timeout.current = setTimeout(() => {
         setLoading(false);
-      }, 4000);
+      }, 5000);
     }
   }, []);
 
   useEffect(() => {
     if (account != undefined) {
       clearInterval(timeout.current);
-      setLoading(false);
+      verifyAuthentication().finally(() => {
+        setLoading(false);
+      });
     }
   }, [account]);
 
@@ -43,22 +53,28 @@ export default function ProtectedRoute(props: ProtectedRouteProps) {
   switch (props.type) {
     case ProtectedTypes.PUBLICONLY:
       condition = true;
+      break;
     case ProtectedTypes.CONNECTEDONLY:
       condition = connected;
+      break;
     case ProtectedTypes.UNAUTHENTICATEDONLY:
       condition = connected && !authenticated;
+      break;
     case ProtectedTypes.AUTHENTICATEDONLY:
       condition = connected && authenticated;
+      break;
   }
 
   return (
     <>
       {loading ? (
         <main className="h-screen flex justify-center items-center">
-          <Loader className="w-1/2" />
+          <Loader className="w-1/4" />
         </main>
       ) : (
-        <>{condition ? <Outlet /> : <Navigate to="/" />}</>
+        <>
+          {condition ? <Outlet /> : <Navigate to={props.failRedirect || "/"} />}
+        </>
       )}
     </>
   );
