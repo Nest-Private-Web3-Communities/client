@@ -29,8 +29,12 @@ export default function NewAccountPage() {
 
     web3.contracts.nest.write
       .createAccount([key, name, image])
-      .then(() => navigate("/communities"))
-      .finally(() => {
+      .then((res) =>
+        web3.client
+          ?.waitForTransactionReceipt({ hash: res })
+          .then((_) => navigate("/"))
+      )
+      .catch(() => {
         setLoading(false);
       });
   }

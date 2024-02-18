@@ -41,7 +41,7 @@ export default function Header() {
     const dataString = JSON.stringify(data);
     const encryptedData = CryptoJS.AES.encrypt(
       dataString,
-      encryption.keyMaster.toString(keyBase)
+      encryption.keyMaster
     );
 
     contract?.write

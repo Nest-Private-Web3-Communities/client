@@ -35,6 +35,11 @@ const abi = [
         name: "_emotes",
         type: "string",
       },
+      {
+        internalType: "string",
+        name: "_Kmaster",
+        type: "string",
+      },
     ],
     stateMutability: "nonpayable",
     type: "constructor",

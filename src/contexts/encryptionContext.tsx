@@ -10,7 +10,7 @@ import useWeb3, { AbiReadResponseType, ContractType } from "./web3context";
 import { Address, Chain, Client, CustomTransport, getContract } from "viem";
 import { useAccount } from "@particle-network/connect-react-ui";
 import contractDefinitions from "../contracts";
-import { rangeArray } from "../utils";
+import { modularExponentiation, rangeArray } from "../utils";
 import CryptoJS from "crypto-js";
 import { keyBase } from "../config";
 
@@ -21,7 +21,7 @@ interface EncryptionContextType {
   };
   keyPvt: number;
   keyPub: number;
-  keyMaster: number;
+  keyMaster: string;
 
   setCommunityContract: React.Dispatch<
     React.SetStateAction<
@@ -48,9 +48,9 @@ export function EncryptionContextProvider({
     useState<AbiReadResponseType<"nest", "DHprime">>(-1);
   const [keyPvt, setKeyPvt] = useState(-1);
   const [keyPub, setKeyPub] = useState(-1);
-  const [keyMaster, setKeyMaster] = useState(-1);
+  const [keyMaster, setKeyMaster] = useState("");
   const [agreement, setAgreement] = useState<
-    Array<{ createdAt: number; key: number }>
+    Array<{ createdAt: number; key: string }>
   >([]);
   const [communityContract, setCommunityContract] =
     useState<ContractType<typeof contractDefinitions.community.abi>>();
@@ -110,12 +110,18 @@ export function EncryptionContextProvider({
 
   useEffect(() => {
     if (keyPvt > 0 && dhParameters.prime > 0 && dhParameters.primitive > 0)
-      setKeyPub(dhParameters.primitive ** keyPvt % dhParameters.prime);
+      setKeyPub(
+        modularExponentiation(
+          dhParameters.primitive,
+          keyPvt,
+          dhParameters.prime
+        )
+      );
   }, [keyPvt, dhParameters]);
 
   useEffect(() => {
     async function loadKeys() {
-      if (!communityContract) {
+      if (!communityContract || !account) {
         return;
       }
 
@@ -124,37 +130,51 @@ export function EncryptionContextProvider({
         const _key = await communityContract.read.keys([BigInt(i)]);
         const publisherAddress = _key[1];
 
-        let key = { createdAt: Number(_key[0]), key: 0 };
+        let key = { createdAt: Number(_key[0]), key: "" };
         const fellow = await web3.contracts.nest.read.users([publisherAddress]);
 
         const publicKey = fellow[0];
 
-        const sharedKey =
-          parseInt(publicKey, keyBase) ** keyPvt % dhParameters.prime;
+        const sharedKey = modularExponentiation(
+          parseInt(publicKey, keyBase),
+          keyPvt,
+          dhParameters.prime
+        );
 
         const e_key = await communityContract.read.getKeyFromAgreement([
           BigInt(i),
         ]);
 
-        key.key = Number(
-          CryptoJS.AES.decrypt(e_key, sharedKey.toString(keyBase)).toString()
-        );
+        key.key = CryptoJS.AES.decrypt(
+          e_key,
+          sharedKey.toString(keyBase)
+        ).toString();
 
-        if (publisherAddress == account)
-          key.key = Number(
-            CryptoJS.AES.decrypt(e_key, keyPvt.toString(keyBase)).toString()
-          );
+        if (publisherAddress.toUpperCase() == account.toUpperCase())
+          key.key = CryptoJS.AES.decrypt(
+            e_key,
+            keyPvt.toString(keyBase)
+          ).toString();
 
         setAgreement((p) => [...p, key]);
       }
-
-      console.log(agreement);
-
-      setKeyMaster(agreement[agreement.length - 1].key);
     }
 
     loadKeys();
-  }, [communityContract]);
+  }, [communityContract, account]);
+
+  function encrypt(c: string) {
+    if (keyMaster == "") return;
+    return CryptoJS.AES.encrypt(c, keyMaster);
+  }
+
+  function decrypt(e: string, t: number) {
+    CryptoJS.AES.decrypt(e, keyMaster);
+  }
+
+  useEffect(() => {
+    setKeyMaster(agreement[agreement?.length - 1]?.key || "null");
+  }, [agreement]);
 
   const value: EncryptionContextType = {
     dhParameters,

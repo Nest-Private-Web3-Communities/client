@@ -9,6 +9,9 @@ import {
   Chain,
   Client,
   CustomTransport,
+  WalletActions,
+  WalletRpcSchema,
+  createPublicClient,
   createWalletClient,
   custom,
   getContract,
@@ -49,7 +52,7 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
         account,
         transport: custom(provider),
       }).extend(publicActions);
-      setClient(client);
+      setClient(client as TClient);
       const nContract = getContract({ ...contractDefinitions.nest, client });
 
       setContracts({ nest: nContract });
@@ -66,9 +69,12 @@ export default function useWeb3() {
   return useContext(Web3Context);
 }
 
-type TClient = ReturnType<
+type TClientA = ReturnType<
   typeof createWalletClient<CustomTransport, Chain, Address>
 >;
+type TClientB = ReturnType<typeof createPublicClient<CustomTransport, Chain>>;
+
+type TClient = TClientA & Pick<TClientB, "waitForTransactionReceipt">;
 
 export type ContractType<T extends Abi> = ReturnType<
   typeof getContract<any, any, T, TClient>

@@ -209,3 +209,20 @@ export function generateRandomHex(length: number): string {
 
   return result;
 }
+
+export function modularExponentiation(
+  base: number,
+  exponent: number,
+  modulus: number
+): number {
+  let result: number = 1;
+  base = base % modulus;
+  while (exponent > 0) {
+    if (exponent % 2 === 1) {
+      result = (result * base) % modulus;
+    }
+    exponent = Math.floor(exponent / 2); // Integer division
+    base = (base * base) % modulus;
+  }
+  return result;
+}

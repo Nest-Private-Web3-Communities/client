@@ -8,10 +8,15 @@ import { useState } from "react";
 import community from "../../contracts/community";
 import nest from "../../contracts/nest";
 import { useNavigate } from "react-router-dom";
+import useEncryptionContext from "../../contexts/encryptionContext";
+import CryptoJS from "crypto-js";
+import { generateRandomHex } from "../../utils";
+import { keyBase } from "../../config";
 
 export default function NewCommunityPage() {
   const web3 = useWeb3();
   const navigate = useNavigate();
+  const { keyPvt } = useEncryptionContext();
 
   const [themeString, setThemeString] = useState("");
   const [emoteString, setEmoteString] = useState("");
@@ -21,6 +26,11 @@ export default function NewCommunityPage() {
     "bg-background border border-front border-opacity-30 outline-none p-2 rounded-md";
 
   function createCommunityHandler(data: Record<string, string>) {
+    const kMaster = CryptoJS.AES.encrypt(
+      generateRandomHex(64),
+      keyPvt.toString(keyBase)
+    );
+
     const args = [
       nest.address,
       data.name,
@@ -28,6 +38,7 @@ export default function NewCommunityPage() {
       data.img,
       themeString,
       emoteString,
+      kMaster.toString(),
     ] as const;
 
     setLoading(true);
@@ -38,7 +49,11 @@ export default function NewCommunityPage() {
         bytecode: `0x${community.bytecode}`,
         args,
       })
-      .then((res) => navigate(`/community/${res}`))
+      .then((res) =>
+        web3.client
+          ?.waitForTransactionReceipt({ hash: res })
+          .then((res) => navigate(`/community/${res.contractAddress}`))
+      )
       .finally(() => {
         setLoading(false);
       });
