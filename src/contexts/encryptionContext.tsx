@@ -7,17 +7,12 @@ import React, {
   useState,
 } from "react";
 import useWeb3, { AbiReadResponseType, ContractType } from "./web3context";
-import {
-  Address,
-  Chain,
-  Client,
-  CustomTransport,
-  getContract,
-} from "viem";
+import { Address, Chain, Client, CustomTransport, getContract } from "viem";
 import { useAccount } from "@particle-network/connect-react-ui";
 import contractDefinitions from "../contracts";
 import { rangeArray } from "../utils";
 import CryptoJS from "crypto-js";
+import { keyBase } from "../config";
 
 interface EncryptionContextType {
   dhParameters: {
@@ -28,9 +23,11 @@ interface EncryptionContextType {
   keyPub: number;
   keyMaster: number;
 
-  setCommunityContract: React.Dispatch<React.SetStateAction<
-  ContractType<typeof contractDefinitions.community.abi> | undefined
-  >>
+  setCommunityContract: React.Dispatch<
+    React.SetStateAction<
+      ContractType<typeof contractDefinitions.community.abi> | undefined
+    >
+  >;
 }
 
 const EncryptionContext = createContext<EncryptionContextType>(
@@ -55,7 +52,8 @@ export function EncryptionContextProvider({
   const [agreement, setAgreement] = useState<
     Array<{ createdAt: number; key: number }>
   >([]);
-  const [communityContract, setCommunityContract] =useState<ContractType<typeof contractDefinitions.community.abi>>();
+  const [communityContract, setCommunityContract] =
+    useState<ContractType<typeof contractDefinitions.community.abi>>();
 
   const [loading, setLoading] = useState(true);
 
@@ -126,13 +124,12 @@ export function EncryptionContextProvider({
         const publisherAddress = _key[1];
 
         let key = { createdAt: Number(_key[0]), key: 0 };
+        const fellow = await web3.contracts.nest.read.users([publisherAddress]);
 
-        const publicKey = await communityContract.read.getSharedKeyWithUser([
-          publisherAddress,
-        ]);
+        const publicKey = fellow[0];
 
         const sharedKey =
-          parseInt(publicKey, 16) ** keyPvt % dhParameters.prime;
+          parseInt(publicKey, keyBase) ** keyPvt % dhParameters.prime;
 
         const e_key = await communityContract.read.getKeyFromAgreement([
           BigInt(i),

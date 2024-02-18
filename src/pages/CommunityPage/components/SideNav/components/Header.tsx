@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from "react";
-import useWeb3 from "../../../../../contexts/web3context";
 import Icon from "../../../../../common/Icon";
 import useModal from "../../../../../hooks/useModal";
 import ModalInvite from "../../modals/ModalInvite";
@@ -9,7 +7,6 @@ export default function Header() {
   const { data } = useCommunity();
   const modal = useModal();
 
-  console.log(data.userIsAdmin);
   return (
     <header className="flex items-center justify-between px-5 py-2">
       <div className="flex items-center gap-x-2">

@@ -173,25 +173,6 @@ const abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_fellow",
-        type: "address",
-      },
-    ],
-    name: "getSharedKeyWithUser",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "imageUrl",
     outputs: [
@@ -221,22 +202,12 @@ const abi = [
     inputs: [
       {
         internalType: "string[]",
-        name: "_keysShared",
+        name: "_keys",
         type: "string[]",
       },
       {
         internalType: "address[]",
-        name: "_correspondingUsersShared",
-        type: "address[]",
-      },
-      {
-        internalType: "string[]",
-        name: "_keysMaster",
-        type: "string[]",
-      },
-      {
-        internalType: "address[]",
-        name: "_correspondingUsersMaster",
+        name: "_correspondingUsers",
         type: "address[]",
       },
     ],
@@ -472,30 +443,6 @@ const abi = [
       {
         internalType: "string",
         name: "color",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "sharedKeys",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
         type: "string",
       },
     ],

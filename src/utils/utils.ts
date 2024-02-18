@@ -198,3 +198,14 @@ export function isAddress(input: string): input is Address {
   const addressRegex: RegExp = /^[a-zA-Z0-9\s,'-]*$/;
   return addressRegex.test(input);
 }
+
+export function generateRandomHex(length: number): string {
+  const characters: string = "0123456789abcdef";
+  let result: string = "";
+
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+
+  return result;
+}

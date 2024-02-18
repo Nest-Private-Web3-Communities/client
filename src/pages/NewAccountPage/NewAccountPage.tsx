@@ -2,6 +2,7 @@ import React, { FormEvent, useState } from "react";
 import useWeb3 from "../../contexts/web3context";
 import useEncryptionContext from "../../contexts/encryptionContext";
 import { useNavigate } from "react-router-dom";
+import { keyBase } from "../../config";
 
 export default function NewAccountPage() {
   const inputStyle: React.CSSProperties = {
@@ -22,7 +23,7 @@ export default function NewAccountPage() {
 
   function createAccountHandler(event: React.FormEvent) {
     event.preventDefault();
-    const key = encryption.keyPub.toString(16);
+    const key = encryption.keyPub.toString(keyBase);
 
     setLoading(true);
 

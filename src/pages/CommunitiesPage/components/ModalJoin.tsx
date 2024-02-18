@@ -6,8 +6,9 @@ import useWeb3, { AbiReadResponseType } from "../../../contexts/web3context";
 import { Address, getContract } from "viem";
 import contracts from "../../../contracts";
 import { useAccount } from "@particle-network/connect-react-ui";
-import { isAddress } from "../../../utils";
+import { generateRandomHex, isAddress } from "../../../utils";
 import useEncryptionContext from "../../../contexts/encryptionContext";
+import { keyBase } from "../../../config";
 
 export default function ModalJoin() {
   const modal = useModal();
@@ -16,6 +17,7 @@ export default function ModalJoin() {
   const account = useAccount();
 
   const [address, setAddress] = useState("");
+  const [pending, setPending] = useState(false);
   const [msg, setMsg] = useState("");
 
   const [communityName, setCommunityName] =
@@ -23,14 +25,45 @@ export default function ModalJoin() {
   const [participationStage, setParticipationStage] =
     useState<AbiReadResponseType<"community", "participationStage">>();
 
-  function join() {
+  async function join() {
     if (!account || !web3.client) return;
+    setPending(true);
     const contract = getContract({
       abi: contracts.community.abi,
       address: address as Address,
       client: web3.client,
     });
-    // const c = contract.read.
+
+    const _Keys: string[] = [];
+    const _Users: Address[] = [];
+
+    const newKey = generateRandomHex(64);
+
+    const fellows = await contract.read.getMemberAddresses();
+    for await (let p of fellows) {
+      const usr = await web3.contracts.nest.read.users([p]);
+      const Kpub = parseInt(usr[0], keyBase);
+
+      const Kshared = Kpub ** encryption.keyPvt % encryption.dhParameters.prime;
+      const kMaster = CryptoJS.AES.encrypt(newKey, Kshared.toString(keyBase));
+
+      _Users.push(p);
+      _Keys.push(kMaster.toString());
+    }
+
+    contract.write
+      .join([_Keys, _Users])
+      .then(
+        () => {
+          alert("Joined");
+        },
+        (e) => {
+          alert(e);
+        }
+      )
+      .finally(() => {
+        setPending(false);
+      });
   }
 
   function loadData() {
@@ -68,10 +101,15 @@ export default function ModalJoin() {
         placeholder="Address Of Community"
         className="bg-background border border-front rounded p-1 border-opacity-20 mt-4 text-xs w-4/5"
         onChange={(e) => setAddress(e.target.value)}
+        disabled={pending}
       />
 
       {communityName && participationStage == 1 && (
-        <button className="px-10 py-1 text-sm rounded-md bg-primary mt-4">
+        <button
+          className="px-10 py-1 text-sm rounded-md bg-primary mt-4 disabled:animate-pulse disabled:opacity-60"
+          onClick={join}
+          disabled={pending}
+        >
           Join {communityName}
         </button>
       )}
