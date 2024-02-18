@@ -75,12 +75,10 @@ export default function Members() {
         ref={membersContainerRef}
         className="mx-4 flex flex-col gap-y-4 bg-secondary p-4 rounded-lg border border-front border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary"
       >
-        {/* {dummy2.map((member, i) => (
-         
-        ))} */}
-        {rangeArray(32).map((i, key) => (
-          <MemberCard userIdx={i} key={key} />
-        ))}
+        {memberCount &&
+          rangeArray(Number(memberCount)).map((i, key) => (
+            <MemberCard userIdx={i} key={key} />
+          ))}
       </div>
     </section>
   );
