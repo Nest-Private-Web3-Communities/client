@@ -6,6 +6,7 @@ import React, {
   useState,
 } from "react";
 import { Theme } from "../hooks/useTheme";
+import { AbiReadResponseType } from "./web3context";
 
 interface GlobalContextType {
   modalState: {
@@ -16,6 +17,12 @@ interface GlobalContextType {
     theme: Theme | undefined;
     setTheme: React.Dispatch<React.SetStateAction<Theme | undefined>>;
   };
+  userState: {
+    user: AbiReadResponseType<"nest", "users"> | undefined;
+    setUser: React.Dispatch<
+      React.SetStateAction<AbiReadResponseType<"nest", "users"> | undefined>
+    >;
+  };
 }
 
 const GlobalContext = createContext<GlobalContextType>({} as GlobalContextType);
@@ -23,6 +30,7 @@ const GlobalContext = createContext<GlobalContextType>({} as GlobalContextType);
 export function GlobalContextProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>();
   const [modal, setModal] = useState<ReactNode | null>();
+  const [user, setUser] = useState<AbiReadResponseType<"nest", "users">>();
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("nest-theme");
@@ -44,9 +52,10 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
     }
   }, [theme]);
 
-  const value = {
+  const value: GlobalContextType = {
     modalState: { modal, setModal },
     themeState: { theme, setTheme },
+    userState: { user, setUser },
   };
 
   return (

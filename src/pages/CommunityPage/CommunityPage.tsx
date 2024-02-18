@@ -1,25 +1,17 @@
 import React, { useEffect, useState } from "react";
 import SubgroupList from "./components/SubgroupList";
-import Feed from "./components/Feed";
+import Feed from "./components/Feed/Feed";
 import Chat from "./components/Chat";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import useWeb3, { AbiReadResponseType } from "../../contexts/web3context";
+import useWeb3 from "../../contexts/web3context";
 import Loader from "../../common/Loader";
-import {
-  Address,
-  Chain,
-  Client,
-  CustomTransport,
-  getContract,
-  isAddress,
-} from "viem";
+import { Address, Chain, Client, CustomTransport, getContract } from "viem";
 import contractDefinitions from "../../contracts";
 import { Mutable } from "../../types";
+import { useAccount } from "@particle-network/connect-react-ui";
 
 export default function CommunityPage() {
   const params = useParams();
-
-  console.log(params.address);
   if (!params.address) return <Navigate to="/" />;
 
   const [community, setCommunity] = useState<
@@ -39,6 +31,7 @@ export default function CommunityPage() {
 
   const web3 = useWeb3();
   const navigate = useNavigate();
+  const account = useAccount();
 
   function setProperty<T extends keyof Community>(
     property: T,

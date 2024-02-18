@@ -6,9 +6,7 @@ import CommunityThemePicker from "./components/CommunityThemePicker";
 import CommunityEmotesSelector from "./components/CommunityEmotesSelector";
 import { useState } from "react";
 import community from "../../contracts/community";
-import { useCurrentChain } from "@particle-network/connect-react-ui/dist/hooks";
 import nest from "../../contracts/nest";
-import { avalancheFuji } from "viem/chains";
 
 export default function NewCommunityPage() {
   const web3 = useWeb3();
@@ -37,12 +35,6 @@ export default function NewCommunityPage() {
       bytecode: `0x${community.bytecode}`,
       args,
     });
-
-    // web3.contracts.nest.write
-    //   .newCommunity(args)
-    //   .then(() => navigate("/communities"))
-    //   .catch((err) => console.error(err))
-    //   .finally(() => setLoading(false));
   }
 
   return (

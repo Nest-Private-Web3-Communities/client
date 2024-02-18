@@ -159,3 +159,28 @@ export function padNumbersInStringTo3(input: string): string {
 
   return paddedString;
 }
+
+export function interpolateColors(
+  colors: [number, number, number][],
+  fraction: number
+): [number, number, number] {
+  fraction = Math.max(0, Math.min(1, fraction));
+  const numSegments = colors.length - 1;
+  const segmentFraction = fraction * numSegments;
+  const segmentIndex = Math.floor(segmentFraction);
+  const segmentFractionPart = segmentFraction - segmentIndex;
+
+  const color1 = colors[segmentIndex];
+  const color2 = colors[Math.min(segmentIndex + 1, colors.length - 1)];
+
+  const interpolatedColor: [number, number, number] = [
+    Math.round(color1[0] + segmentFractionPart * (color2[0] - color1[0])),
+    Math.round(color1[1] + segmentFractionPart * (color2[1] - color1[1])),
+    Math.round(color1[2] + segmentFractionPart * (color2[2] - color1[2])),
+  ];
+  return interpolatedColor;
+}
+
+export function arrayToRgb(arr: [number, number, number]) {
+  return `rgb(${arr[0]} ${arr[1]} ${arr[2]})`;
+}
