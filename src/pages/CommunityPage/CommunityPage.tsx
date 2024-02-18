@@ -2,69 +2,127 @@ import React, { useEffect, useState } from "react";
 import SubgroupList from "./components/SubgroupList";
 import Feed from "./components/Feed";
 import Chat from "./components/Chat";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useWeb3, { AbiReadResponseType } from "../../contexts/web3context";
 import Loader from "../../common/Loader";
+import {
+  Address,
+  Chain,
+  Client,
+  CustomTransport,
+  getContract,
+  isAddress,
+} from "viem";
+import contractDefinitions from "../../contracts";
+import { Mutable } from "../../types";
 
 export default function CommunityPage() {
-  const [data, setData] = useState<AbiReadResponseType<"communities">>();
-  const [emotes, setEmotes] =
-    useState<AbiReadResponseType<"getCommunityReactionSet">>();
-  const [loading, setLoading] = useState(true);
-
-  const web3 = useWeb3();
-
   const params = useParams();
 
+  console.log(params.address);
+  if (!params.address) return <Navigate to="/" />;
+
+  const [community, setCommunity] = useState<
+    Partial<Community> & { address: Address }
+  >({ address: params.address as Address });
+  const [contract, setContract] =
+    useState<
+      ReturnType<
+        typeof getContract<
+          CustomTransport,
+          Address,
+          typeof contractDefinitions.community.abi,
+          Client<CustomTransport, Chain>
+        >
+      >
+    >();
+
+  const web3 = useWeb3();
   const navigate = useNavigate();
 
-  async function loadData() {
-    if (!params.uuid) {
-      return navigate("/");
-    }
-    await web3.contracts.nest.read
-      .communities([params.uuid])
-      .then((res) => setData(res));
+  function setProperty<T extends keyof Community>(
+    property: T,
+    value: Community[T]
+  ) {
+    setCommunity((p) => ({ ...p, [property]: value }));
+  }
 
-    await web3.contracts.nest.read
-      .getCommunityReactionSet([params.uuid])
-      .then((res) => setEmotes(res));
+  function loadData() {
+    if (!contract) return;
 
-    setLoading(false);
+    contract.read.name().then((res) => setProperty("name", res));
+    contract.read.description().then((res) => setProperty("description", res));
+    contract.read.imageUrl().then((res) => setProperty("imageUrl", res));
+    contract.read
+      .getReactions()
+      .then((res) => setProperty("reactions", res as Mutable<typeof res>));
+
+    contract.read.theme().then((res) =>
+      setProperty("theme", {
+        primary: res[0],
+        secondary: res[1],
+        background: res[2],
+        foreground: res[3],
+        front: res[4],
+        back: res[5],
+      })
+    );
   }
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [contract]);
+
+  useEffect(() => {
+    if (web3.client && !contract)
+      setContract(
+        getContract({
+          abi: contractDefinitions.community.abi,
+          address: community.address,
+          client: web3.client,
+        })
+      );
+  }, [web3.client]);
 
   return (
     <>
-      {!loading && data && emotes && (
+      {community.theme && contract && (
         <main
           className="bg-background px-[8vw] flex h-screen w-full"
           style={
             {
-              "--color-primary": data[3].primary,
-              "--color-secondary": data[3].secondary,
-              "--color-background": data[3].background,
-              "--color-foreground": data[3].foreground,
-              "--color-front": data[3].front,
-              "--color-back": data[3].back,
+              "--color-primary": community.theme.primary,
+              "--color-secondary": community.theme.secondary,
+              "--color-background": community.theme.background,
+              "--color-foreground": community.theme.foreground,
+              "--color-front": community.theme.front,
+              "--color-back": community.theme.back,
             } as React.CSSProperties
           }
         >
           <SubgroupList />
-          <Feed emotes={emotes} />
+          {community.reactions && <Feed emotes={community.reactions} />}
           <Chat />
         </main>
       )}
 
-      {loading && (
-        <main className="flex flex-col h-screen justify-center items-center">
+      {!(community.theme && contract && community.imageUrl) && (
+        <main className="flex flex-col h-screen justify-center items-center relative z-[100]">
           <Loader className="w-1/5" />
           <p className="mt-[10vh] text-primary font-medium">Powered by NEST</p>
         </main>
       )}
     </>
   );
+}
+
+interface Community {
+  name: string;
+  description: string;
+  imageUrl: string;
+  theme: Record<
+    "primary" | "secondary" | "background" | "foreground" | "front" | "back",
+    string
+  >;
+  reactions: Array<{ name: string; color: string }>;
 }

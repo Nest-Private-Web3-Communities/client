@@ -11,3 +11,7 @@ export type UnionToTuple<T> = UnionToIntersection<
 > extends (_: any) => infer W
   ? [...UnionToTuple<Exclude<T, W>>, W]
   : [];
+
+export type Mutable<Type> = {
+  -readonly [Key in keyof Type]: Type[Key];
+};

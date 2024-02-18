@@ -51,7 +51,7 @@ const router = createBrowserRouter(
         element={<ProtectedRoute type={ProtectedTypes.AUTHENTICATEDONLY} />}
       >
         <Route path="community" element={<CommunityPage />} />
-        <Route path="community/:uuid" element={<CommunityPage />} />
+        <Route path="community/:address" element={<CommunityPage />} />
       </Route>
     </>
   )
