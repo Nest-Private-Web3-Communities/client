@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import SubgroupList from "./components/SubgroupList";
 import Feed from "./components/Feed/Feed";
 import Chat from "./components/Chat";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
@@ -57,6 +56,14 @@ export default function CommunityPage() {
         back: res.slice(60, 71),
       })
     );
+
+    contract.read
+      .getMemberCount()
+      .then((res) => setProperty("memberCount", Number(res)));
+
+    contract.read
+      .getNetworkCount()
+      .then((res) => setProperty("networkCount", Number(res)));
   }
 
   useEffect(() => {

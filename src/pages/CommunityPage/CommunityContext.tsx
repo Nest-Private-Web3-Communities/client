@@ -70,6 +70,8 @@ interface Community {
     string
   >;
   reactions: Array<{ name: string; color: string }>;
+  memberCount: number;
+  networkCount: number;
 }
 
 export type ICommunity = Partial<Community> & {

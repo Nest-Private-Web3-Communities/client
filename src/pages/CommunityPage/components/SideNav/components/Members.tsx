@@ -5,59 +5,16 @@ import Icon from "../../../../../common/Icon";
 import useCommunity from "../../../CommunityContext";
 import { rangeArray } from "../../../../../utils";
 import { useIsInViewport } from "../../../../../hooks/useIsInView";
-import { twMerge } from "tailwind-merge";
 import useWeb3 from "../../../../../contexts/web3context";
 import { Address } from "viem";
-
-const dummy2 = [
-  {
-    name: "Arial",
-    image: "https://randomuser.me/api/portraits/women/90.jpg",
-  },
-  {
-    name: "Alice",
-    image: "https://randomuser.me/api/portraits/men/10.jpg",
-  },
-
-  {
-    name: "Ben Shapiro",
-    image: "https://randomuser.me/api/portraits/men/5.jpg",
-  },
-  {
-    name: "Luis",
-    image: "https://randomuser.me/api/portraits/women/22.jpg",
-  },
-  {
-    name: "Remo Singh",
-    image: "https://randomuser.me/api/portraits/men/54.jpg",
-  },
-  {
-    name: "Desuza",
-    image: "https://randomuser.me/api/portraits/men/22.jpg",
-  },
-  {
-    name: "Stepahno",
-    image: "https://randomuser.me/api/portraits/men/8.jpg",
-  },
-];
 
 export default function Members() {
   const membersContainerRef =
     useRef() as React.MutableRefObject<HTMLDivElement>;
   useIdleScrollbar(membersContainerRef);
 
-  const modal = useModal();
-  const { contract } = useCommunity();
-
-  const [memberCount, setMemberCount] = useState<BigInt>();
-
-  function loadData() {
-    contract?.read.getMemberCount().then((res) => setMemberCount(res));
-  }
-
-  useEffect(() => {
-    if (contract) loadData();
-  }, [contract]);
+  const { data } = useCommunity();
+  const { memberCount } = data;
 
   return (
     <section className="basis-1/2">
@@ -111,7 +68,7 @@ function MemberCard(props: { userIdx: number }) {
   }
 
   useEffect(() => {
-    if (contract && flag && !userData) loadData();
+    if (contract && flag.current && !userData) loadData();
   }, [flag, contract]);
 
   return (
