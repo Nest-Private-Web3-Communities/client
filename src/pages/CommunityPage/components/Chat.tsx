@@ -104,7 +104,7 @@ export default function Chat() {
             style={{ animationDelay: "1s" }}
           />
           <div className="z-10 absolute-cover scale-90 bg-secondary animate-pulse blur-3xl" />
-          <div className="text-front text-lg font-black text-center z-30 bg-background rounded-2xl shadow-lg border border-front border-opacity-20 py-4 px-6">
+          <div className="text-front text-lg font-black text-center z-30 bg-background rounded-2xl shadow-lg border border-primary border-opacity-40 py-4 px-6">
             Chat feature coming soon!
           </div>
         </div>

@@ -44,6 +44,8 @@ function CommunityCard(props: {
   const [data, setData] =
     useState<Record<"name" | "description" | "imageUrl", string>>();
 
+  const [loading, setLoading] = useState(true);
+
   const communityContract = getContract({
     abi: community.abi,
     address: props.communityAddress,
@@ -59,30 +61,46 @@ function CommunityCard(props: {
 
   useEffect(() => {
     loadData();
-  }, []);
+    if (data) {
+      setLoading(false);
+    }
+  }, [data]);
 
   return (
-    <Link
-      to={`/community/${props.communityAddress}`}
-      className={twMerge(
-        "rounded-lg shadow shadow-front/25 border overflow-hidden border-opacity-50 p-5 flex flex-col items-center gap-y-3 relative bg-background border-front duration-300 hover:scale-105 text-start min-w-[18vw]",
-        props.className
+    <>
+      {loading ? (
+        <div
+          className={twMerge(
+            "rounded-lg shadow shadow-front/25 border overflow-hidden border-opacity-50 p-5 flex flex-col items-center gap-y-3 relative bg-background border-front duration-300 hover:scale-105 text-start min-w-[18vw]",
+            props.className
+          )}
+        >
+          <div className="aspect-square rounded-full object-contain w-[10vw] bg-primary bg-opacity-20 animate-pulse" />
+          <div className="text-lg pb-1 w-full bg-primary rounded-3xl bg-opacity-20 animate-pulse h-[4vh]" />
+          <div className="text-sm font-light text-center bg-primary bg-opacity-20 animate-pulse apsect-square w-full h-[10vh] rounded-xl" />
+        </div>
+      ) : (
+        <Link
+          to={`/community/${props.communityAddress}`}
+          className={twMerge(
+            "rounded-lg shadow shadow-front/25 border overflow-hidden border-opacity-50 p-5 flex flex-col items-center gap-y-3 relative bg-background border-front duration-300 hover:scale-105 text-start min-w-[18vw]",
+            props.className
+          )}
+        >
+          <img
+            src={data?.imageUrl}
+            alt={data?.name}
+            className="aspect-square rounded-lg object-contain w-[10vw]"
+          />
+          <h1 className="text-lg font-medium tracking-tight truncate border-b border-opacity-50 pb-1 w-full text-center border-front">
+            {data?.name}
+          </h1>
+          <p className="text-sm font-light text-center">
+            {data?.description.slice(0, 100)}
+            {(data?.description.length || 0) > 101 && "..."}
+          </p>
+        </Link>
       )}
-    >
-      <h1 className="text-lg font-medium tracking-tight truncate border-b border-opacity-50 pb-1 w-full text-center border-front">
-        {data?.name}
-      </h1>
-
-      <img
-        src={data?.imageUrl}
-        alt={data?.name}
-        className="aspect-square rounded-lg object-contain w-[10vw]"
-      />
-
-      <p className="text-sm font-light text-center">
-        {data?.description.slice(0, 100)}
-        {(data?.description.length || 0) > 101 && "..."}
-      </p>
-    </Link>
+    </>
   );
 }
