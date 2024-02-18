@@ -1,3 +1,12 @@
+import { useState } from "react";
+import { create } from "ipfs-http-client";
+
+const ipfs = create({
+  host: "localhost",
+  port: 5001,
+  protocol: "https",
+});
+
 type ContentTimestamp = {
   timestamp: number;
   [key: string]: string | number;
@@ -60,6 +69,26 @@ export default function TestingPage(): JSX.Element {
     }
   });
 
+  const [file, setFile] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+    }
+  };
+  const handleUpload = async () => {
+    try {
+      if (!file) return;
+      const uploaded = await ipfs.add(file);
+      const imageUrl = `https://ipfs.io/ipfs/${uploaded.cid.toString()}`;
+      setImageUrl(imageUrl);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
   console.log(decryptedContentTimestamp);
   return (
     <section className="py-24 p-page flex flex-col gap-y-4">
@@ -83,6 +112,10 @@ export default function TestingPage(): JSX.Element {
           </div>
         ))}
       </div>
+      <input type="file" onChange={handleFileChange} />
+      <button onClick={handleUpload}>Upload</button>
+      <div>{imageUrl}</div>
+      {imageUrl && <img src={imageUrl} alt="Uploaded" />}
     </section>
   );
 }
