@@ -95,7 +95,20 @@ export default function Chat() {
   useIdleScrollbar(containerRef);
 
   return (
-    <div className="text-front flex-1 flex flex-col bg-foreground border-r border-front border-opacity-25 w-[35vw]">
+    <div className="text-front flex-1 flex flex-col bg-foreground border-r border-front border-opacity-25 w-[35vw] relative">
+      <div className="w-full h-full absolute backdrop-blur-sm opacity-90" />
+      <div className="absolute top-80 left-20">
+        <div className="flex flex-col items-center gap-y-2 w-[15vw] relative z-30">
+          <div
+            className="z-20 absolute-cover scale-90 bg-primary blur-3xl animate-pulse"
+            style={{ animationDelay: "1s" }}
+          />
+          <div className="z-10 absolute-cover scale-90 bg-secondary animate-pulse blur-3xl" />
+          <div className="text-front text-lg font-black text-center z-30 bg-background rounded-2xl shadow-lg border border-front border-opacity-20 py-4 px-6">
+            Chat feature coming soon!
+          </div>
+        </div>
+      </div>
       <div className="text-xl w-full pl-4 pr-2 border-b bg-background border-front border-opacity-25 pb-1 items-center flex justify-between pt-4">
         <h1 className="tracking-wide font-semibold">Chat</h1>
         <button className="p-2 duration-200 ease-in hover:bg-background text-primary border border-front hover:border-opacity-25 border-opacity-0 rounded-full">
@@ -116,7 +129,7 @@ export default function Chat() {
             </p>
           </div>
         </div>
-        <button className="p-2 duration-200 ease-in hover:bg-background text-primary border border-front hover:border-opacity-25 border-opacity-0 rounded-full">
+        <button className="hidden p-2 duration-200 ease-in hover:bg-background text-primary border border-front hover:border-opacity-25 border-opacity-0 rounded-full">
           <Icon icon="arrow_forward" className="rotate-180 text-[1.2rem]" />
         </button>
       </div>

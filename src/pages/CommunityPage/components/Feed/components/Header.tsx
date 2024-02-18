@@ -42,7 +42,7 @@ export default function Header() {
         <div className="relative h-max">
           <img
             src={user.data.imageUrl}
-            className="rounded-full w-[4vw] aspect-square object-cover self-start"
+            className="rounded-full w-[4vw] aspect-square object-cover self-start border-primary border p-1"
           />
           <div className="bg-green-500 w-[2ch] rounded-full -right-1 bottom-0 border-4 border-secondary aspect-square absolute" />
         </div>
