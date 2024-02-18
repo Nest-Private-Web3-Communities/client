@@ -6,6 +6,9 @@ import { emoteDeclarations } from "../../../../common/Emote";
 import { AbiReadResponseType } from "../../../../contexts/web3context";
 import Header from "./components/Header";
 import useCommunity from "../../CommunityContext";
+import useModal from "../../../../hooks/useModal";
+import ModalShare from "../modals/ModalShare";
+import useEncryptionContext from "../../../../contexts/encryptionContext";
 
 const dummy = [
   {
@@ -71,7 +74,11 @@ const dummy = [
 
 export default function Feed() {
   const { data } = useCommunity();
+  const encryption = useEncryptionContext();
   const emotes = data.reactions;
+  const modal = useModal();
+
+  console.log(encryption.keyMaster);
 
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   useIdleScrollbar(containerRef);
@@ -119,9 +126,7 @@ export default function Feed() {
                         <div className="bg-background p-1 flex items-center gap-x-1 rounded-md border border-front border-opacity-30">
                           {emotes &&
                             emotes.map((emote, key) => (
-                              <button 
-                                key={key}
-                              className="group/emote">
+                              <button key={key} className="group/emote">
                                 <Emote
                                   name={emote.name as EmoteType}
                                   color={`rgb(${emote.color})`}
@@ -141,7 +146,10 @@ export default function Feed() {
                       <p className="text-xs">{data.comments}</p>
                     </button>
                   </div>
-                  <button className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in hover:border-primary border px-2 py-1 rounded-full border-front">
+                  <button
+                    onClick={() => modal.show(<ModalShare />)}
+                    className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in hover:border-primary border px-2 py-1 rounded-full border-front"
+                  >
                     <Icon icon="share" className="text-[1rem]" />
                   </button>
                 </div>
