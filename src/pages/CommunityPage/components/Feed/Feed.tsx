@@ -60,7 +60,7 @@ const dummy = [
   {
     name: "MooPals",
     address: "1Auqo9hBSvOC3VJiVWvtXzn30MVMefkCQR",
-    content: "It’s nearly time…🥛 But wen is wen?",
+    content: "It's nearly time…🥛 But wen is wen?",
     comments: 353,
     userImage: "https://randomuser.me/api/portraits/women/45.jpg",
     imageUrl:
@@ -119,9 +119,10 @@ export default function Feed() {
                         <div className="bg-background p-1 flex items-center gap-x-1 rounded-md border border-front border-opacity-30">
                           {emotes &&
                             emotes.map((emote, key) => (
-                              <button className="group/emote">
+                              <button 
+                                key={key}
+                              className="group/emote">
                                 <Emote
-                                  key={key}
                                   name={emote.name as EmoteType}
                                   color={`rgb(${emote.color})`}
                                   className="text-[1.8vw] group-hover/emote:-translate-y-3 duration-150 bg-background rounded-full"

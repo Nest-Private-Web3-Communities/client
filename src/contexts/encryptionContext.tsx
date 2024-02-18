@@ -130,7 +130,9 @@ export function EncryptionContextProvider({
   }, [account, web3.contracts]);
 
   useEffect(() => {
-    setKeyPub(dhParameters.primitive ** keyPvt % dhParameters.prime);
+    if (keyPvt > 0 && dhParameters.prime > 0 && dhParameters.primitive > 0)
+      console.log(dhParameters.primitive, keyPvt);
+    // setKeyPub(dhParameters.primitive ** keyPvt % dhParameters.prime);
   }, [keyPvt, dhParameters]);
 
   useEffect(() => {

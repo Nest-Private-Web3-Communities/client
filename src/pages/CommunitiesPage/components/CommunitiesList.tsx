@@ -65,23 +65,23 @@ function CommunityCard(props: {
     <Link
       to={`/community/${props.communityAddress}`}
       className={twMerge(
-        "rounded-lg shadow shadow-front/25 overflow-hidden p-5 flex flex-col items-center gap-y-3 relative bg-background border-foreground duration-300 hover:scale-105 text-start min-w-[18vw]",
+        "rounded-lg shadow shadow-front/25 border overflow-hidden border-opacity-50 p-5 flex flex-col items-center gap-y-3 relative bg-background border-front duration-300 hover:scale-105 text-start min-w-[18vw]",
         props.className
       )}
     >
-      <h1 className="text-lg font-medium tracking-tight truncate">
+      <h1 className="text-lg font-medium tracking-tight truncate border-b border-opacity-50 pb-1 w-full text-center border-front">
         {data?.name}
       </h1>
 
       <img
         src={data?.imageUrl}
         alt={data?.name}
-        className="aspect-square object-cover rounded-lg"
+        className="aspect-square rounded-lg object-contain w-[10vw]"
       />
 
-      <p className="text-sm font-light">
-        {data?.description.slice(0, 50)}
-        {(data?.description.length || 0) > 51 && "..."}
+      <p className="text-sm font-light text-center">
+        {data?.description.slice(0, 100)}
+        {(data?.description.length || 0) > 101 && "..."}
       </p>
     </Link>
   );

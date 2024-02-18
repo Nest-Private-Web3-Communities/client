@@ -1,37 +1,19 @@
-from datetime import datetime, timedelta
+from sympy import randprime, primitive_root
 
-def ist_to_cst(date_str, time_str):
-    # Define the time difference between IST and CST
-    ist_offset = timedelta(hours=11, minutes=30)  # IST is 11 hours 30 minutes ahead of CST
+def generate_primitive_element(bit_length):
+    # Generate a large prime
+    prime = randprime(2**(bit_length-1), 2**bit_length)
 
-    # Convert the input string to datetime object in IST
-    ist_datetime = datetime.strptime(date_str + ' ' + time_str, '%Y-%m-%d %H:%M')
+    # Find a primitive element modulo the prime
+    primitive_element = primitive_root(prime)
 
-    # Apply the IST offset to get the final datetime in CST
-    cst_datetime = ist_datetime - ist_offset
+    return primitive_element, prime
 
-    return cst_datetime.strftime('%Y-%m-%d %H:%M')
-
-schedule = {
-    "2024-02-18": ["18:30", "21:30"],
-    "2024-02-19": ["07:00", "09:30", "18:30", "21:30"],
-    "2024-02-20": ["18:30", "21:30"],
-    "2024-02-21": ["07:00", "09:30", "18:30", "21:30"],
-    "2024-02-22": ["18:30", "21:30"],
-    "2024-02-23": ["07:00", "09:30", "18:30", "21:30"],
-    "2024-02-24": ["19:00", "21:30"],
-    "2024-02-25": ["07:00", "09:30", "18:30", "21:30"]
-}
-
-cst_schedule = {}
-
-for date, times in schedule.items():
-    cst_times = []
-    for time in times:
-        cst_time = ist_to_cst(date, time)
-        cst_times.append(cst_time)
-    cst_schedule[date] = cst_times
-
-print(cst_schedule)
-
-
+if __name__ == "__main__":
+    bit_length = 48  # Adjust this according to your requirements
+    test = 0
+    while test < 13:
+        primitive_element, prime = generate_primitive_element(bit_length)
+        test = primitive_element
+        print("\n\n\nPrimitive element:", primitive_element)
+        print("Prime modulus:", prime)
