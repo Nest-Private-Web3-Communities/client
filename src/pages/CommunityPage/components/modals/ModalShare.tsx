@@ -28,7 +28,7 @@ const directs = [
 export default function ModalShare() {
   const modal = useModal();
   return (
-    <div className="relative bg-black p-6 w-[40vw] rounded-lg flex flex-col items-center border border-front/25 gap-y-6">
+    <div className="relative bg-black p-6 w-[40vw] rounded-lg flex flex-col items-center border border-white/25 gap-y-6">
       <button
         className="absolute top-2 right-2 text-red-500 text-2xl "
         onClick={modal.hide}
