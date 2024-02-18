@@ -37,7 +37,17 @@ export default function NewAccountPage() {
 
   return (
     <>
-      <section className="flex items-center bg-foreground h-screen px-[13vw] select-none">
+      <section className="flex items-center h-screen px-[13vw] select-none relative">
+        <div className="absolute-cover opacity-60 blur-2xl -z-1">
+          <video
+            src="/videos/faq-gradient.mp4"
+            autoPlay
+            loop
+            muted
+            className="absolute-cover object-cover blur-3xl"
+          />
+          <article className="bg-primary absolute-cover mix-blend-hue" />
+        </div>
         <div className="flex-1 flex flex-col justify-center pr-[10vw]">
           <div className="flex items-center text-[4vw] gap-x-2">
             <img src="/logo.png" className="h-[1em]" draggable={false} />
