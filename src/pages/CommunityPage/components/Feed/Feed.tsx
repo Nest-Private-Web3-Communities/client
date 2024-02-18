@@ -7,6 +7,8 @@ import useCommunity from "../../CommunityContext";
 import useModal from "../../../../hooks/useModal";
 import ModalShare from "../modals/ModalShare";
 import useEncryptionContext from "../../../../contexts/encryptionContext";
+import CryptoJS from "crypto-js";
+import { keyBase } from "../../../../config";
 
 const dummy = [
   {
@@ -88,6 +90,14 @@ export default function Feed() {
   }
 
   console.log(contract?.read.posts([BigInt(0)]));
+
+  console.log(
+    "decrypted : ",
+    CryptoJS.AES.decrypt(
+      "U2FsdGVkX1+mA7PZ8k3fZXCpQITP/wATAWYPv0W4j0s0U9yYtVPHELNv//ZThypMw57b6nb+XXWOwRJnJCoDXEg2wTwcLNqRF3pY66p4rcw=",
+      (6.332633863323164e127).toString(keyBase)
+    ).toString()
+  );
 
   return (
     <div className="text-front flex flex-col h-screen border-x border-opacity-20 border-front w-[40vw] z-10 overflow-y-hidden bg-background">

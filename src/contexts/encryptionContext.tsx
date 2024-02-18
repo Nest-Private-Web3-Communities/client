@@ -87,7 +87,9 @@ export function EncryptionContextProvider({
     }
 
     if (account && !gotLocalKey) {
-      const pvt = primitive + Math.random() * (prime - primitive - 2);
+      const pvt = Math.floor(
+        primitive + Math.random() * (prime - primitive - 2)
+      );
       setKeyPvt(pvt);
 
       let newKeys = {};
@@ -108,7 +110,7 @@ export function EncryptionContextProvider({
 
   useEffect(() => {
     if (keyPvt > 0 && dhParameters.prime > 0 && dhParameters.primitive > 0)
-      console.log(dhParameters.primitive, keyPvt);
+      setKeyPub(dhParameters.primitive ** keyPvt % dhParameters.prime);
   }, [keyPvt, dhParameters]);
 
   useEffect(() => {
@@ -135,13 +137,20 @@ export function EncryptionContextProvider({
         ]);
 
         key.key = Number(
-          CryptoJS.AES.decrypt(e_key, sharedKey.toString()).toString()
+          CryptoJS.AES.decrypt(e_key, sharedKey.toString(keyBase)).toString()
         );
+
+        if (publisherAddress == account)
+          key.key = Number(
+            CryptoJS.AES.decrypt(e_key, keyPvt.toString(keyBase)).toString()
+          );
 
         setAgreement((p) => [...p, key]);
       }
 
-      setKeyMaster(agreement[-1].key);
+      console.log(agreement);
+
+      setKeyMaster(agreement[agreement.length - 1].key);
     }
 
     loadKeys();

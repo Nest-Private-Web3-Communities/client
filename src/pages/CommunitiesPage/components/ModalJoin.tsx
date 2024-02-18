@@ -36,10 +36,11 @@ export default function ModalJoin() {
       client: web3.client,
     });
 
-    const _Keys: string[] = [];
-    const _Users: Address[] = [];
+    const _Keys: string[] = [encryption.keyPvt.toString(keyBase)];
+    const _Users: Address[] = [account as Address];
 
     const newKey = generateRandomHex(64);
+    alert(newKey);
 
     const fellows = await contract.read.getMemberAddresses();
     for await (let p of fellows) {
@@ -57,6 +58,7 @@ export default function ModalJoin() {
       .join([_Keys, _Users])
       .then(
         () => {
+          modal.hide();
           navigate(`/community/${address}`);
         },
         (e) => {
