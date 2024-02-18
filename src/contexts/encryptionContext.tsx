@@ -1,4 +1,4 @@
-import {
+import React, {
   ContextType,
   ReactNode,
   createContext,
@@ -6,9 +6,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import useWeb3, { AbiReadResponseType } from "./web3context";
+import useWeb3, { AbiReadResponseType, ContractType } from "./web3context";
 import {
-  AddEthereumChainParameter,
   Address,
   Chain,
   Client,
@@ -29,19 +28,9 @@ interface EncryptionContextType {
   keyPub: number;
   keyMaster: number;
 
-  setCommunityContract: React.Dispatch<
-    React.SetStateAction<
-      | ReturnType<
-          typeof getContract<
-            CustomTransport,
-            Address,
-            typeof contractDefinitions.community.abi,
-            Client<CustomTransport, Chain, any>
-          >
-        >
-      | undefined
-    >
-  >;
+  setCommunityContract: React.Dispatch<React.SetStateAction<
+  ContractType<typeof contractDefinitions.community.abi> | undefined
+  >>
 }
 
 const EncryptionContext = createContext<EncryptionContextType>(
@@ -66,17 +55,7 @@ export function EncryptionContextProvider({
   const [agreement, setAgreement] = useState<
     Array<{ createdAt: number; key: number }>
   >([]);
-  const [communityContract, setCommunityContract] =
-    useState<
-      ReturnType<
-        typeof getContract<
-          CustomTransport,
-          Address,
-          typeof contractDefinitions.community.abi,
-          Client<CustomTransport, Chain, any>
-        >
-      >
-    >();
+  const [communityContract, setCommunityContract] =useState<ContractType<typeof contractDefinitions.community.abi>>();
 
   const [loading, setLoading] = useState(true);
 
