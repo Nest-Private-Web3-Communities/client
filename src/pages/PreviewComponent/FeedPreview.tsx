@@ -113,7 +113,7 @@ export default function FeedPreview() {
 
               <button
                 className="text-white bg-primary text-sm px-4 py-1 rounded-3xl font-medium disabled:opacity-30 disabled:cursor-not-allowed"
-                disabled={true}
+                disabled={false}
               >
                 Post
               </button>

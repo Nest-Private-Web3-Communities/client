@@ -77,6 +77,8 @@ export default function CommunityPage() {
       );
   }, [web3.client]);
 
+  console.log(community.theme);
+
   return (
     <>
       {community.theme && contract && (
