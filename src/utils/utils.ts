@@ -184,3 +184,11 @@ export function interpolateColors(
 export function arrayToRgb(arr: [number, number, number]) {
   return `rgb(${arr[0]} ${arr[1]} ${arr[2]})`;
 }
+
+export function rangeArray(num: number) {
+  const result = [];
+  for (let i = 0; i < num; i++) {
+    result.push(i);
+  }
+  return result;
+}

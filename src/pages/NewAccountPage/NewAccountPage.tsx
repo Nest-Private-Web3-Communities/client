@@ -22,7 +22,7 @@ export default function NewAccountPage() {
 
   function createAccountHandler(event: React.FormEvent) {
     event.preventDefault();
-    const key = encryption.keyPvt.toString(16);
+    const key = encryption.keyPub.toString(16);
 
     setLoading(true);
 

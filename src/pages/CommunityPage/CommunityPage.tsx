@@ -9,6 +9,7 @@ import { Address, Chain, Client, CustomTransport, getContract } from "viem";
 import contractDefinitions from "../../contracts";
 import { Mutable } from "../../types";
 import { useAccount } from "@particle-network/connect-react-ui";
+import useEncryptionContext from "../../contexts/encryptionContext";
 
 export default function CommunityPage() {
   const params = useParams();
@@ -30,6 +31,7 @@ export default function CommunityPage() {
     >();
 
   const web3 = useWeb3();
+  const encryption = useEncryptionContext();
   const navigate = useNavigate();
   const account = useAccount();
 
@@ -64,6 +66,7 @@ export default function CommunityPage() {
 
   useEffect(() => {
     loadData();
+    if (contract) encryption.setCommunityContract(contract);
   }, [contract]);
 
   useEffect(() => {

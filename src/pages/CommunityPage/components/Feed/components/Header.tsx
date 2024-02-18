@@ -4,12 +4,15 @@ import Icon from "../../../../../common/Icon";
 import useNestUser from "../../../../../hooks/useNestUser";
 import { twMerge } from "tailwind-merge";
 import { arrayToRgb, interpolateColors } from "../../../../../utils";
+import useWeb3 from "../../../../../contexts/web3context";
 
 export default function Header() {
   const user = useNestUser();
+  const web3 = useWeb3();
 
+  const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
-  const maxContentLength = 1024;
+  const maxContentLength = 512;
   const wordUsage = content.length / maxContentLength;
   const wordUsageIndicatorColor = interpolateColors(
     [
@@ -22,7 +25,7 @@ export default function Header() {
 
   function makePost(event: React.FormEvent) {
     event.preventDefault();
-    const dataString = JSON.stringify({});
+    const dataString = JSON.stringify({ content: content });
   }
 
   return (
@@ -34,7 +37,7 @@ export default function Header() {
         <div className="relative h-max">
           <img
             src={user.data.imageUrl}
-            className="rounded-full w-[4vw] aspect-square self-start"
+            className="rounded-full w-[4vw] aspect-square object-cover self-start"
           />
           <div className="bg-green-500 w-[2ch] rounded-full -right-1 bottom-0 border-4 border-secondary aspect-square absolute" />
         </div>
@@ -46,6 +49,7 @@ export default function Header() {
             rows={3}
             maxLength={maxContentLength}
             onChange={(e) => setContent(e.target.value)}
+            disabled={loading}
           />
 
           <div className="flex text-primary text-xl justify-between items-center">
@@ -77,7 +81,10 @@ export default function Header() {
                 />
               </div>
 
-              <button className="text-back bg-primary text-sm px-4 py-1 rounded-3xl font-medium disabled:opacity-30 disabled:cursor-not-allowed">
+              <button
+                className="text-back bg-primary text-sm px-4 py-1 rounded-3xl font-medium disabled:opacity-40 disabled:animate-pulse disabled:cursor-not-allowed"
+                disabled={loading || content.length < 3}
+              >
                 Post
               </button>
             </div>
