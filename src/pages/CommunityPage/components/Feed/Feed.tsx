@@ -70,7 +70,7 @@ const dummy = [
 ];
 
 export default function Feed() {
-  const { data } = useCommunity();
+  const { data, contract } = useCommunity();
   const emotes = data.reactions;
 
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -81,6 +81,8 @@ export default function Feed() {
       containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
+
+  console.log(contract?.read.posts([BigInt(0)]));
 
   return (
     <div className="text-front flex flex-col h-screen border-x border-opacity-20 border-front w-[40vw] z-10 overflow-y-hidden bg-background">
@@ -119,9 +121,7 @@ export default function Feed() {
                         <div className="bg-background p-1 flex items-center gap-x-1 rounded-md border border-front border-opacity-30">
                           {emotes &&
                             emotes.map((emote, key) => (
-                              <button 
-                                key={key}
-                              className="group/emote">
+                              <button key={key} className="group/emote">
                                 <Emote
                                   name={emote.name as EmoteType}
                                   color={`rgb(${emote.color})`}

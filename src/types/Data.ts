@@ -1,1 +1,4 @@
-export interface custom {}
+export interface FeedItem {
+  content: string;
+  imageUrl?: string;
+}
