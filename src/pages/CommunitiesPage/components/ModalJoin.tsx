@@ -9,16 +9,18 @@ import { useAccount } from "@particle-network/connect-react-ui";
 import { generateRandomHex, isAddress } from "../../../utils";
 import useEncryptionContext from "../../../contexts/encryptionContext";
 import { keyBase } from "../../../config";
+import CryptoJS from "crypto-js";
+import { useNavigate } from "react-router-dom";
 
 export default function ModalJoin() {
   const modal = useModal();
   const web3 = useWeb3();
   const encryption = useEncryptionContext();
   const account = useAccount();
+  const navigate = useNavigate();
 
   const [address, setAddress] = useState("");
   const [pending, setPending] = useState(false);
-  const [msg, setMsg] = useState("");
 
   const [communityName, setCommunityName] =
     useState<AbiReadResponseType<"community", "name">>();
@@ -55,7 +57,7 @@ export default function ModalJoin() {
       .join([_Keys, _Users])
       .then(
         () => {
-          alert("Joined");
+          navigate(`/community/${address}`);
         },
         (e) => {
           alert(e);
@@ -107,7 +109,13 @@ export default function ModalJoin() {
       {communityName && participationStage == 1 && (
         <button
           className="px-10 py-1 text-sm rounded-md bg-primary mt-4 disabled:animate-pulse disabled:opacity-60"
-          onClick={join}
+          onClick={() => {
+            try {
+              join();
+            } finally {
+              setPending(false);
+            }
+          }}
           disabled={pending}
         >
           Join {communityName}

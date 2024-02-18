@@ -2,8 +2,6 @@ import React, { useRef, useState } from "react";
 import Icon from "../../../../common/Icon";
 import useIdleScrollbar from "../../../../hooks/useIdleScrollbar";
 import Emote, { EmoteType } from "../../../../common/Emote";
-import { emoteDeclarations } from "../../../../common/Emote";
-import { AbiReadResponseType } from "../../../../contexts/web3context";
 import Header from "./components/Header";
 import useCommunity from "../../CommunityContext";
 import useModal from "../../../../hooks/useModal";
@@ -73,7 +71,7 @@ const dummy = [
 ];
 
 export default function Feed() {
-  const { data } = useCommunity();
+  const { data, contract } = useCommunity();
   const encryption = useEncryptionContext();
   const emotes = data.reactions;
   const modal = useModal();
@@ -88,6 +86,8 @@ export default function Feed() {
       containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   }
+
+  console.log(contract?.read.posts([BigInt(0)]));
 
   return (
     <div className="text-front flex flex-col h-screen border-x border-opacity-20 border-front w-[40vw] z-10 overflow-y-hidden bg-background">

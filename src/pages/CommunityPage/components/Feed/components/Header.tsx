@@ -7,10 +7,16 @@ import { arrayToRgb, interpolateColors } from "../../../../../utils";
 import useWeb3 from "../../../../../contexts/web3context";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
+import { FeedItem } from "../../../../../types";
+import CryptoJS from "crypto-js";
+import useEncryptionContext from "../../../../../contexts/encryptionContext";
+import { keyBase } from "../../../../../config";
+import useCommunity from "../../../CommunityContext";
 
 export default function Header() {
   const user = useNestUser();
-  const web3 = useWeb3();
+  const { contract } = useCommunity();
+  const encryption = useEncryptionContext();
 
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
@@ -27,11 +33,24 @@ export default function Header() {
 
   function makePost(event: React.FormEvent) {
     event.preventDefault();
-    const dataString = JSON.stringify({ content: content });
+
+    setLoading(true);
+
+    const data: FeedItem = { content: content };
+
+    const dataString = JSON.stringify(data);
+    const encryptedData = CryptoJS.AES.encrypt(
+      dataString,
+      encryption.keyMaster.toString(keyBase)
+    );
+
+    contract?.write
+      .makePost(["General", encryptedData.toString()])
+      .finally(() => setLoading(false));
   }
-  const handleEmojiSelect = (emoji: any) => {
+  function handleEmojiSelect(emoji: any) {
     setContent(content + emoji.native);
-  };
+  }
 
   return (
     <header className="bg-foreground py-4 px-4 border-b border-front/25">
