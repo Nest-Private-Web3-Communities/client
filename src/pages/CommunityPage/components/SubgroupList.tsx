@@ -92,7 +92,7 @@ export default function SubgroupList() {
       </h1>
       <div
         ref={subgroupContainerRef}
-        className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary mt-2 px-2 py-2 rounded-lg border border-opacity-25 border-front mx-4 bg-secondary"
+        className="flex flex-col gap-y-3 h-[40%] overflow-y-scroll scrollbar-primary mt-2 px-2 py-2 rounded-lg border border-opacity-25 border-front mx-4 bg-secondary"
       >
         {dummy.map((data, i) => (
           <div
@@ -134,7 +134,7 @@ export default function SubgroupList() {
       </div>
       <div
         ref={membersContainerRef}
-        className="mx-4 flex flex-col gap-y-4 bg-secondary p-4 rounded-lg border border-front border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary"
+        className="mx-4 flex flex-col gap-y-4 bg-secondary p-4 rounded-lg border border-front border-opacity-20 overflow-y-scroll scrollbar-primary"
       >
         {dummy2.map((member, i) => (
           <div
