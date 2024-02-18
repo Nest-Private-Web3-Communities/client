@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import useIdleScrollbar from "../../../../../hooks/useIdleScrollbar";
 import useModal from "../../../../../hooks/useModal";
 import Icon from "../../../../../common/Icon";
+import useCommunity from "../../../CommunityContext";
+import ModalAddNetowrk from "../../modals/ModalAddNetwork";
 
 const dummy = [
   {
@@ -71,13 +73,13 @@ const dummy2 = [
 export default function SubgroupList() {
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   useIdleScrollbar(containerRef);
-
+  const { data } = useCommunity();
   const modal = useModal();
 
   return (
     <section className="basis-1/2">
       <h1 className="text-xl font-bold px-4 border-b border-front border-opacity-25 pb-1 pt-2">
-        Sub Groups
+        Networks
       </h1>
       <div
         ref={containerRef}
@@ -110,6 +112,24 @@ export default function SubgroupList() {
             </button>
           </div>
         ))}
+        {data.userIsAdmin && (
+          <button
+            onClick={() => modal.show(<ModalAddNetowrk />)}
+            className=" bg-foreground bg-opacity-60 hover:bg-opacity-100 duration-200 ease-in px-3 border-front border border-opacity-20 py-4 rounded-lg flex items-center min-w-[15vw] justify-between"
+          >
+            <div className="flex gap-x-4 items-center w-full justify-center">
+              <Icon
+                icon="add"
+                className="rounded-full bg-front text-background w-[2.5vw] h-full p-2"
+              />
+              <div className="flex flex-col">
+                <h2 className="font-semibold whitespace-nowrap">
+                  Add a new network
+                </h2>
+              </div>
+            </div>
+          </button>
+        )}
       </div>
     </section>
   );
