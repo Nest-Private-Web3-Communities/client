@@ -117,7 +117,7 @@ export default function Feed(props: {
                       <div className="opacity-0 duration-100 pointer-events-none group-hover/open:pointer-events-auto group-hover/open:opacity-100 absolute bottom-full py-2">
                         <div className="bg-background p-1 flex items-center gap-x-1 rounded-md border border-front border-opacity-30">
                           {props.emotes.map((emote, key) => (
-                            <button className="group/emote">
+                            <button className="group/emote" key={key}>
                               <Emote
                                 key={key}
                                 name={emote.name as EmoteType}

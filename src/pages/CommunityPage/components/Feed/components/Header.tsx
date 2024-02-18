@@ -5,6 +5,8 @@ import useNestUser from "../../../../../hooks/useNestUser";
 import { twMerge } from "tailwind-merge";
 import { arrayToRgb, interpolateColors } from "../../../../../utils";
 import useWeb3 from "../../../../../contexts/web3context";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 
 export default function Header() {
   const user = useNestUser();
@@ -27,6 +29,9 @@ export default function Header() {
     event.preventDefault();
     const dataString = JSON.stringify({ content: content });
   }
+  const handleEmojiSelect = (emoji: any) => {
+    setContent(content + emoji.native);
+  };
 
   return (
     <header className="bg-foreground py-4 px-4 border-b border-front/25">
@@ -50,13 +55,23 @@ export default function Header() {
             maxLength={maxContentLength}
             onChange={(e) => setContent(e.target.value)}
             disabled={loading}
+            value={content}
           />
 
           <div className="flex text-primary text-xl justify-between items-center">
             <div className="flex items-center gap-x-1">
               <Icon icon="photoLibrary" />
               <Icon icon="gif" />
-              <Icon icon="mood" />
+              <div className="group relative">
+                <Icon icon="mood" />
+                <div className="opacity-0 group-hover:opacity-100 absolute pointer-events-none group-hover:pointer-events-auto">
+                  <Picker
+                    data={data}
+                    onEmojiSelect={handleEmojiSelect}
+                    className=""
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="flex items-center gap-x-2">
