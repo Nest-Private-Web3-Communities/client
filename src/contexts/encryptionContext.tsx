@@ -1,5 +1,4 @@
 import React, {
-  ContextType,
   ReactNode,
   createContext,
   useContext,
@@ -28,6 +27,9 @@ interface EncryptionContextType {
       ContractType<typeof contractDefinitions.community.abi> | undefined
     >
   >;
+
+  decrypt: (e: string, t: number) => string;
+  encrypt: (c: string) => string | undefined;
 }
 
 const EncryptionContext = createContext<EncryptionContextType>(
@@ -148,13 +150,13 @@ export function EncryptionContextProvider({
         key.key = CryptoJS.AES.decrypt(
           e_key,
           sharedKey.toString(keyBase)
-        ).toString();
+        ).toString(CryptoJS.enc.Utf8);
 
         if (publisherAddress.toUpperCase() == account.toUpperCase())
           key.key = CryptoJS.AES.decrypt(
             e_key,
             keyPvt.toString(keyBase)
-          ).toString();
+          ).toString(CryptoJS.enc.Utf8);
 
         setAgreement((p) => [...p, key]);
       }
@@ -165,11 +167,21 @@ export function EncryptionContextProvider({
 
   function encrypt(c: string) {
     if (keyMaster == "") return;
-    return CryptoJS.AES.encrypt(c, keyMaster);
+    return CryptoJS.AES.encrypt(c, keyMaster).toString();
   }
 
   function decrypt(e: string, t: number) {
-    CryptoJS.AES.decrypt(e, keyMaster);
+    let key = keyMaster;
+
+    if (agreement.length == 1)
+      return CryptoJS.AES.decrypt(e, keyMaster).toString(CryptoJS.enc.Utf8);
+
+    for (let i = 1; i < agreement.length; i++) {
+      if (agreement[i - 1].createdAt < t && t < agreement[i].createdAt)
+        key = agreement[i - 1].key;
+    }
+
+    return CryptoJS.AES.decrypt(e, key).toString(CryptoJS.enc.Utf8);
   }
 
   useEffect(() => {
@@ -182,6 +194,8 @@ export function EncryptionContextProvider({
     keyPub,
     keyMaster,
     setCommunityContract,
+    encrypt,
+    decrypt,
   };
 
   return (

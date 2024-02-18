@@ -78,8 +78,6 @@ export default function Feed() {
   const emotes = data.reactions;
   const modal = useModal();
 
-  console.log(encryption.keyMaster);
-
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   useIdleScrollbar(containerRef);
 
