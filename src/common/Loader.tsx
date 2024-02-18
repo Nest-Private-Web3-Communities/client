@@ -22,7 +22,10 @@ export default function Loader(props: {
     >
       <img
         src={props.image || "/logo.png"}
-        className="w-1/2 rounded-full aspect-square object-contain"
+        className={twMerge(
+          "w-1/2 rounded-full aspect-square object-contain",
+          props.image && "object-cover"
+        )}
       />
     </figure>
   );

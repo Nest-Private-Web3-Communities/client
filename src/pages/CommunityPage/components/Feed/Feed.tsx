@@ -5,6 +5,7 @@ import Emote, { EmoteType } from "../../../../common/Emote";
 import { emoteDeclarations } from "../../../../common/Emote";
 import { AbiReadResponseType } from "../../../../contexts/web3context";
 import Header from "./components/Header";
+import useCommunity from "../../CommunityContext";
 
 const dummy = [
   {
@@ -68,11 +69,11 @@ const dummy = [
   },
 ];
 
-export default function Feed(props: {
-  emotes: AbiReadResponseType<"community", "getReactions">;
-}) {
-  const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+export default function Feed() {
+  const { data } = useCommunity();
+  const emotes = data.reactions;
 
+  const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   useIdleScrollbar(containerRef);
 
   function scrollBack() {
@@ -116,16 +117,17 @@ export default function Feed(props: {
                     <div className="flex gap-x-1 group/open cursor-pointer">
                       <div className="opacity-0 duration-100 pointer-events-none group-hover/open:pointer-events-auto group-hover/open:opacity-100 absolute bottom-full py-2">
                         <div className="bg-background p-1 flex items-center gap-x-1 rounded-md border border-front border-opacity-30">
-                          {props.emotes.map((emote, key) => (
-                            <button className="group/emote">
-                              <Emote
-                                key={key}
-                                name={emote.name as EmoteType}
-                                color={`rgb(${emote.color})`}
-                                className="text-[1.8vw] group-hover/emote:-translate-y-3 duration-150 bg-background rounded-full"
-                              />
-                            </button>
-                          ))}
+                          {emotes &&
+                            emotes.map((emote, key) => (
+                              <button className="group/emote">
+                                <Emote
+                                  key={key}
+                                  name={emote.name as EmoteType}
+                                  color={`rgb(${emote.color})`}
+                                  className="text-[1.8vw] group-hover/emote:-translate-y-3 duration-150 bg-background rounded-full"
+                                />
+                              </button>
+                            ))}
                         </div>
                       </div>
                       <figure className="flex gap-x-1 items-center duration-200 ease-in">

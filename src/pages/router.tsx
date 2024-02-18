@@ -14,6 +14,7 @@ import NewCommunityPage from "./NewCommunityPage/NewCommunityPage";
 import FAQsPage from "./FAQsPage/FAQsPage";
 import TestingPage from "./TestingPage/TestingPage";
 import NewAccountPage from "./NewAccountPage/NewAccountPage";
+import { CommunityContextProvider } from "./CommunityPage/CommunityContext";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,8 +51,14 @@ const router = createBrowserRouter(
         path="/"
         element={<ProtectedRoute type={ProtectedTypes.AUTHENTICATEDONLY} />}
       >
-        <Route path="community" element={<CommunityPage />} />
-        <Route path="community/:address" element={<CommunityPage />} />
+        <Route
+          path="community/:address"
+          element={
+            <CommunityContextProvider>
+              <CommunityPage />
+            </CommunityContextProvider>
+          }
+        />
       </Route>
     </>
   )

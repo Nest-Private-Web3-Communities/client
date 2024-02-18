@@ -1,3 +1,4 @@
+import { Address } from "viem";
 import { UnionToTuple } from "../types";
 
 export function generateRandomString(length: number, seed?: string) {
@@ -191,4 +192,9 @@ export function rangeArray(num: number) {
     result.push(i);
   }
   return result;
+}
+
+export function isAddress(input: string): input is Address {
+  const addressRegex: RegExp = /^[a-zA-Z0-9\s,'-]*$/;
+  return addressRegex.test(input);
 }

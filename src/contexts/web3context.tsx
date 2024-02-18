@@ -70,7 +70,7 @@ type TClient = ReturnType<
   typeof createWalletClient<CustomTransport, Chain, Address>
 >;
 
-type ContractType<T extends Abi> = ReturnType<
+export type ContractType<T extends Abi> = ReturnType<
   typeof getContract<any, any, T, TClient>
 >;
 

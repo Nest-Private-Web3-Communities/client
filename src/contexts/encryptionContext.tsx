@@ -18,15 +18,16 @@ import {
 import { useAccount } from "@particle-network/connect-react-ui";
 import contractDefinitions from "../contracts";
 import { rangeArray } from "../utils";
+import CryptoJS from "crypto-js";
 
 interface EncryptionContextType {
   dhParameters: {
-    prime: bigint;
-    primitive: bigint;
+    prime: number;
+    primitive: number;
   };
-  keyPvt: bigint;
-  keyPub: bigint;
-  keyMaster: bigint;
+  keyPvt: number;
+  keyPub: number;
+  keyMaster: number;
 
   setCommunityContract: React.Dispatch<
     React.SetStateAction<
@@ -55,17 +56,15 @@ export function EncryptionContextProvider({
   const web3 = useWeb3();
   const account = useAccount();
 
-  const [prime, setPrime] = useState<AbiReadResponseType<"nest", "DHprime">>(
-    BigInt(-1)
-  );
-  const [primitive, setPrimitive] = useState<
-    AbiReadResponseType<"nest", "DHprime">
-  >(BigInt(-1));
-  const [keyPvt, setKeyPvt] = useState<bigint>(BigInt(-1));
-  const [keyPub, setKeyPub] = useState<bigint>(BigInt(-1));
-  const [keyMaster, setKeyMaster] = useState<bigint>(BigInt(-1));
+  const [prime, setPrime] =
+    useState<AbiReadResponseType<"nest", "DHprime">>(-1);
+  const [primitive, setPrimitive] =
+    useState<AbiReadResponseType<"nest", "DHprime">>(-1);
+  const [keyPvt, setKeyPvt] = useState(-1);
+  const [keyPub, setKeyPub] = useState(-1);
+  const [keyMaster, setKeyMaster] = useState(-1);
   const [agreement, setAgreement] = useState<
-    Array<AbiReadResponseType<"community", "getKeyFromAgreement">>
+    Array<{ createdAt: number; key: number }>
   >([]);
   const [communityContract, setCommunityContract] =
     useState<
@@ -84,8 +83,8 @@ export function EncryptionContextProvider({
   const dhParameters = { prime, primitive };
 
   async function loadData() {
-    let primitive = BigInt(-1),
-      prime = BigInt(-1),
+    let primitive = -1,
+      prime = -1,
       gotLocalKey = false;
 
     await web3.contracts.nest.read.DHprime().then((res) => {
@@ -111,8 +110,7 @@ export function EncryptionContextProvider({
     }
 
     if (account && !gotLocalKey) {
-      const pvt =
-        primitive + BigInt(Math.random()) * (prime - primitive - BigInt(2));
+      const pvt = primitive + Math.random() * (prime - primitive - 2);
       setKeyPvt(pvt);
 
       let newKeys = {};
@@ -146,7 +144,24 @@ export function EncryptionContextProvider({
         const _key = await communityContract.read.keys([BigInt(i)]);
         const publisherAddress = _key[1];
 
-        let key = { createdAt: _key[0], key: BigInt(0) };
+        let key = { createdAt: Number(_key[0]), key: 0 };
+
+        const publicKey = await communityContract.read.getSharedKeyWithUser([
+          publisherAddress,
+        ]);
+
+        const sharedKey =
+          parseInt(publicKey, 16) ** keyPvt % dhParameters.prime;
+
+        const e_key = await communityContract.read.getKeyFromAgreement([
+          BigInt(i),
+        ]);
+
+        key.key = Number(
+          CryptoJS.AES.decrypt(e_key, sharedKey.toString()).toString()
+        );
+
+        setAgreement((p) => [...p, key]);
       }
     }
 
@@ -172,4 +187,4 @@ export default function useEncryptionContext() {
   return useContext(EncryptionContext);
 }
 
-export type StoredKeys = Record<Address | string, bigint>;
+export type StoredKeys = Record<Address | string, number>;

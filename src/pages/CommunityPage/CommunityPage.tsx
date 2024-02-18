@@ -3,43 +3,30 @@ import SubgroupList from "./components/SubgroupList";
 import Feed from "./components/Feed/Feed";
 import Chat from "./components/Chat";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import useWeb3 from "../../contexts/web3context";
+import useWeb3, { ContractType } from "../../contexts/web3context";
 import Loader from "../../common/Loader";
 import { Address, Chain, Client, CustomTransport, getContract } from "viem";
 import contractDefinitions from "../../contracts";
 import { Mutable } from "../../types";
 import { useAccount } from "@particle-network/connect-react-ui";
 import useEncryptionContext from "../../contexts/encryptionContext";
+import SideNav from "./components/SideNav/SideNav";
+import Modal from "../../common/Modal";
+import useCommunity from "./CommunityContext";
 
 export default function CommunityPage() {
-  const params = useParams();
-  if (!params.address) return <Navigate to="/" />;
-
-  const [community, setCommunity] = useState<
-    Partial<Community> & { address: Address }
-  >({ address: params.address as Address });
-  const [contract, setContract] =
-    useState<
-      ReturnType<
-        typeof getContract<
-          CustomTransport,
-          Address,
-          typeof contractDefinitions.community.abi,
-          Client<CustomTransport, Chain>
-        >
-      >
-    >();
+  const community = useCommunity();
+  const { contract } = community;
+  const { theme } = community.data;
 
   const web3 = useWeb3();
   const encryption = useEncryptionContext();
-  const navigate = useNavigate();
-  const account = useAccount();
 
-  function setProperty<T extends keyof Community>(
+  function setProperty<T extends keyof typeof community.data>(
     property: T,
-    value: Community[T]
+    value: (typeof community.data)[T]
   ) {
-    setCommunity((p) => ({ ...p, [property]: value }));
+    community.setData((p) => ({ ...p, [property]: value }));
   }
 
   function loadData() {
@@ -71,40 +58,39 @@ export default function CommunityPage() {
 
   useEffect(() => {
     if (web3.client && !contract)
-      setContract(
+      community.setContract(
         getContract({
           abi: contractDefinitions.community.abi,
-          address: community.address,
+          address: community.data.address,
           client: web3.client,
         })
       );
   }, [web3.client]);
 
-  console.log(community.theme);
-
   return (
     <>
-      {community.theme && contract && (
+      {theme && contract && (
         <main
           className="bg-background px-[8vw] flex h-screen w-full"
           style={
             {
-              "--color-primary": community.theme.primary,
-              "--color-secondary": community.theme.secondary,
-              "--color-background": community.theme.background,
-              "--color-foreground": community.theme.foreground,
-              "--color-front": community.theme.front,
-              "--color-back": community.theme.back,
+              "--color-primary": theme.primary,
+              "--color-secondary": theme.secondary,
+              "--color-background": theme.background,
+              "--color-foreground": theme.foreground,
+              "--color-front": theme.front,
+              "--color-back": theme.back,
             } as React.CSSProperties
           }
         >
-          <SubgroupList />
-          {community.reactions && <Feed emotes={community.reactions} />}
+          <SideNav />
+          <Feed />
           <Chat />
+          <Modal />
         </main>
       )}
 
-      {!(community.theme && contract && community.imageUrl) && (
+      {!(theme && contract && community.data.imageUrl) && (
         <main className="flex flex-col h-screen justify-center items-center relative z-[100]">
           <Loader className="w-1/5" />
           <p className="mt-[10vh] text-primary font-medium">Powered by NEST</p>
@@ -112,15 +98,4 @@ export default function CommunityPage() {
       )}
     </>
   );
-}
-
-interface Community {
-  name: string;
-  description: string;
-  imageUrl: string;
-  theme: Record<
-    "primary" | "secondary" | "background" | "foreground" | "front" | "back",
-    string
-  >;
-  reactions: Array<{ name: string; color: string }>;
 }
