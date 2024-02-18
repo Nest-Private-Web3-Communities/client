@@ -3,7 +3,6 @@ import Icon from "../../common/Icon";
 import useIdleScrollbar from "../../hooks/useIdleScrollbar";
 import ThemeButton from "../../common/ThemeButton";
 import useModal from "../../hooks/useModal";
-import SettingsModal from "../CommunityPage/components/SettingsModal";
 
 const dummy = [
   {
@@ -78,13 +77,11 @@ export default function SublistPreview() {
   useIdleScrollbar(subgroupContainerRef);
   useIdleScrollbar(membersContainerRef);
 
-  const modal = useModal();
-
   return (
     <div className="text-front py-2 flex flex-col h-screen border-l border-front border-opacity-25 w-[20vw] bg-background">
       <div className="px-4 flex gap-x-3 justify-end">
         <ThemeButton className="text-2xl p-1 aspect-square bg-foreground rounded-full flex justify-center w-max items-center border border-front border-opacity-40" />
-        <button onClick={() => modal.show(<SettingsModal />)}>
+        <button>
           <Icon icon="manageAccounts" className="text-[1.8em]" />
         </button>
       </div>

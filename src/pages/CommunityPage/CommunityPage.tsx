@@ -35,18 +35,26 @@ export default function CommunityPage() {
     contract.read.name().then((res) => setProperty("name", res));
     contract.read.description().then((res) => setProperty("description", res));
     contract.read.imageUrl().then((res) => setProperty("imageUrl", res));
-    contract.read
-      .getReactions()
-      .then((res) => setProperty("reactions", res as Mutable<typeof res>));
+    contract.read.reactions().then((res) => {
+      const regex = /(\w+)\s+([\d\s]+)/g;
+      const result: { name: string; color: string }[] = [];
+      let match;
+
+      while ((match = regex.exec(res)) !== null) {
+        const [, name, color] = match;
+        result.push({ name, color });
+      }
+      setProperty("reactions", result);
+    });
 
     contract.read.theme().then((res) =>
       setProperty("theme", {
-        primary: res[0],
-        secondary: res[1],
-        background: res[2],
-        foreground: res[3],
-        front: res[4],
-        back: res[5],
+        primary: res.slice(0, 11),
+        secondary: res.slice(12, 23),
+        background: res.slice(24, 35),
+        foreground: res.slice(36, 47),
+        front: res.slice(48, 59),
+        back: res.slice(60, 71),
       })
     );
   }

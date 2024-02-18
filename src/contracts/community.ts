@@ -154,31 +154,6 @@ const abi = [
   },
   {
     inputs: [],
-    name: "getReactions",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "color",
-            type: "string",
-          },
-        ],
-        internalType: "struct Community.Reaction[]",
-        name: "",
-        type: "tuple[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "imageUrl",
     outputs: [
       {
@@ -431,23 +406,12 @@ const abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
+    inputs: [],
     name: "reactions",
     outputs: [
       {
         internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "color",
+        name: "",
         type: "string",
       },
     ],
@@ -460,32 +424,7 @@ const abi = [
     outputs: [
       {
         internalType: "string",
-        name: "primary",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "secondary",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "background",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "foreground",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "front",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "back",
+        name: "",
         type: "string",
       },
     ],
