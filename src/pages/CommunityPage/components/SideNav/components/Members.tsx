@@ -60,7 +60,7 @@ export default function Members() {
   }, [contract]);
 
   return (
-    <section className="basis-1/2">
+    <section className="basis-1/3">
       <h1 className="mt-6 text-lg font-bold px-4 border-b border-front border-opacity-25 pb-1">
         Community Members
       </h1>
@@ -73,7 +73,7 @@ export default function Members() {
       </div>
       <div
         ref={membersContainerRef}
-        className="mx-4 flex flex-col gap-y-4 bg-secondary p-4 rounded-lg border border-front border-opacity-20 basis-1/2 overflow-y-scroll scrollbar-primary"
+        className="mx-4 flex flex-col gap-y-4 bg-secondary p-4 rounded-lg border border-front border-opacity-20  overflow-y-scroll scrollbar-primary max-h-[30vh]"
       >
         {memberCount &&
           rangeArray(Number(memberCount)).map((i, key) => (

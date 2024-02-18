@@ -83,7 +83,7 @@ export default function SubgroupList() {
       </h1>
       <div
         ref={containerRef}
-        className="flex flex-col gap-y-3 basis-1/2 overflow-y-scroll scrollbar-primary mt-2 px-2 py-2 rounded-lg border border-opacity-25 border-front mx-4 bg-secondary"
+        className="flex flex-col max-h-[40vh] gap-y-3 flex-1 overflow-y-scroll scrollbar-primary mt-2 px-2 py-2 rounded-lg border border-opacity-25 border-front mx-4 bg-secondary"
       >
         {dummy.map((data, i) => (
           <div
