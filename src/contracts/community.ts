@@ -110,12 +110,38 @@ const abi = [
   },
   {
     inputs: [],
+    name: "getMemberAddresses",
+    outputs: [
+      {
+        internalType: "address[]",
+        name: "",
+        type: "address[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "getMemberCount",
     outputs: [
       {
         internalType: "uint256",
         name: "",
         type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getNetworkNames",
+    outputs: [
+      {
+        internalType: "string[]",
+        name: "",
+        type: "string[]",
       },
     ],
     stateMutability: "view",
@@ -195,22 +221,22 @@ const abi = [
     inputs: [
       {
         internalType: "string[]",
-        name: "_keysMaster",
-        type: "string[]",
-      },
-      {
-        internalType: "address[]",
-        name: "_correspondingUsersMaster",
-        type: "address[]",
-      },
-      {
-        internalType: "string[]",
         name: "_keysShared",
         type: "string[]",
       },
       {
         internalType: "address[]",
         name: "_correspondingUsersShared",
+        type: "address[]",
+      },
+      {
+        internalType: "string[]",
+        name: "_keysMaster",
+        type: "string[]",
+      },
+      {
+        internalType: "address[]",
+        name: "_correspondingUsersMaster",
         type: "address[]",
       },
     ],

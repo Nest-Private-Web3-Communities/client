@@ -7,9 +7,11 @@ import CommunityEmotesSelector from "./components/CommunityEmotesSelector";
 import { useState } from "react";
 import community from "../../contracts/community";
 import nest from "../../contracts/nest";
+import { useNavigate } from "react-router-dom";
 
 export default function NewCommunityPage() {
   const web3 = useWeb3();
+  const navigate = useNavigate();
 
   const [themeString, setThemeString] = useState("");
   const [emoteString, setEmoteString] = useState("");
@@ -30,11 +32,16 @@ export default function NewCommunityPage() {
 
     setLoading(true);
 
-    web3.client?.deployContract({
-      abi: community.abi,
-      bytecode: `0x${community.bytecode}`,
-      args,
-    });
+    web3.client
+      ?.deployContract({
+        abi: community.abi,
+        bytecode: `0x${community.bytecode}`,
+        args,
+      })
+      .then((res) => navigate(`/community/${res}`))
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   return (

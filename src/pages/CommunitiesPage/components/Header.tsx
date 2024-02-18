@@ -2,8 +2,8 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import { IconType } from "../../../common/Icon";
 import useModal from "../../../hooks/useModal";
-import ModalNewCommunity from "./ModalNewCommunity";
 import { useNavigate } from "react-router-dom";
+import ModalJoin from "./ModalJoin";
 
 export default function Header() {
   const modal = useModal();
@@ -45,7 +45,7 @@ export default function Header() {
         <CustomHeaderButton
           title="Join Community"
           className="bg-primary text-back w-1/2"
-          onClick={() => modal.show(<ModalNewCommunity />)}
+          onClick={() => modal.show(<ModalJoin />)}
         />
       </div>
     </header>
