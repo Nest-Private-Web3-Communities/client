@@ -48,46 +48,6 @@ const messages = [
     message:
       "By the way, did you hear about the new restaurant that opened downtown?",
   },
-  {
-    timestamp: "09:45",
-    sender: "B",
-    message: "Yeah, I saw some posts about it. Heard the food is amazing.",
-  },
-  {
-    timestamp: "09:50",
-    sender: "A",
-    message: "We should check it out sometime. How about next Friday?",
-  },
-  {
-    timestamp: "09:55",
-    sender: "B",
-    message: "Sounds like a plan! Count me in.",
-  },
-  {
-    timestamp: "10:00",
-    sender: "A",
-    message: "Great, I'll make a reservation. Can't wait to try their menu.",
-  },
-  {
-    timestamp: "10:05",
-    sender: "B",
-    message: "Me too! It's been a while since we tried a new place.",
-  },
-  {
-    timestamp: "10:10",
-    sender: "A",
-    message: "Well, it's settled then. Friday it is!",
-  },
-  {
-    timestamp: "10:15",
-    sender: "B",
-    message: "Looking forward to it. Catch you later!",
-  },
-  {
-    timestamp: "10:20",
-    sender: "A",
-    message: "Take care! See you soon.",
-  },
 ];
 
 export default function Chat() {
@@ -95,9 +55,9 @@ export default function Chat() {
   useIdleScrollbar(containerRef);
 
   return (
-    <div className="text-front flex-1 flex flex-col bg-foreground border-r border-front border-opacity-25 w-[35vw] relative">
+    <div className="text-front flex-1 flex flex-col bg-foreground justify-center items-center border-r border-front border-opacity-25 w-[35vw] relative">
       <div className="w-full h-full absolute backdrop-blur-sm opacity-90" />
-      <div className="absolute top-80 left-20">
+      <div className="absolute">
         <div className="flex flex-col items-center gap-y-2 w-[15vw] relative z-30">
           <div
             className="z-20 absolute-cover scale-90 bg-primary blur-3xl animate-pulse"
@@ -116,7 +76,7 @@ export default function Chat() {
         </button>
       </div>
 
-      <div className="flex items-center justify-between pl-4 pr-2 py-2 bg-foreground">
+      <div className="flex items-center justify-between pl-4 pr-2 py-2 bg-foreground self-start">
         <div className="flex gap-x-2">
           <img
             src="https://randomuser.me/api/portraits/women/33.jpg"
