@@ -40,7 +40,6 @@ export default function ModalJoin() {
     const _Users: Address[] = [account as Address];
 
     const newKey = generateRandomHex(64);
-    alert(newKey);
 
     const fellows = await contract.read.getMemberAddresses();
     for await (let p of fellows) {
