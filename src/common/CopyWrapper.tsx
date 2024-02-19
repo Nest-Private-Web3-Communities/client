@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 export default function CopyWrapper({
   children,
@@ -17,7 +18,7 @@ export default function CopyWrapper({
     document.body.removeChild(textarea);
 
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000); // Reset copied state after 2 seconds
+    setTimeout(() => setCopied(false), 1000); // Reset copied state after 2 seconds
   }
 
   function handleCopy(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -27,11 +28,14 @@ export default function CopyWrapper({
 
   return (
     <div className="relative cursor-pointer" onClick={handleCopy}>
-      {copied && (
-        <div className="absolute bg-gray-800 text-white px-2 py-1 rounded top-0 left-1/2 transform -translate-x-1/2 mt-[-20px] text-sm">
-          Copied!
-        </div>
-      )}
+      <div
+        className={twMerge(
+          "absolute bg-gray-800 text-white px-2 py-1 rounded top-0 left-1/2 transform -translate-x-1/2 -mt-5 text-sm duration-200 ease-in",
+          copied ? "opacity-100" : " opacity-0"
+        )}
+      >
+        Copied!
+      </div>
       {children}
     </div>
   );
