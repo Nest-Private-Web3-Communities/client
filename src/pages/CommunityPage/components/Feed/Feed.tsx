@@ -35,7 +35,7 @@ export default function Feed() {
       <NetworkDetails />
 
       <div
-        className="overflow-y-scroll scrollbar-primary flex-1"
+        className="overflow-y-scroll scrollbar-primary flex-1 flex flex-col"
         ref={containerRef}
       >
         {posts.map((post, key) => (
