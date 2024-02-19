@@ -11,9 +11,12 @@ import { FeedItem } from "../../../../../types";
 import CryptoJS from "crypto-js";
 import useEncryptionContext from "../../../../../contexts/encryptionContext";
 import useCommunity from "../../../CommunityContext";
+import ModalImageUpload from "../../modals/ModalImageUpload";
+import useModal from "../../../../../hooks/useModal";
 
 export default function Header() {
   const user = useNestUser();
+  const modal = useModal();
   const web3 = useWeb3();
   const { contract, reload, data: communityData, pageConfig } = useCommunity();
   const encryption = useEncryptionContext();
@@ -94,7 +97,9 @@ export default function Header() {
             <div className="flex items-center gap-x-1">
               {communityData.memberCount != 1 && (
                 <>
-                  <Icon icon="photoLibrary" />
+                  <button onClick={() => modal.show(<ModalImageUpload />)}>
+                    <Icon icon="photoLibrary" />
+                  </button>
                   <Icon icon="gif" />
                   <div className="group relative">
                     <Icon icon="mood" />
