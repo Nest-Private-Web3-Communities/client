@@ -114,7 +114,7 @@ export default function NewAccountPage() {
               value="Proceed"
               role="button"
               disabled={loading}
-              className="text-xl font-bold text-back bg-primary p-4 rounded-md mt-1 cursor-pointer disabled:opacity-50 disabled:animate-pulse"
+              className="text-xl font-bold text-back bg-primary p-4 rounded-md mt-1 cursor-pointer disabled:opacity-30 disabled:animate-pulse disabled:cursor-not-allowed"
             />
           </form>
         </div>
