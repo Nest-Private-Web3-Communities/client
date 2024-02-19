@@ -11,7 +11,7 @@ import Icon from "../../../../../common/Icon";
 import CopyWrapper from "../../../../../common/CopyWrapper";
 import { Mutable } from "../../../../../types";
 import { useAccount } from "@particle-network/connect-react-ui";
-import { useParams } from "react-router-dom";
+import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
 export default function FeedItem(props: { postId: number }) {
@@ -27,6 +27,7 @@ export default function FeedItem(props: { postId: number }) {
   const { decrypt } = useEncryptionContext();
   const modal = useModal();
   const account = useAccount();
+  const navigate = useNavigate();
 
   const [data, setData] = useState<
     Partial<{
@@ -194,6 +195,13 @@ export default function FeedItem(props: { postId: number }) {
             )}
             <button
               className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in"
+              onClick={() =>
+                navigate({
+                  search: createSearchParams({
+                    post: postId.toString(),
+                  }).toString(),
+                })
+              }
               disabled={pending}
             >
               <Icon icon="chatBubble" className="text-[1.2rem]" />

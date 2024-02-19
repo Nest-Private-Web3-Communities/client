@@ -12,9 +12,9 @@ import useEncryptionContext from "../../contexts/encryptionContext";
 import SideNav from "./components/SideNav/SideNav";
 import Modal from "../../common/Modal";
 import useCommunity from "./CommunityContext";
-import { generateRandomHex } from "../../utils";
-import contracts from "../../contracts";
-import { AES } from "crypto-js";
+import useQueryParams from "../../hooks/useQueryParams";
+import ModalPost from "./components/modals/ModalPost";
+import { twMerge } from "tailwind-merge";
 
 export default function CommunityPage() {
   const community = useCommunity();
@@ -26,6 +26,8 @@ export default function CommunityPage() {
   const { pageConfig } = useCommunity();
   const { currentSelectedNetwork } = pageConfig;
   const encryption = useEncryptionContext();
+
+  const query = useQueryParams();
 
   function setProperty<T extends keyof typeof community.data>(
     property: T,
@@ -102,33 +104,6 @@ export default function CommunityPage() {
   }, [web3.client]);
 
   const account = useAccount();
-  const params = useParams();
-
-  async function join() {
-    if (!account || !web3.client) return;
-    const contract = getContract({
-      abi: contracts.community.abi,
-      address: params.cid as Address,
-      client: web3.client,
-    });
-
-    const _Keys: string[] = [];
-    const _Users: Address[] = [];
-
-    const newKey = generateRandomHex(64);
-
-    const fellows = await contract.read.getMemberAddresses();
-    for await (let p of fellows) {
-      const usr = await web3.contracts.nest.read.users([p]);
-      const Kpub = usr[0];
-
-      const Kshared = Kpub ** encryption.keyPvt % encryption.dhParameters.prime;
-      const kMaster = AES.encrypt(newKey, Kshared.toString());
-
-      _Users.push(p);
-      _Keys.push(kMaster.toString());
-    }
-  }
 
   return (
     <>
@@ -151,6 +126,17 @@ export default function CommunityPage() {
           <Feed key={currentSelectedNetwork} />
           <Chat />
           <Modal />
+
+          <article
+            className={twMerge(
+              "fixed top-0 left-0 w-full h-full bg-primary/10 z-50 flex justify-center items-end backdrop-blur-[2px] opacity-0 pointer-events-none",
+              query.get("post") && "opacity-100 pointer-events-auto"
+            )}
+          >
+            {query.get("post") && query.get("post") != null && (
+              <ModalPost post={query.get("post") || ""} />
+            )}
+          </article>
         </main>
       )}
 
