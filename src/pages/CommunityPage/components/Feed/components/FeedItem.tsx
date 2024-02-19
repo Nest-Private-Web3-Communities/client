@@ -209,7 +209,7 @@ export default function FeedItem(props: { postId: number }) {
             </button>
           </div>
           <button
-            onClick={() => modal.show(<ModalShare />)}
+            onClick={() => modal.show(<ModalShare postId={postId} />)}
             className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in hover:border-primary border px-2 py-1 rounded-full border-front"
           >
             <Icon icon="share" className="text-[1rem]" />
