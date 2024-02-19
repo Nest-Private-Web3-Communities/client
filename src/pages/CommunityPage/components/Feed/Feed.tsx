@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Icon from "../../../../common/Icon";
 import useIdleScrollbar from "../../../../hooks/useIdleScrollbar";
 import Emote, { EmoteType } from "../../../../common/Emote";
@@ -11,6 +11,7 @@ import CryptoJS from "crypto-js";
 import { keyBase } from "../../../../config";
 import FeedItem from "./components/FeedItem";
 import NetworkDetails from "./components/NetworkDetails";
+import { Mutable } from "../../../../types";
 
 // const dummy = [
 //   {
@@ -75,14 +76,11 @@ import NetworkDetails from "./components/NetworkDetails";
 // ];
 
 export default function Feed() {
-  const { data, contract, pageConfig } = useCommunity();
-  // const encryption = useEncryptionContext();
-  // const emotes = data.reactions;
-  // const modal = useModal();
+  const { contract, pageConfig } = useCommunity();
   const { currentSelectedNetwork } = pageConfig;
 
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-  // useIdleScrollbar(containerRef);
+  useIdleScrollbar(containerRef);
 
   function scrollBack() {
     if (containerRef.current !== null) {
@@ -90,17 +88,26 @@ export default function Feed() {
     }
   }
 
+  const [posts, setPosts] = useState<bigint[]>([]);
+
+  useEffect(() => {
+    if (contract)
+      contract.read
+        .getPostsByNetwork([currentSelectedNetwork])
+        .then((res) => setPosts(res as Mutable<typeof res>));
+  }, [contract, currentSelectedNetwork]);
+
   return (
     <div className="text-front flex flex-col h-screen border-x border-opacity-20 border-front w-[40vw] z-10 overflow-y-hidden bg-background">
       <Header />
       <NetworkDetails />
 
-      {/* <div
+      <div
         className="overflow-y-scroll scrollbar-primary flex-1"
         ref={containerRef}
       >
-        {dummy.map((data, i) => (
-          <FeedItem />
+        {posts.map((post, key) => (
+          <FeedItem postId={Number(post)} key={key} />
         ))}
         <div className="items-center w-full justify-center pt-6 pb-4 text-primary text-lg font-semibold tracking-wider flex flex-col">
           <button
@@ -111,7 +118,7 @@ export default function Feed() {
           </button>
           <span className="">You have seen it all!</span>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

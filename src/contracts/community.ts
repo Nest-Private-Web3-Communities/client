@@ -189,6 +189,44 @@ const abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_networkName",
+        type: "string",
+      },
+    ],
+    name: "getPostsByNetwork",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address",
+      },
+    ],
+    name: "getPostsByUser",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "imageUrl",
     outputs: [
@@ -422,6 +460,11 @@ const abi = [
       {
         internalType: "string",
         name: "data",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "networkName",
         type: "string",
       },
     ],

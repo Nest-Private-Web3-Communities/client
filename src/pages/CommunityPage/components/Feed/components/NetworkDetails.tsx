@@ -3,7 +3,7 @@ import useCommunity from "../../../CommunityContext";
 import { networkImagePlaceholder } from "../../../../../config";
 
 export default function NetworkDetails() {
-  const { data, contract, pageConfig } = useCommunity();
+  const { contract, pageConfig } = useCommunity();
   const { currentSelectedNetwork } = pageConfig;
 
   const [imageUrl, setImageUrl] = useState("");
