@@ -24,7 +24,7 @@ export default function SubgroupList() {
         ref={containerRef}
         className="flex flex-col max-h-[40vh] gap-y-3 flex-1 overflow-y-scroll scrollbar-primary mt-2 px-2 py-2 rounded-lg border border-opacity-25 border-front mx-4 bg-secondary"
       >
-        {networkCount &&
+        {networkCount != undefined &&
           rangeArray(networkCount).map((i, key) => (
             <NetworkCard networkIdx={i} key={key} />
           ))}
@@ -55,7 +55,6 @@ function NetworkCard(props: { networkIdx: number }) {
   const cardRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const isInView = useIsInViewport(cardRef);
   const flag = useRef(false);
-  const web3 = useWeb3();
   const { contract } = useCommunity();
 
   const [data, setData] = useState<{
@@ -85,22 +84,18 @@ function NetworkCard(props: { networkIdx: number }) {
       ref={cardRef}
       className=" bg-foreground bg-opacity-60 hover:bg-opacity-100 duration-200 ease-in px-3 border-front border border-opacity-20 py-4 rounded-lg flex items-center min-w-[15vw] justify-between"
     >
-      <div className="flex gap-x-2">
+      <div className="flex gap-x-2 items-center">
         <img
           src={data?.imageUrl}
+          onError={(e) =>
+            (e.currentTarget.src =
+              "https://ps.w.org/hashtagger/assets/icon.svg?rev=2803093")
+          }
           className="rounded-full bg-front text-background text-center w-[3vw] aspect-square object-cover"
         />
-        <div className="flex flex-col">
-          <h2 className="font-semibold whitespace-nowrap truncate w-[75%]">
-            {data?.name}
-          </h2>
-          {/* <h3 className="text-sm text-opacity-50 text-front">
-          Active:{" "}
-          <span className="text-green text-xs">
-            {data.active} members
-          </span>
-        </h3> */}
-        </div>
+        <h2 className="font-semibold whitespace-nowrap truncate max-w-[70%]">
+          {data?.name}
+        </h2>
       </div>
       <button className="bg-background rounded-full px-2 aspect-square border-front border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
         <Icon icon="forum" className="text-[1.2rem]" />

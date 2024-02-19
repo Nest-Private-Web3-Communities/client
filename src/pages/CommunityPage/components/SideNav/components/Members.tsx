@@ -42,16 +42,16 @@ export default function Members() {
 }
 
 function MemberCard(props: { userIdx: number }) {
+  const web3 = useWeb3();
   const cardRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const isInView = useIsInViewport(cardRef);
   const flag = useRef(false);
-  const web3 = useWeb3();
   const { contract } = useCommunity();
 
-  const [userData, setUserData] = useState<{
+  const [data, setData] = useState<{
     name: string;
     imageUrl: string;
-    address: Address;
+    address: string;
   }>();
 
   useEffect(() => {
@@ -61,26 +61,25 @@ function MemberCard(props: { userIdx: number }) {
   async function loadData() {
     if (!contract) return;
     const userAddress = await contract.read.members([BigInt(props.userIdx)]);
-    const userResponse = await web3.contracts.nest.read.getUserByAddress([
-      userAddress,
-    ]);
-    setUserData({ ...userResponse, address: userAddress });
+    const res = await web3.contracts.nest.read.getUserByAddress([userAddress]);
+    setData({ imageUrl: res.imageUrl, name: res.name, address: userAddress });
   }
 
   useEffect(() => {
-    if (contract && flag.current && !userData) loadData();
+    if (contract && flag) loadData();
   }, [flag, contract]);
 
   return (
     <div
       ref={cardRef}
+      key={data?.address}
       className="flex justify-between border-b pb-2 border-front border-opacity-20 gap-x-4"
     >
       <div className="flex gap-x-2 justify-center items-center relative">
         <div className="relative">
-          {userData ? (
+          {data ? (
             <img
-              src={userData.imageUrl}
+              src={data.imageUrl}
               className="w-[3vw] aspect-square rounded-full"
             />
           ) : (
@@ -88,10 +87,10 @@ function MemberCard(props: { userIdx: number }) {
           )}
         </div>
         <div className="flex flex-col">
-          <h2 className="font-semibold">{userData?.name}</h2>
+          <h2 className="font-semibold">{data?.name}</h2>
 
           <p className="text-sm text-front text-opacity-50 w-[8vw] truncate">
-            {userData?.address}
+            {data?.address}
           </p>
         </div>
       </div>

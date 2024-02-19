@@ -105,7 +105,7 @@ function CommunityCard(props: {
           ref={cardRef}
           to={`/community/${props.communityAddress}`}
           className={twMerge(
-            "rounded-lg md:relative md:w-[calc(50%_-_1.25rem)] shadow shadow-front/25 border overflow-hidden border-opacity-50 p-5 flex flex-col items-center gap-y-3 relative bg-background border-front duration-300 hover:scale-105 text-start min-w-[18vw]",
+            "rounded-lg shadow shadow-front/25 border overflow-hidden border-opacity-50 p-5 flex flex-col items-center gap-y-3 relative bg-background border-front duration-300 hover:scale-105 text-start min-w-[18vw]",
             props.className
           )}
         >
@@ -131,13 +131,3 @@ function CommunityCard(props: {
     </>
   );
 }
-
-// return (
-//   <div
-//     className="w-full min-h-[200px] md:relative flex flex-col items-center p-4 md:w-[calc(50%_-_1.25rem)] bg-black
-//       rounded-lg border border-white border-opacity-20 gap-y-4 overflow-hidden"
-//   >
-//     <h3 className="text-2xl font-semibold">{props.title}</h3>
-//     <p className="text-sm mt-2 text-white text-opacity-70">{props.content}</p>
-//   </div>
-// );
