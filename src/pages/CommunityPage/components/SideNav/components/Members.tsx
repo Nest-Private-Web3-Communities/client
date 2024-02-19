@@ -80,7 +80,7 @@ function MemberCard(props: { userIdx: number }) {
           {data ? (
             <img
               src={data.imageUrl}
-              className="w-[3vw] aspect-square rounded-full"
+              className="w-[3vw] aspect-square rounded-full object-cover"
             />
           ) : (
             <figure className="w-[3vw] aspect-square rounded-full bg-gray-500/50 animate-pulse" />
