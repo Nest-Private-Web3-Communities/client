@@ -67,9 +67,10 @@ export default function Hero() {
           <button className="">Learn More</button>
         </div>
 
+        <p className="text-front/30 -mt-3 -mb-7 text-xs">Powered By</p>
         <div
           className={twMerge(
-            "flex gap-x-10 saturate-0 brightness-0 opacity-30",
+            "flex gap-x-10 saturate-0 brightness-0 opacity-30 relative",
             theme.current == "dark" && "invert"
           )}
         >

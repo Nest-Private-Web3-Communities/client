@@ -98,10 +98,18 @@ export default function Header() {
               value={content}
             />
             {imageUrl && (
-              <img
-                src={imageUrl}
-                className="h-[3.5em] aspect-square rounded border border-front/25 bg-background/20 object-cover"
-              />
+              <div className="relative">
+                <img
+                  src={imageUrl}
+                  className="h-[3.5em] aspect-square rounded border border-front/25 bg-background/20 object-cover"
+                />
+                <button
+                  className="bg-red-500 border-white/50 rounded-full aspect-square absolute top-0 right-0 translate-x-1/2 -translate-y-1/2"
+                  onClick={() => setImageUrl("")}
+                >
+                  <Icon icon="close" />
+                </button>
+              </div>
             )}
           </div>
           <div className="flex text-primary text-xl justify-between items-center">
