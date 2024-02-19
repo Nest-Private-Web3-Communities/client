@@ -92,3 +92,15 @@
     rotate: 360deg;
   }
 }
+
+@keyframes hero-hand-float {
+  from {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

@@ -88,12 +88,13 @@ export default function Hero() {
           <img
             src="/images/home-hand.png"
             alt="web3-hand"
-            className="relative z-10 rounded-b-3xl"
+            className="relative z-10 rounded-b-3xl animate-[hero-hand-float_10000ms_infinite]"
             style={{
               filter: `drop-shadow(0px 0px 1px rgb(var(--color-front))) drop-shadow(-4px -10px 10px rgba(var(--color-front)/0.15))`,
             }}
           />
           <figure className="absolute bottom-0 right-0 w-[70%] h-[70vh] bg-primary rounded-t-full rounded-b-[250%]" />
+          <figure className="absolute top-full w-1/2 right-0 h-[10vh] bg-background z-10" />
         </div>
       </div>
     </section>
