@@ -10,7 +10,6 @@ import Picker from "@emoji-mart/react";
 import { FeedItem } from "../../../../../types";
 import CryptoJS from "crypto-js";
 import useEncryptionContext from "../../../../../contexts/encryptionContext";
-import { keyBase } from "../../../../../config";
 import useCommunity from "../../../CommunityContext";
 
 export default function Header() {

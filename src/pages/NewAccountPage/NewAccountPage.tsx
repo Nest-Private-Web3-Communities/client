@@ -2,7 +2,6 @@ import React, { FormEvent, useState } from "react";
 import useWeb3 from "../../contexts/web3context";
 import useEncryptionContext from "../../contexts/encryptionContext";
 import { useNavigate } from "react-router-dom";
-import { keyBase } from "../../config";
 import useRefreshComponent from "../../hooks/useRefreshComponent";
 import useTheme from "../../hooks/useTheme";
 import { twMerge } from "tailwind-merge";
@@ -31,7 +30,7 @@ export default function NewAccountPage() {
 
     if (!(web3.client && web3.contracts)) return;
 
-    const key = encryption.keyPub.toString(keyBase);
+    const key = encryption.keyPub;
 
     setLoading(true);
 

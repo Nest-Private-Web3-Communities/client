@@ -8,7 +8,6 @@ import contracts from "../../../contracts";
 import { useAccount } from "@particle-network/connect-react-ui";
 import { generateRandomHex, isAddress } from "../../../utils";
 import useEncryptionContext from "../../../contexts/encryptionContext";
-import { keyBase } from "../../../config";
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router-dom";
 
@@ -36,7 +35,7 @@ export default function ModalJoin() {
       client: web3.client,
     });
 
-    const _Keys: string[] = [encryption.keyPvt.toString(keyBase)];
+    const _Keys: string[] = [encryption.keyPvt.toString()];
     const _Users: Address[] = [account as Address];
 
     const newKey = generateRandomHex(64);
@@ -44,10 +43,10 @@ export default function ModalJoin() {
     const fellows = await contract.read.getMemberAddresses();
     for await (let p of fellows) {
       const usr = await web3.contracts.nest.read.users([p]);
-      const Kpub = parseInt(usr[0], keyBase);
+      const Kpub = usr[0];
 
       const Kshared = Kpub ** encryption.keyPvt % encryption.dhParameters.prime;
-      const kMaster = CryptoJS.AES.encrypt(newKey, Kshared.toString(keyBase));
+      const kMaster = CryptoJS.AES.encrypt(newKey, Kshared.toString());
 
       _Users.push(p);
       _Keys.push(kMaster.toString());

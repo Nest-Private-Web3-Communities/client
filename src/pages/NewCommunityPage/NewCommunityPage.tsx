@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import useEncryptionContext from "../../contexts/encryptionContext";
 import CryptoJS from "crypto-js";
 import { generateRandomHex } from "../../utils";
-import { keyBase } from "../../config";
 
 export default function NewCommunityPage() {
   const web3 = useWeb3();
@@ -28,7 +27,7 @@ export default function NewCommunityPage() {
   function createCommunityHandler(data: Record<string, string>) {
     const kMaster = CryptoJS.AES.encrypt(
       generateRandomHex(64),
-      keyPvt.toString(keyBase)
+      keyPvt.toString()
     );
 
     const args = [

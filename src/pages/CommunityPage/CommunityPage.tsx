@@ -13,7 +13,6 @@ import SideNav from "./components/SideNav/SideNav";
 import Modal from "../../common/Modal";
 import useCommunity from "./CommunityContext";
 import { generateRandomHex } from "../../utils";
-import { keyBase } from "../../config";
 import contracts from "../../contracts";
 import { AES } from "crypto-js";
 
@@ -117,10 +116,10 @@ export default function CommunityPage() {
     const fellows = await contract.read.getMemberAddresses();
     for await (let p of fellows) {
       const usr = await web3.contracts.nest.read.users([p]);
-      const Kpub = parseInt(usr[0], keyBase);
+      const Kpub = usr[0];
 
       const Kshared = Kpub ** encryption.keyPvt % encryption.dhParameters.prime;
-      const kMaster = AES.encrypt(newKey, Kshared.toString(keyBase));
+      const kMaster = AES.encrypt(newKey, Kshared.toString());
 
       _Users.push(p);
       _Keys.push(kMaster.toString());

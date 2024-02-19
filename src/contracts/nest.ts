@@ -2,53 +2,6 @@ const address = "0xbcf4F415ED910340a47ee4151F33c983C4fa3eea" as const;
 
 const abi = [
   {
-    inputs: [
-      {
-        internalType: "string",
-        name: "Kpub",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "imageUrl",
-        type: "string",
-      },
-    ],
-    name: "createAccount",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "community",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "userAddress",
-        type: "address",
-      },
-    ],
-    name: "registerCommunityForUser",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [],
     stateMutability: "nonpayable",
     type: "constructor",
@@ -77,6 +30,29 @@ const abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint48",
+        name: "Kpub",
+        type: "uint48",
+      },
+      {
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "imageUrl",
+        type: "string",
+      },
+    ],
+    name: "createAccount",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -118,9 +94,9 @@ const abi = [
       {
         components: [
           {
-            internalType: "string",
+            internalType: "uint48",
             name: "Kpub",
-            type: "string",
+            type: "uint48",
           },
           {
             internalType: "string",
@@ -160,6 +136,30 @@ const abi = [
     inputs: [
       {
         internalType: "address",
+        name: "community",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "userAddress",
+        type: "address",
+      },
+    ],
+    name: "registerCommunityForUser",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "",
         type: "address",
       },
@@ -167,9 +167,9 @@ const abi = [
     name: "users",
     outputs: [
       {
-        internalType: "string",
+        internalType: "uint48",
         name: "Kpub",
-        type: "string",
+        type: "uint48",
       },
       {
         internalType: "string",

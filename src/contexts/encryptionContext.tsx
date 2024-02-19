@@ -12,7 +12,6 @@ import { useAccount } from "@particle-network/connect-react-ui";
 import contractDefinitions from "../contracts";
 import { modularExponentiation, rangeArray } from "../utils";
 import CryptoJS from "crypto-js";
-import { keyBase } from "../config";
 
 interface EncryptionContextType {
   dhParameters: {
@@ -141,7 +140,7 @@ export function EncryptionContextProvider({
         const publicKey = fellow[0];
 
         const sharedKey = modularExponentiation(
-          parseInt(publicKey, keyBase),
+          publicKey,
           keyPvt,
           dhParameters.prime
         );
@@ -152,16 +151,14 @@ export function EncryptionContextProvider({
 
         if (e_key == "") continue;
 
-        key.key = CryptoJS.AES.decrypt(
-          e_key,
-          sharedKey.toString(keyBase)
-        ).toString(CryptoJS.enc.Utf8);
+        key.key = CryptoJS.AES.decrypt(e_key, sharedKey.toString()).toString(
+          CryptoJS.enc.Utf8
+        );
 
         if (publisherAddress.toUpperCase() == account.toUpperCase()) {
-          key.key = CryptoJS.AES.decrypt(
-            e_key,
-            keyPvt.toString(keyBase)
-          ).toString(CryptoJS.enc.Utf8);
+          key.key = CryptoJS.AES.decrypt(e_key, keyPvt.toString()).toString(
+            CryptoJS.enc.Utf8
+          );
         }
 
         setAgreement((p) => [...p, key]);
