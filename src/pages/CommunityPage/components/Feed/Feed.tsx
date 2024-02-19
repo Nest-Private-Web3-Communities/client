@@ -21,12 +21,18 @@ export default function Feed() {
   }
 
   const [posts, setPosts] = useState<bigint[]>([]);
+  const [isScrollbarVisible, setIsScrollbarVisible] = useState(false);
 
   useEffect(() => {
     if (contract)
       contract.read
         .getPostsByNetwork([currentSelectedNetwork])
         .then((res) => setPosts(res as Mutable<typeof res>));
+
+    const container = containerRef.current;
+    if (container) {
+      setIsScrollbarVisible(container.scrollHeight > container.clientHeight);
+    }
   }, [contract, currentSelectedNetwork]);
 
   return (
@@ -41,15 +47,18 @@ export default function Feed() {
         {posts.map((post, key) => (
           <FeedItem postId={Number(post)} key={key} />
         ))}
-        <div className="items-center w-full justify-center pt-6 pb-4 text-primary text-lg font-semibold tracking-wider flex flex-col">
-          <button
-            className="text-[2.5rem] animate-bounce"
-            onClick={() => scrollBack()}
-          >
-            <Icon icon="keyboardDoubleArrowUp" />
-          </button>
-          <span className="">You have seen it all!</span>
-        </div>
+
+        {isScrollbarVisible && (
+          <div className="items-center w-full justify-center pt-6 pb-4 text-primary text-lg font-semibold tracking-wider flex flex-col">
+            <button
+              className="text-[2.5rem] animate-bounce"
+              onClick={() => scrollBack()}
+            >
+              <Icon icon="keyboardDoubleArrowUp" />
+            </button>
+            <span className="">You have seen it all!</span>
+          </div>
+        )}
       </div>
     </div>
   );
