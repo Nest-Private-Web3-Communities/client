@@ -12,8 +12,12 @@ interface CommunityContextType {
   setContract: React.Dispatch<
     React.SetStateAction<CommunityContract | undefined>
   >;
+
   data: ICommunity;
   setData: React.Dispatch<React.SetStateAction<ICommunity>>;
+
+  pageConfig: Config;
+  setPageConfig: React.Dispatch<React.SetStateAction<Config>>;
 }
 
 const CommunityContext = createContext<CommunityContextType>(
@@ -35,6 +39,10 @@ export function CommunityContextProvider({
     address: params.address as Address,
     userIsAdmin: false,
   });
+  const [pageConfig, setPageConfig] = useState<Config>({
+    currentSelectedNetwork: "General",
+    sidenavCollapse: { members: false, networks: false },
+  });
 
   useEffect(() => {
     if (account && contract)
@@ -48,6 +56,8 @@ export function CommunityContextProvider({
     setContract,
     data,
     setData,
+    pageConfig,
+    setPageConfig,
   };
 
   return (
@@ -72,6 +82,11 @@ interface Community {
   reactions: Array<{ name: string; color: string }>;
   memberCount: number;
   networkCount: number;
+}
+
+interface Config {
+  currentSelectedNetwork: string;
+  sidenavCollapse: { members: boolean; networks: boolean };
 }
 
 export type ICommunity = Partial<Community> & {
