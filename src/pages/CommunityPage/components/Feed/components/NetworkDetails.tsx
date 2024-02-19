@@ -23,7 +23,7 @@ export default function NetworkDetails() {
         src={imageUrl || networkImagePlaceholder}
         onError={(e) => (e.currentTarget.src = networkImagePlaceholder)}
         alt={currentSelectedNetwork}
-        className="w-[4vw] aspect-square rounded-full object-cover"
+        className="w-[3vw] aspect-square rounded-full object-cover"
       />
 
       <div className="flex-1 pl-3">
@@ -31,7 +31,7 @@ export default function NetworkDetails() {
         <textarea
           value={desc}
           rows={2}
-          className="text-xs font-light text-front/70 resize-none bg-transparent w-full"
+          className="text-[10px] font-light text-front/70 resize-none bg-transparent w-full"
         />
       </div>
     </section>
