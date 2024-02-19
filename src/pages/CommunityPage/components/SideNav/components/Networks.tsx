@@ -5,9 +5,9 @@ import Icon from "../../../../../common/Icon";
 import useCommunity from "../../../CommunityContext";
 import ModalAddNetowrk from "../../modals/ModalAddNetwork";
 import { useIsInViewport } from "../../../../../hooks/useIsInView";
-import useWeb3 from "../../../../../contexts/web3context";
 import { rangeArray } from "../../../../../utils";
 import { twMerge } from "tailwind-merge";
+import { networkImagePlaceholder } from "../../../../../config";
 
 export default function SubgroupList() {
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -98,14 +98,8 @@ function NetworkCard(props: { networkIdx: number }) {
       <div className="flex gap-x-2 items-center">
         <img
           draggable={false}
-          src={
-            data?.imageUrl ||
-            "https://ps.w.org/hashtagger/assets/icon.svg?rev=2803093"
-          }
-          onError={(e) =>
-            (e.currentTarget.src =
-              "https://ps.w.org/hashtagger/assets/icon.svg?rev=2803093")
-          }
+          src={data?.imageUrl || networkImagePlaceholder}
+          onError={(e) => (e.currentTarget.src = networkImagePlaceholder)}
           className="rounded-full bg-front text-background text-center w-[3vw] aspect-square object-cover"
         />
         <h2 className="font-semibold whitespace-nowrap truncate max-w-[70%]">

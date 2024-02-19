@@ -82,7 +82,7 @@ export default function Feed() {
   const { currentSelectedNetwork } = pageConfig;
 
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-  useIdleScrollbar(containerRef);
+  // useIdleScrollbar(containerRef);
 
   function scrollBack() {
     if (containerRef.current !== null) {
