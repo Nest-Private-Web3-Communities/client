@@ -124,8 +124,6 @@ export default function CommunityPage() {
       _Users.push(p);
       _Keys.push(kMaster.toString());
     }
-
-    console.log(_Keys, _Users);
   }
 
   return (
@@ -144,7 +142,7 @@ export default function CommunityPage() {
             } as React.CSSProperties
           }
         >
-          <button onClick={join}>TEST</button>
+          {/* <button onClick={join}>TEST</button> */}
           <SideNav />
           <Feed key={currentSelectedNetwork} />
           <Chat />

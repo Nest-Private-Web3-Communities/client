@@ -32,9 +32,7 @@ export default function ModalCommunityInfo() {
                 </p>
               </CopyWrapper>
             </div>
-            <p className="text-sm text-white/80 whitespace-nowrap w-full">
-              {data.description}
-            </p>
+            <p className="text-sm text-white/80">{data.description}</p>
           </div>
         </div>
         <div className="flex flex-col gap-y-2">

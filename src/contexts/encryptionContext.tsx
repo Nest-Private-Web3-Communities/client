@@ -204,8 +204,6 @@ export function EncryptionContextProvider({
     decrypt,
   };
 
-  // console.log(agreement);
-
   return (
     <EncryptionContext.Provider value={value}>
       {!loading && children}
