@@ -31,6 +31,7 @@ export default function NetworkDetails() {
         <textarea
           value={desc}
           rows={2}
+          disabled
           className="text-[10px] font-light text-front/70 resize-none bg-transparent w-full"
         />
       </div>
