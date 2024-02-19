@@ -26,7 +26,10 @@ export default function ModalAddNetowrk() {
       .then((res) =>
         web3.client
           ?.waitForTransactionReceipt({ hash: res })
-          .then(() => reload())
+          .then(() => {
+            modal.hide();
+            reload();
+          })
           .finally(() => {
             setLoading(false);
           })
