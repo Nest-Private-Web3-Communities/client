@@ -32,14 +32,14 @@ export function CommunityContextProvider({
   children: React.ReactNode;
 }) {
   const params = useParams();
-  if (!params.address) return <Navigate to="/" />;
+  if (!params.cid) return <Navigate to="/" />;
 
   const account = useAccount();
 
   const [seed, setSeed] = useState(1);
   const [contract, setContract] = useState<CommunityContract>();
   const [data, setData] = useState<ICommunity>({
-    address: params.address as Address,
+    address: params.cid as Address,
     userIsAdmin: false,
   });
   const [pageConfig, setPageConfig] = useState<Config>({

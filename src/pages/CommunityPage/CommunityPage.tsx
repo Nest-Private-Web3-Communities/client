@@ -7,7 +7,7 @@ import Loader from "../../common/Loader";
 import { Address, Chain, Client, CustomTransport, getContract } from "viem";
 import contractDefinitions from "../../contracts";
 import { Mutable } from "../../types";
-import { useAccount } from "@particle-network/connect-react-ui";
+import { ConnectButton, useAccount } from "@particle-network/connect-react-ui";
 import useEncryptionContext from "../../contexts/encryptionContext";
 import SideNav from "./components/SideNav/SideNav";
 import Modal from "../../common/Modal";
@@ -98,7 +98,7 @@ export default function CommunityPage() {
     <>
       {theme && contract && (
         <main
-          className="bg-background px-[8vw] flex h-screen w-full"
+          className="bg-background px-[8vw] flex h-screen w-full relative"
           style={
             {
               "--color-primary": theme.primary,

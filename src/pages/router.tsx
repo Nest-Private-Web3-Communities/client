@@ -47,18 +47,20 @@ const router = createBrowserRouter(
         <Route path="*" element={<ErrorPage />} />
       </Route>
 
-      <Route
-        path="/"
-        element={<ProtectedRoute type={ProtectedTypes.AUTHENTICATEDONLY} />}
-      >
+      <Route element={<Layout.Community />}>
         <Route
-          path="community/:address"
-          element={
-            <CommunityContextProvider>
-              <CommunityPage />
-            </CommunityContextProvider>
-          }
-        />
+          path="/"
+          element={<ProtectedRoute type={ProtectedTypes.AUTHENTICATEDONLY} />}
+        >
+          <Route
+            path="community/:cid"
+            element={
+              <CommunityContextProvider>
+                <CommunityPage />
+              </CommunityContextProvider>
+            }
+          />
+        </Route>
       </Route>
     </>
   )

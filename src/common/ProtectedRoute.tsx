@@ -1,4 +1,4 @@
-import { useAccount, useConnectKit } from "@particle-network/connect-react-ui";
+import { useAccount } from "@particle-network/connect-react-ui";
 import { useEffect, useRef, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import Loader from "./Loader";
@@ -23,29 +23,30 @@ export default function ProtectedRoute(props: ProtectedRouteProps) {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const timeout = useRef() as React.MutableRefObject<NodeJS.Timeout>;
+  const timeout = useRef<NodeJS.Timeout | null>(null);
 
   const web3 = useWeb3();
 
-  async function verifyAuthentication() {
-    const res = await web3.contracts.nest.read.doesSenderHaveAnAccount();
-    setAuthenticated(res);
-  }
-
   useEffect(() => {
-    if (timeout.current == undefined) {
+    if (timeout.current == null) {
       timeout.current = setTimeout(() => {
         setLoading(false);
-      }, 5000);
+      }, 6000);
     }
   }, []);
 
   useEffect(() => {
-    if (account != undefined) {
-      clearInterval(timeout.current);
-      verifyAuthentication().finally(() => {
-        setLoading(false);
-      });
+    if (account != undefined && timeout.current) {
+      clearTimeout(timeout.current);
+
+      web3.contracts.nest.read
+        .doesSenderHaveAnAccount()
+        .then((res) => {
+          setAuthenticated(res);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }, [account]);
 
@@ -68,12 +69,23 @@ export default function ProtectedRoute(props: ProtectedRouteProps) {
   return (
     <>
       {loading ? (
-        <main className="h-screen flex justify-center items-center">
+        <main className="h-screen flex justify-center items-center flex-col gap-y-12">
           <Loader className="w-1/4" />
+          <p className="text-primary">Loading</p>
         </main>
       ) : (
         <>
-          {condition ? <Outlet /> : <Navigate to={props.failRedirect || "/"} />}
+          {condition ? (
+            <Outlet />
+          ) : (
+            <>
+              {loading ? (
+                <p>loading</p>
+              ) : (
+                <Navigate to={props.failRedirect || "/"} />
+              )}
+            </>
+          )}
         </>
       )}
     </>

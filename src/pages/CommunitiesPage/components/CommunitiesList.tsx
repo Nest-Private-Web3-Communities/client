@@ -22,12 +22,12 @@ export default function CommunitiesList() {
   }, []);
 
   return (
-    <section className="p-page flex flex-wrap gap-x-6">
+    <section className="p-page flex flex-wrap gap-6">
       {list &&
         list.map((addr, key) => (
           <CommunityCard
             key={key}
-            className="w-[calc(16.667%)]"
+            className="w-[calc(16%)]"
             communityAddress={addr}
           />
         ))}
