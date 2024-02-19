@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 import { Link, Navigate } from "react-router-dom";
 import { Address, getContract } from "viem";
 import community from "../../../contracts/community";
+import CopyWrapper from "../../../common/CopyWrapper";
 
 export default function CommunitiesList() {
   const web3 = useWeb3();

@@ -7,6 +7,7 @@ import { rangeArray } from "../../../../../utils";
 import { useIsInViewport } from "../../../../../hooks/useIsInView";
 import useWeb3 from "../../../../../contexts/web3context";
 import { Address } from "viem";
+import CopyWrapper from "../../../../../common/CopyWrapper";
 
 export default function Members() {
   const membersContainerRef =
@@ -89,9 +90,11 @@ function MemberCard(props: { userIdx: number }) {
         <div className="flex flex-col">
           <h2 className="font-semibold">{data?.name}</h2>
 
-          <p className="text-sm text-front text-opacity-50 w-[8vw] truncate">
-            {data?.address}
-          </p>
+          <CopyWrapper>
+            <p className="text-sm text-front text-opacity-50 w-[8vw] truncate">
+              {data?.address}
+            </p>
+          </CopyWrapper>
         </div>
       </div>
       <button className="hover:bg-background rounded-full px-3 py-1 aspect-square border-front border-opacity-0 hover:border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">

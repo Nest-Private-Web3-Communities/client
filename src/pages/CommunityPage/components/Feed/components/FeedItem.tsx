@@ -8,6 +8,7 @@ import Emote, { EmoteType } from "../../../../../common/Emote";
 import ModalShare from "../../modals/ModalShare";
 import useModal from "../../../../../hooks/useModal";
 import Icon from "../../../../../common/Icon";
+import CopyWrapper from "../../../../../common/CopyWrapper";
 
 export default function FeedItem(props: { postId: number }) {
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -82,9 +83,11 @@ export default function FeedItem(props: { postId: number }) {
         <div className="flex items-center gap-x-2">
           <h1 className="">{data.userName}</h1>
           <div className="bg-front h-[1.4ch] w-[1px] bg-opacity-50" />
-          <h2 className="border-primary border text-front w-[5vw] truncate px-2 text-center text-xs h-max rounded-xl">
-            {data.userAddress}
-          </h2>
+          <CopyWrapper>
+            <h2 className="border-primary border text-front w-[5vw] truncate px-2 text-center text-xs h-max rounded-xl">
+              {data.userAddress}
+            </h2>
+          </CopyWrapper>
 
           <figure className="flex-1" role="separator" />
 
