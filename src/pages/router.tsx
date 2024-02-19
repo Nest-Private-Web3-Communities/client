@@ -26,7 +26,12 @@ const router = createBrowserRouter(
 
         <Route
           path="/"
-          element={<ProtectedRoute type={ProtectedTypes.UNAUTHENTICATEDONLY} />}
+          element={
+            <ProtectedRoute
+              failRedirect="/communities"
+              type={ProtectedTypes.UNAUTHENTICATEDONLY}
+            />
+          }
         >
           <Route path="auth/new" element={<NewAccountPage />} />
         </Route>

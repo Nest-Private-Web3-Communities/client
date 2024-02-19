@@ -170,8 +170,8 @@ export default function FeedItem(props: { postId: number }) {
                 >
                   {emotes && data.userReaction != undefined ? (
                     <Emote
-                      name={emotes[data.userReaction].name as EmoteType}
-                      color={emotes[data.userReaction].color}
+                      name={emotes[data.userReaction - 1].name as EmoteType}
+                      color={`rgb(${emotes[data.userReaction - 1].color})`}
                       className="text-[1.2rem]"
                     />
                   ) : (

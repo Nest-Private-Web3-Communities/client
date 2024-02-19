@@ -81,4 +81,8 @@
     after:top-[0.3em] after:-z-1 after:h-[1em] after:w-full after:-rotate-2 after:animate-[border-sketch-anim_2000ms] after:rounded-[50%] after:border-[4px] after:border-solid
     after:border-inherit after:border-l-transparent after:border-t-transparent after:px-[0.25em] after:py-[0.5em] after:opacity-70 after:content-visible;
   }
+
+  .anim-continuous-rotate {
+    @apply animate-[continuous-rotate_45000ms_infinite];
+  }
 }

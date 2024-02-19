@@ -7,10 +7,6 @@ export default function LandingPage() {
   return (
     <>
       <Hero />
-
-      <div className="flex justify-center items-center h-screen">
-        <Loader className="w-1/4" />
-      </div>
     </>
   );
 }

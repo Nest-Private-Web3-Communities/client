@@ -83,3 +83,12 @@
     clip-path: polygon(100% 0%, 100% 100%, 0% 100%, 0% 0%);
   }
 }
+
+@keyframes continuous-rotate {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
