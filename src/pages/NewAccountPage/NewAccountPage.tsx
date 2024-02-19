@@ -23,17 +23,21 @@ export default function NewAccountPage() {
 
   function createAccountHandler(event: React.FormEvent) {
     event.preventDefault();
+
+    if (!(web3.client && web3.contracts)) return;
+
     const key = encryption.keyPub.toString(keyBase);
 
     setLoading(true);
 
     web3.contracts.nest.write
       .createAccount([key, name, image])
-      .then((res) =>
+      .then((res) => {
+        if (!web3.client) return navigate("/");
         web3.client
-          ?.waitForTransactionReceipt({ hash: res })
-          .then((_) => navigate("/"))
-      )
+          .waitForTransactionReceipt({ hash: res })
+          .then((_) => navigate("/communities"));
+      })
       .catch(() => {
         setLoading(false);
       });

@@ -21,7 +21,7 @@ export default function CommunitiesList() {
   }, []);
 
   return (
-    <section className="p-page flex gap-x-6">
+    <section className="p-page flex flex-wrap gap-x-6">
       {list &&
         list.map((addr, key) => (
           <CommunityCard
@@ -64,14 +64,14 @@ function CommunityCard(props: {
     const cardRect = cardRef.current.getBoundingClientRect();
     glowRef.current.style.setProperty("--x", `${event.x - cardRect.x}px`);
     glowRef.current.style.setProperty("--y", `${event.y - cardRect.y}px`);
-
-    useEffect(() => {
-      loadData();
-      if (data) {
-        setLoading(false);
-      }
-    }, [data]);
   }
+
+  useEffect(() => {
+    loadData();
+    if (data) {
+      setLoading(false);
+    }
+  }, [data]);
 
   useEffect(() => {
     const isSmallScreen = window.innerWidth < 768;
