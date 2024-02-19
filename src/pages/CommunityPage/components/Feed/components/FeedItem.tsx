@@ -10,6 +10,7 @@ import useModal from "../../../../../hooks/useModal";
 import Icon from "../../../../../common/Icon";
 import CopyWrapper from "../../../../../common/CopyWrapper";
 import { Mutable } from "../../../../../types";
+import { useAccount } from "@particle-network/connect-react-ui";
 
 export default function FeedItem(props: { postId: number }) {
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -21,6 +22,7 @@ export default function FeedItem(props: { postId: number }) {
   const emotes = communityInfo.reactions;
   const { decrypt } = useEncryptionContext();
   const modal = useModal();
+  const account = useAccount();
 
   const [data, setData] = useState<
     Partial<{
@@ -31,6 +33,7 @@ export default function FeedItem(props: { postId: number }) {
       userName: string;
       reactors: Address[];
       commentCount: number;
+      userReaction: number;
     }>
   >({});
   const [pending, setPending] = useState(false);
@@ -65,9 +68,18 @@ export default function FeedItem(props: { postId: number }) {
       .getCommentCountOnPost([postId])
       .then((res) => setProperty("commentCount", Number(res)));
 
-    contract.read
-      .getReactorsOnPost([postId])
-      .then((res) => setProperty("reactors", res as Mutable<typeof res>));
+    contract.read.getReactorsOnPost([postId]).then((res) => {
+      setProperty("reactors", res as Mutable<typeof res>);
+      if (
+        res
+          .map((a) => a.toUpperCase())
+          .includes(account?.toUpperCase() as Address)
+      ) {
+        contract.read
+          .getReactionOnPostByUser([postId, account as Address])
+          .then((res) => setProperty("userReaction", res));
+      }
+    });
   }
 
   const formattedDate = data.createdAt
@@ -156,7 +168,15 @@ export default function FeedItem(props: { postId: number }) {
                   disabled={pending}
                   className="flex gap-x-1 items-center duration-200 ease-in"
                 >
-                  <Icon icon="addReaction" className="text-[1.2rem]  " />
+                  {emotes && data.userReaction != undefined ? (
+                    <Emote
+                      name={emotes[data.userReaction].name as EmoteType}
+                      color={emotes[data.userReaction].color}
+                      className="text-[1.2rem]"
+                    />
+                  ) : (
+                    <Icon icon="addReaction" className="text-[1.2rem]" />
+                  )}
                   <p className="text-xs">{data.reactors?.length}</p>
                 </button>
               </div>
