@@ -3,6 +3,7 @@ import useModal from "../../../../../hooks/useModal";
 import ModalInvite from "../../modals/ModalInvite";
 import useCommunity from "../../../CommunityContext";
 import ModalSettings from "../../modals/ModalSettings";
+import ModalCommunityInfo from "../../modals/ModalCommunityInfo";
 
 export default function Header() {
   const { data } = useCommunity();
@@ -20,17 +21,16 @@ export default function Header() {
         </h1>
       </div>
 
-      {data.userIsAdmin && (
-        <div className="flex items-center gap-x-3 text-xl text-front">
+      <div className="flex items-center gap-x-3 text-xl text-front">
+        {data.userIsAdmin && (
           <button onClick={() => modal.show(<ModalSettings />)}>
             <Icon icon="edit" />
           </button>
-
-          <button onClick={() => modal.show(<ModalInvite />)}>
-            <Icon icon="personAdd" />
-          </button>
-        </div>
-      )}
+        )}
+        <button onClick={() => modal.show(<ModalCommunityInfo />)}>
+          <Icon icon="eye" className="text-xl" />
+        </button>
+      </div>
     </header>
   );
 }
