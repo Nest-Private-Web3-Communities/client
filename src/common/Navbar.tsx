@@ -47,5 +47,4 @@ const navLinks = [
   { title: "Communities", to: "/communities" },
   { title: "About", to: "/about" },
   { title: "FAQs", to: "/faq" },
-  { title: "Community", to: "/community" },
 ];

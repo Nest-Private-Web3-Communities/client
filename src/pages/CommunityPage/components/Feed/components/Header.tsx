@@ -16,7 +16,7 @@ import useCommunity from "../../../CommunityContext";
 export default function Header() {
   const user = useNestUser();
   const web3 = useWeb3();
-  const { contract, reload } = useCommunity();
+  const { contract, reload, data: communityData } = useCommunity();
   const encryption = useEncryptionContext();
 
   const [loading, setLoading] = useState(false);
@@ -74,29 +74,41 @@ export default function Header() {
 
         <div className="w-full">
           <textarea
-            placeholder="Share your thoughts..."
-            className="text-front text-sm w-full bg-secondary focus:outline-none pt-2 resize-none scrollbar-primary placeholder:text-front/50"
+            placeholder={
+              communityData.memberCount == 1
+                ? "Add members to the community before posting"
+                : "Share your thoughts..."
+            }
+            className={twMerge(
+              "text-front text-sm w-full bg-secondary focus:outline-none pt-2 resize-none scrollbar-primary placeholder:text-front/50",
+              communityData.memberCount == 1 &&
+                "placeholder:bg-black placeholder:text-red-500"
+            )}
             rows={3}
             maxLength={maxContentLength}
             onChange={(e) => setContent(e.target.value)}
-            disabled={loading}
+            disabled={loading || communityData.memberCount == 1}
             value={content}
           />
 
           <div className="flex text-primary text-xl justify-between items-center">
             <div className="flex items-center gap-x-1">
-              <Icon icon="photoLibrary" />
-              <Icon icon="gif" />
-              <div className="group relative">
-                <Icon icon="mood" />
-                <div className="opacity-0 group-hover:opacity-100 absolute pointer-events-none group-hover:pointer-events-auto">
-                  <Picker
-                    data={data}
-                    onEmojiSelect={handleEmojiSelect}
-                    className=""
-                  />
-                </div>
-              </div>
+              {communityData.memberCount != 1 && (
+                <>
+                  <Icon icon="photoLibrary" />
+                  <Icon icon="gif" />
+                  <div className="group relative">
+                    <Icon icon="mood" />
+                    <div className="opacity-0 group-hover:opacity-100 absolute pointer-events-none group-hover:pointer-events-auto">
+                      <Picker
+                        data={data}
+                        onEmojiSelect={handleEmojiSelect}
+                        className=""
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
 
             <div className="flex items-center gap-x-2">
