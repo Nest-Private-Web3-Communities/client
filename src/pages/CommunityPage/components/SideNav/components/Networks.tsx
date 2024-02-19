@@ -61,6 +61,7 @@ function NetworkCard(props: { networkIdx: number }) {
   const [data, setData] = useState<{
     name: string;
     imageUrl: string;
+    description: string;
   }>();
 
   useEffect(() => {
@@ -73,7 +74,7 @@ function NetworkCard(props: { networkIdx: number }) {
       BigInt(props.networkIdx),
     ]);
     const res = await contract.read.networks([networkName]);
-    setData({ imageUrl: res[0], name: networkName });
+    setData({ imageUrl: res[0], name: networkName, description: res[1] });
   }
 
   useEffect(() => {
@@ -89,24 +90,22 @@ function NetworkCard(props: { networkIdx: number }) {
         setPageConfig((p) => ({ ...p, currentSelectedNetwork: data.name }))
       }
       className={twMerge(
-        "cursor-pointer bg-foreground bg-opacity-40 duration-200 ease-in px-3 border-front border border-opacity-20 py-4 rounded-lg flex items-center min-w-[15vw] justify-between",
+        "cursor-pointer bg-foreground  bg-opacity-40 duration-200 ease-in px-3 border-front border border-opacity-20 py-4 rounded-lg flex items-center min-w-[15vw] gap-x-3",
         pageConfig.currentSelectedNetwork == data?.name
           ? "bg-opacity-100 border-opacity-100 outline outline-front/40 pointer-events-none select-none"
           : "hover:bg-opacity-75"
       )}
     >
-      <div className="flex gap-x-2 items-center">
-        <img
-          draggable={false}
-          src={data?.imageUrl || networkImagePlaceholder}
-          onError={(e) => (e.currentTarget.src = networkImagePlaceholder)}
-          className="rounded-full bg-front text-background text-center w-[3vw] aspect-square object-cover"
-        />
-        <h2 className="font-semibold w-[70%] truncate">{data?.name}</h2>
+      <img
+        draggable={false}
+        src={data?.imageUrl || networkImagePlaceholder}
+        onError={(e) => (e.currentTarget.src = networkImagePlaceholder)}
+        className="rounded-full bg-front text-background text-center w-[3vw] aspect-square object-cover"
+      />
+      <div className="flex flex-col truncate">
+        <h2 className="font-semibold truncate">{data?.name}</h2>
+        <p className="text-xs text-front/60 truncate">{data?.description}</p>
       </div>
-      <button className="bg-background rounded-full px-2 aspect-square border-front border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
-        <Icon icon="forum" className="text-[1.2rem]" />
-      </button>
     </div>
   );
 }
