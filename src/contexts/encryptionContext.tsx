@@ -3,6 +3,7 @@ import React, {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import useWeb3, { AbiReadResponseType, ContractType } from "./web3context";
@@ -58,6 +59,7 @@ export function EncryptionContextProvider({
     useState<ContractType<typeof contractDefinitions.community.abi>>();
 
   const [loading, setLoading] = useState(true);
+  const flag = useRef(false);
 
   const dhParameters = { prime, primitive };
 
@@ -127,6 +129,7 @@ export function EncryptionContextProvider({
         return;
       }
 
+      setAgreement([]);
       const keyCount = await communityContract.read.getKeyCount();
       for await (let i of rangeArray(Number(keyCount))) {
         const _key = await communityContract.read.keys([BigInt(i)]);
@@ -152,18 +155,23 @@ export function EncryptionContextProvider({
           sharedKey.toString(keyBase)
         ).toString(CryptoJS.enc.Utf8);
 
-        if (publisherAddress.toUpperCase() == account.toUpperCase())
+        if (publisherAddress.toUpperCase() == account.toUpperCase()) {
+          ("ran once");
           key.key = CryptoJS.AES.decrypt(
             e_key,
             keyPvt.toString(keyBase)
           ).toString(CryptoJS.enc.Utf8);
+        }
 
         setAgreement((p) => [...p, key]);
       }
     }
 
-    loadKeys();
-  }, [communityContract, account]);
+    if (!flag.current && communityContract && account) {
+      flag.current = true;
+      loadKeys();
+    }
+  }, [communityContract, account, flag]);
 
   function encrypt(c: string) {
     if (keyMaster == "") return;
@@ -197,6 +205,8 @@ export function EncryptionContextProvider({
     encrypt,
     decrypt,
   };
+
+  // console.log(agreement);
 
   return (
     <EncryptionContext.Provider value={value}>

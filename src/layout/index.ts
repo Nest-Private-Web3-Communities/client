@@ -1,5 +1,6 @@
 import Default from "./Default";
+import Community from "./Community";
 
-const Layout = { Default };
+const Layout = { Default, Community };
 
 export default Layout;

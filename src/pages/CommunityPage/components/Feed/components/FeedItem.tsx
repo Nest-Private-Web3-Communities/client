@@ -45,7 +45,6 @@ export default function FeedItem(props: { postId: number }) {
     if (!contract) return;
     const postData = await contract.read.posts([BigInt(props.postId)]);
     const userAddress = postData[1];
-    console.log(postData);
     const createdAt = Number(postData[0]);
     setProperty("userAddress", userAddress);
     setProperty("createdAt", createdAt);
@@ -72,7 +71,7 @@ export default function FeedItem(props: { postId: number }) {
       {data.userImage ? (
         <img
           src={data.userImage}
-          className="rounded-full w-[3vw] aspect-square h-max"
+          className="rounded-full w-[3vw] aspect-square h-max object-cover"
         />
       ) : (
         <figure className="w-[3vw] rounded-full bg-gray-500/50 animate-pulse aspect-square" />
