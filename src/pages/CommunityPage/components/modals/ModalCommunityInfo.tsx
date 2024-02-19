@@ -24,15 +24,17 @@ export default function ModalCommunityInfo() {
             className="w-[5vw] aspect-square rounded-full object-cover"
           />
           <div className="flex flex-col gap-y-1 w-full">
-            <div className="flex justify-between items-end">
-              <h1 className="text-xl">{data.name}</h1>
-              <CopyWrapper className="w-[40%]">
-                <p className="truncate text-xs rounded-3xl border py-1 px-3 mr-3 hover:bg-white/10 duration-200 ease-in">
+            <div className="flex gap-x-4 items-end">
+              <h1 className="text-xl self-start">{data.name}</h1>
+              <CopyWrapper className="w-[40%] self-start">
+                <p className="truncate text-xs rounded-3xl border py-1 px-3 hover:bg-white/10 duration-200 ease-in">
                   {data.address}
                 </p>
               </CopyWrapper>
             </div>
-            <p className="text-sm text-white/80">{data.description}</p>
+            <p className="text-sm text-white/80 whitespace-nowrap w-full">
+              {data.description}
+            </p>
           </div>
         </div>
         <div className="flex flex-col gap-y-2">
@@ -46,21 +48,23 @@ export default function ModalCommunityInfo() {
             <div className="bg-back w-[2vw] aspect-square rounded-full  border-white border" />
           </div>
         </div>
-        <div className="flex flex-col gap-y-1">
-          <div>Community Emotes</div>
-          <div className="bg-background p-1 flex items-center gap-x-1 rounded-md border border-front border-opacity-30 w-max">
-            {emotes &&
-              emotes.map((emote, key) => (
-                <button key={key} className="group/emote">
-                  <Emote
-                    name={emote.name as EmoteType}
-                    color={`rgb(${emote.color})`}
-                    className="text-[1.8vw]"
-                  />
-                </button>
-              ))}
+        {emotes?.length != 0 && (
+          <div className="flex flex-col gap-y-1">
+            <div>Community Emotes</div>
+            <div className="bg-background p-1 flex items-center gap-x-1 rounded-md border border-front border-opacity-30 w-max">
+              {emotes &&
+                emotes.map((emote, key) => (
+                  <button key={key} className="group/emote">
+                    <Emote
+                      name={emote.name as EmoteType}
+                      color={`rgb(${emote.color})`}
+                      className="text-[1.8vw]"
+                    />
+                  </button>
+                ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
