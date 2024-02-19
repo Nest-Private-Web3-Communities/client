@@ -57,7 +57,7 @@ export function EncryptionContextProvider({
   const [communityContract, setCommunityContract] =
     useState<ContractType<typeof contractDefinitions.community.abi>>();
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const flag = useRef(false);
 
   const dhParameters = { prime, primitive };
@@ -107,8 +107,10 @@ export function EncryptionContextProvider({
   }
 
   useEffect(() => {
-    setLoading(true);
-    loadData().finally(() => setLoading(false));
+    if (account && web3.contracts.nest) {
+      setLoading(true);
+      loadData().finally(() => setLoading(false));
+    }
   }, [account, web3.contracts]);
 
   useEffect(() => {
@@ -149,8 +151,6 @@ export function EncryptionContextProvider({
           BigInt(i),
         ]);
 
-        if (e_key == "") continue;
-
         key.key = CryptoJS.AES.decrypt(e_key, sharedKey.toString()).toString(
           CryptoJS.enc.Utf8
         );
@@ -160,6 +160,8 @@ export function EncryptionContextProvider({
             CryptoJS.enc.Utf8
           );
         }
+
+        if (key.key == "") continue;
 
         setAgreement((p) => [...p, key]);
       }
@@ -204,9 +206,11 @@ export function EncryptionContextProvider({
     decrypt,
   };
 
+  console.log(agreement);
+
   return (
     <EncryptionContext.Provider value={value}>
-      {!loading && children}
+      {loading ? "Loading" : children}
     </EncryptionContext.Provider>
   );
 }

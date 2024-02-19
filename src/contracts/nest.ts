@@ -2,31 +2,101 @@ const address = "0x957a6e6E0b064aD81d4ea87Cd120f311f3f5Df0A" as const;
 
 const abi = [
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: "address",
+        name: "_nestAddress",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "_name",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_description",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_imageUrl",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_theme",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_emotes",
+        type: "string",
+      },
+      {
+        internalType: "uint48",
+        name: "_Kmaster",
+        type: "uint48",
+      },
+    ],
     stateMutability: "nonpayable",
     type: "constructor",
   },
   {
+    anonymous: false,
     inputs: [],
-    name: "DHprime",
-    outputs: [
+    name: "KeysCycled",
+    type: "event",
+  },
+  {
+    inputs: [
       {
-        internalType: "uint48",
-        name: "",
-        type: "uint48",
+        internalType: "uint256",
+        name: "_postId",
+        type: "uint256",
+      },
+      {
+        internalType: "string",
+        name: "_content",
+        type: "string",
       },
     ],
-    stateMutability: "view",
+    name: "commentOnPost",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_networkName",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_description",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_imageUrl",
+        type: "string",
+      },
+    ],
+    name: "createNetwork",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [],
-    name: "DHprimitive",
+    name: "description",
     outputs: [
       {
-        internalType: "uint48",
+        internalType: "string",
         name: "",
-        type: "uint48",
+        type: "string",
       },
     ],
     stateMutability: "view",
@@ -35,34 +105,58 @@ const abi = [
   {
     inputs: [
       {
-        internalType: "uint48",
-        name: "Kpub",
-        type: "uint48",
-      },
-      {
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "imageUrl",
-        type: "string",
+        internalType: "uint256",
+        name: "_postId",
+        type: "uint256",
       },
     ],
-    name: "createAccount",
-    outputs: [],
-    stateMutability: "nonpayable",
+    name: "getCommentCountOnPost",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [],
-    name: "doesSenderHaveAnAccount",
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_postId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_commentId",
+        type: "uint256",
+      },
+    ],
+    name: "getCommentOnPostById",
     outputs: [
       {
-        internalType: "bool",
+        components: [
+          {
+            internalType: "address",
+            name: "sender",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "createdAt",
+            type: "uint256",
+          },
+          {
+            internalType: "string",
+            name: "content",
+            type: "string",
+          },
+        ],
+        internalType: "struct Community.Comment",
         name: "",
-        type: "bool",
+        type: "tuple",
       },
     ],
     stateMutability: "view",
@@ -70,7 +164,39 @@ const abi = [
   },
   {
     inputs: [],
-    name: "getCommunitiesOfSender",
+    name: "getKeyCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_agreementId",
+        type: "uint256",
+      },
+    ],
+    name: "getKeyFromAgreement",
+    outputs: [
+      {
+        internalType: "uint48",
+        name: "",
+        type: "uint48",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getMemberAddresses",
     outputs: [
       {
         internalType: "address[]",
@@ -82,51 +208,58 @@ const abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "userAddress",
-        type: "address",
-      },
-    ],
-    name: "getUserByAddress",
+    inputs: [],
+    name: "getMemberCount",
     outputs: [
       {
-        components: [
-          {
-            internalType: "uint48",
-            name: "Kpub",
-            type: "uint48",
-          },
-          {
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "imageUrl",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "createdAt",
-            type: "uint256",
-          },
-          {
-            internalType: "address[]",
-            name: "communities",
-            type: "address[]",
-          },
-          {
-            internalType: "bool",
-            name: "flag",
-            type: "bool",
-          },
-        ],
-        internalType: "struct Nest.User",
+        internalType: "uint256",
         name: "",
-        type: "tuple",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getNetworkCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getNetworkNames",
+    outputs: [
+      {
+        internalType: "string[]",
+        name: "",
+        type: "string[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_networkName",
+        type: "string",
+      },
+    ],
+    name: "getPostsByNetwork",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
       },
     ],
     stateMutability: "view",
@@ -136,55 +269,233 @@ const abi = [
     inputs: [
       {
         internalType: "address",
-        name: "community",
+        name: "_user",
         type: "address",
+      },
+    ],
+    name: "getPostsByUser",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_postId",
+        type: "uint256",
       },
       {
         internalType: "address",
-        name: "userAddress",
+        name: "_user",
         type: "address",
       },
     ],
-    name: "registerCommunityForUser",
+    name: "getReactionOnPostByUser",
     outputs: [
       {
-        internalType: "bool",
+        internalType: "uint8",
         name: "",
-        type: "bool",
+        type: "uint8",
       },
     ],
-    stateMutability: "nonpayable",
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_postId",
+        type: "uint256",
+      },
+    ],
+    name: "getReactorsOnPost",
+    outputs: [
+      {
+        internalType: "address[]",
+        name: "",
+        type: "address[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "imageUrl",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
     inputs: [
       {
         internalType: "address",
-        name: "",
+        name: "_userToInvite",
         type: "address",
       },
     ],
-    name: "users",
+    name: "invite",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint48[]",
+        name: "_keys",
+        type: "uint48[]",
+      },
+      {
+        internalType: "address[]",
+        name: "_correspondingUsers",
+        type: "address[]",
+      },
+    ],
+    name: "join",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "keys",
     outputs: [
-      {
-        internalType: "uint48",
-        name: "Kpub",
-        type: "uint48",
-      },
-      {
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "imageUrl",
-        type: "string",
-      },
       {
         internalType: "uint256",
         name: "createdAt",
         type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "publisher",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "_networkName",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_data",
+        type: "string",
+      },
+    ],
+    name: "makePost",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "members",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "name",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "nest",
+    outputs: [
+      {
+        internalType: "contract Nest",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "networkNames",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    name: "networks",
+    outputs: [
+      {
+        internalType: "string",
+        name: "image",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "description",
+        type: "string",
       },
       {
         internalType: "bool",
@@ -197,12 +508,109 @@ const abi = [
   },
   {
     inputs: [],
-    name: "utils",
+    name: "owner",
     outputs: [
       {
-        internalType: "contract Utils",
+        internalType: "address",
         name: "",
         type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "participationStage",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "posts",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "createdAt",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "publisher",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "data",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "networkName",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_postId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint8",
+        name: "_reactionId",
+        type: "uint8",
+      },
+    ],
+    name: "reactToPost",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "reactions",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "theme",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
       },
     ],
     stateMutability: "view",
