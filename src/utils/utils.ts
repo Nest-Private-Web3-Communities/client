@@ -215,14 +215,16 @@ export function modularExponentiation(
   exponent: number,
   modulus: number
 ): number {
-  let result: number = 1;
-  base = base % modulus;
-  while (exponent > 0) {
-    if (exponent % 2 === 1) {
-      result = (result * base) % modulus;
+  if (modulus === 1) return 0;
+  let result: bigint = 1n;
+  let baseBigInt: bigint = BigInt(base) % BigInt(modulus);
+  let expBigInt: bigint = BigInt(exponent);
+  while (expBigInt > 0n) {
+    if (expBigInt % 2n === 1n) {
+      result = (result * baseBigInt) % BigInt(modulus);
     }
-    exponent = Math.floor(exponent / 2); // Integer division
-    base = (base * base) % modulus;
+    expBigInt = expBigInt / 2n;
+    baseBigInt = (baseBigInt * baseBigInt) % BigInt(modulus);
   }
-  return result;
+  return Number(result);
 }

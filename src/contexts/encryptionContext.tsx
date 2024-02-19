@@ -150,7 +150,7 @@ export function EncryptionContextProvider({
           BigInt(i),
         ]);
 
-        console.log(e_key);
+        if (e_key == "") continue;
 
         key.key = CryptoJS.AES.decrypt(
           e_key,
