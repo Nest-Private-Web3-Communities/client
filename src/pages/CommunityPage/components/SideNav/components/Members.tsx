@@ -97,8 +97,12 @@ function MemberCard(props: { userIdx: number }) {
           </CopyWrapper>
         </div>
       </div>
-      <button className="hover:bg-background rounded-full px-3 py-1 aspect-square border-front border-opacity-0 hover:border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
+      <button className="relative hover:bg-background rounded-full group px-3 py-1 aspect-square cursor-not-allowed border-front border-opacity-0 hover:border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
         <Icon icon="chat" className="text-[1.2rem] " />
+        <p className="absolute right-full -translate-x-3 top-1/2 -translate-y-1/2 px-2 py-1 opacity-0 duration-150 group-hover:opacity-100 rounded border border-white/40 text-[10px] bg-black text-white w-max">
+          Messaging will be
+          <br /> available soon
+        </p>
       </button>
     </div>
   );
