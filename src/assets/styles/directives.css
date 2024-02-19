@@ -4,6 +4,12 @@
   initial-value: #c0ffee;
 }
 
+@property --num {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
 @font-face {
   font-family: "Geist Sans";
   src: url("../fonts/GeistVF.ttf");

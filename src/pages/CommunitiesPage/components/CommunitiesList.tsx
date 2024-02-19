@@ -43,8 +43,9 @@ function CommunityCard(props: {
 
   const [data, setData] =
     useState<Record<"name" | "description" | "imageUrl", string>>();
-
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const cardRef = useRef() as React.MutableRefObject<HTMLAnchorElement>;
+  const glowRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const communityContract = getContract({
     abi: community.abi,
@@ -59,12 +60,32 @@ function CommunityCard(props: {
     setData({ name, description, imageUrl });
   }
 
+  function glowWithMouse(event: { x: number; y: number }) {
+    const cardRect = cardRef.current.getBoundingClientRect();
+    glowRef.current.style.setProperty("--x", `${event.x - cardRect.x}px`);
+    glowRef.current.style.setProperty("--y", `${event.y - cardRect.y}px`);
+
+    useEffect(() => {
+      loadData();
+      if (data) {
+        setLoading(false);
+      }
+    }, [data]);
+  }
+
   useEffect(() => {
-    loadData();
-    if (data) {
-      setLoading(false);
+    const isSmallScreen = window.innerWidth < 768;
+
+    if (!isSmallScreen) {
+      window.addEventListener("mousemove", glowWithMouse);
     }
-  }, [data]);
+
+    return () => {
+      if (!isSmallScreen) {
+        window.removeEventListener("mousemove", glowWithMouse);
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -81,12 +102,18 @@ function CommunityCard(props: {
         </div>
       ) : (
         <Link
+          ref={cardRef}
           to={`/community/${props.communityAddress}`}
           className={twMerge(
-            "rounded-lg shadow shadow-front/25 border overflow-hidden border-opacity-50 p-5 flex flex-col items-center gap-y-3 relative bg-background border-front duration-300 hover:scale-105 text-start min-w-[18vw]",
+            "rounded-lg md:relative md:w-[calc(50%_-_1.25rem)] shadow shadow-front/25 border overflow-hidden border-opacity-50 p-5 flex flex-col items-center gap-y-3 relative bg-background border-front duration-300 hover:scale-105 text-start min-w-[18vw]",
             props.className
           )}
         >
+          <div
+            ref={glowRef}
+            className="absolute bg-white bg-opacity-10 z-1 md:top-[var(--y)] md:left-[var(--x)] blur-3xl
+      md:w-[20vw] w-full h-[20vw] rounded-full -translate-x-1/2 -translate-y-1/2"
+          />
           <img
             src={data?.imageUrl}
             alt={data?.name}
@@ -104,3 +131,13 @@ function CommunityCard(props: {
     </>
   );
 }
+
+// return (
+//   <div
+//     className="w-full min-h-[200px] md:relative flex flex-col items-center p-4 md:w-[calc(50%_-_1.25rem)] bg-black
+//       rounded-lg border border-white border-opacity-20 gap-y-4 overflow-hidden"
+//   >
+//     <h3 className="text-2xl font-semibold">{props.title}</h3>
+//     <p className="text-sm mt-2 text-white text-opacity-70">{props.content}</p>
+//   </div>
+// );
