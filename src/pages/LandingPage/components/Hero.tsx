@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useTheme from "../../../hooks/useTheme";
+import { twMerge } from "tailwind-merge";
 
 export default function Hero() {
   const [loaded, setLoaded] = useState(false);
@@ -9,6 +11,8 @@ export default function Hero() {
   useEffect(() => {
     setLoaded(true);
   }, []);
+
+  const theme = useTheme();
 
   return (
     <section className="h-screen pt-24 p-page flex items-center relative overflow-hidden">
@@ -63,7 +67,12 @@ export default function Hero() {
           <button className="">Learn More</button>
         </div>
 
-        <div className="flex gap-x-10 saturate-0 brightness-0 invert opacity-30">
+        <div
+          className={twMerge(
+            "flex gap-x-10 saturate-0 brightness-0 opacity-30",
+            theme.current == "dark" && "invert"
+          )}
+        >
           <img src="/images/avax.png" alt="Avax" className="w-1/3" />
           <img
             src="/images/particle.png"
