@@ -23,6 +23,8 @@ export default function Header() {
 
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+
   const maxContentLength = 512;
   const wordUsage = content.length / maxContentLength;
   const wordUsageIndicatorColor = interpolateColors(
@@ -40,6 +42,8 @@ export default function Header() {
     setLoading(true);
 
     const data: FeedItem = { content: content };
+
+    if (imageUrl && imageUrl != "") data.imageUrl = imageUrl;
 
     const dataString = JSON.stringify(data);
     const encryptedData = CryptoJS.AES.encrypt(
@@ -75,29 +79,47 @@ export default function Header() {
         </div>
 
         <div className="w-full">
-          <textarea
-            placeholder={
-              communityData.memberCount == 1
-                ? "Add members to the community before posting"
-                : "Share your thoughts..."
-            }
-            className={twMerge(
-              "text-front text-sm w-full bg-secondary focus:outline-none pt-2 resize-none scrollbar-primary placeholder:text-front/50",
-              communityData.memberCount == 1 &&
-                "placeholder:bg-black placeholder:text-red-500"
+          <div className="flex items-center">
+            <textarea
+              placeholder={
+                communityData.memberCount == 1
+                  ? "Add members to the community before posting"
+                  : "Share your thoughts..."
+              }
+              className={twMerge(
+                "text-front flex-1 text-sm w-full bg-secondary focus:outline-none pt-2 resize-none scrollbar-primary placeholder:text-front/50",
+                communityData.memberCount == 1 &&
+                  "placeholder:bg-black placeholder:text-red-500"
+              )}
+              rows={3}
+              maxLength={maxContentLength}
+              onChange={(e) => setContent(e.target.value)}
+              disabled={loading || communityData.memberCount == 1}
+              value={content}
+            />
+            {imageUrl && (
+              <img
+                src={imageUrl}
+                className="h-[3.5em] aspect-square rounded border border-front/25 bg-background/20 object-cover"
+              />
             )}
-            rows={3}
-            maxLength={maxContentLength}
-            onChange={(e) => setContent(e.target.value)}
-            disabled={loading || communityData.memberCount == 1}
-            value={content}
-          />
-
+          </div>
           <div className="flex text-primary text-xl justify-between items-center">
             <div className="flex items-center gap-x-1">
               {communityData.memberCount != 1 && (
                 <>
-                  <button onClick={() => modal.show(<ModalImageUpload />)}>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      modal.show(
+                        <ModalImageUpload
+                          callback={(img) => {
+                            setImageUrl(img);
+                          }}
+                        />
+                      )
+                    }
+                  >
                     <Icon icon="photoLibrary" />
                   </button>
                   <Icon icon="gif" />

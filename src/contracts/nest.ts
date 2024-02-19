@@ -2,7 +2,18 @@ const address = "0xbcf4F415ED910340a47ee4151F33c983C4fa3eea" as const;
 
 const abi = [
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: "uint48",
+        name: "_DHprime",
+        type: "uint48",
+      },
+      {
+        internalType: "uint48",
+        name: "_DHprimitive",
+        type: "uint48",
+      },
+    ],
     stateMutability: "nonpayable",
     type: "constructor",
   },

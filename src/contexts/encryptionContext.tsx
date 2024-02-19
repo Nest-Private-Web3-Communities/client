@@ -161,7 +161,7 @@ export function EncryptionContextProvider({
           );
         }
 
-        if (key.key == "") continue;
+        if ((key.key = "")) "";
 
         setAgreement((p) => [...p, key]);
       }

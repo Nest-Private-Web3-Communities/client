@@ -11,11 +11,15 @@ import Icon from "../../../../../common/Icon";
 import CopyWrapper from "../../../../../common/CopyWrapper";
 import { Mutable } from "../../../../../types";
 import { useAccount } from "@particle-network/connect-react-ui";
+import { useParams } from "react-router-dom";
+import { twMerge } from "tailwind-merge";
 
 export default function FeedItem(props: { postId: number }) {
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const isInView = useIsInViewport(containerRef);
   const flag = useRef(false);
+  const params = useParams();
+  const communityAddress = params.cid;
 
   const web3 = useWeb3();
   const { contract, data: communityInfo } = useCommunity();
@@ -34,6 +38,7 @@ export default function FeedItem(props: { postId: number }) {
       reactors: Address[];
       commentCount: number;
       userReaction: number;
+      shouldHide: boolean;
     }>
   >({});
   const [pending, setPending] = useState(false);
@@ -103,7 +108,10 @@ export default function FeedItem(props: { postId: number }) {
   return (
     <div
       ref={containerRef}
-      className="relative flex py-4 px-4 border-b border-front border-opacity-25 justify-start gap-x-3"
+      className={twMerge(
+        "relative flex py-4 px-4 border-b border-front border-opacity-25 justify-start gap-x-3",
+        data?.shouldHide && "hidden"
+      )}
     >
       {pending && (
         <figure className="z-10 bg-gray-500/50 cursor-not-allowed absolute-cover animate-pulse" />
