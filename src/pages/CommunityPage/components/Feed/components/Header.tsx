@@ -15,7 +15,8 @@ import useCommunity from "../../../CommunityContext";
 
 export default function Header() {
   const user = useNestUser();
-  const { contract } = useCommunity();
+  const web3 = useWeb3();
+  const { contract, reload } = useCommunity();
   const encryption = useEncryptionContext();
 
   const [loading, setLoading] = useState(false);
@@ -46,6 +47,11 @@ export default function Header() {
 
     contract?.write
       .makePost(["General", encryptedData.toString()])
+      .then((res) =>
+        web3.client
+          ?.waitForTransactionReceipt({ hash: res })
+          .then(() => reload())
+      )
       .finally(() => setLoading(false));
   }
   function handleEmojiSelect(emoji: any) {

@@ -45,6 +45,7 @@ export default function FeedItem(props: { postId: number }) {
     if (!contract) return;
     const postData = await contract.read.posts([BigInt(props.postId)]);
     const userAddress = postData[1];
+    console.log(postData);
     const createdAt = Number(postData[0]);
     setProperty("userAddress", userAddress);
     setProperty("createdAt", createdAt);
@@ -59,8 +60,10 @@ export default function FeedItem(props: { postId: number }) {
     if (contract && flag) loadData();
   }, [flag, contract]);
 
+  //   console.log(data);
+
   return (
-    <div>
+    <div ref={containerRef}>
       <div className="flex py-4 px-4 border-b border-front border-opacity-25 justify-start gap-x-3">
         {data.userImage ? (
           <img
