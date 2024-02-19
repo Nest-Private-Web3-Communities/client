@@ -78,7 +78,7 @@ export default function FeedItem(props: { postId: number }) {
         <figure className="w-[3vw] rounded-full bg-gray-500/50 animate-pulse aspect-square" />
       )}
 
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full">
         <div className="flex items-center gap-x-2">
           <h1 className="">{data.userName}</h1>
           <div className="bg-front h-[1.4ch] w-[1px] bg-opacity-50" />
@@ -97,7 +97,7 @@ export default function FeedItem(props: { postId: number }) {
         {data.content?.imageUrl && (
           <img src={data.content.imageUrl} className="my-2 rounded-xl" />
         )}
-        <div className="mt-2 flex justify-between">
+        <div className="mt-2 flex justify-between w-full">
           <div className="flex gap-x-4 relative">
             <div className="flex gap-x-1 group/open cursor-pointer">
               <div className="opacity-0 duration-100 pointer-events-none group-hover/open:pointer-events-auto group-hover/open:opacity-100 absolute bottom-full py-2">
