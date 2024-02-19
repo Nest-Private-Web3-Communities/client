@@ -15,7 +15,7 @@ export default function Hero() {
   const theme = useTheme();
 
   return (
-    <section className="h-screen pt-24 p-page flex items-center relative overflow-x-hidden overflow-y-auto">
+    <section className="h-screen pt-24 p-page flex items-center relative ">
       <div className="absolute left-0 top-1/2 -translate-y-1/2 blur-2xl -z-1">
         <figure className="w-[20vw] h-[9vh] bg-primary/50 absolute anim-continuous-rotate rounded-full" />
         <figure className="w-[22vw] h-[12vh] bg-primary/60 absolute rounded-full anim-continuous-rotate -rotate-6" />
