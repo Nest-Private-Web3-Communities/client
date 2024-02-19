@@ -6,4 +6,4 @@ export const serverUrl =
 export const keyBase = 32 as const;
 
 export const networkImagePlaceholder =
-  "https://ps.w.org/hashtagger/assets/icon.svg?rev=2803093";
+  "https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/hashtag-sign-round-icon.png";
