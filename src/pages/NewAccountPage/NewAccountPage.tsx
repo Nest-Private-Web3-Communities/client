@@ -3,6 +3,7 @@ import useWeb3 from "../../contexts/web3context";
 import useEncryptionContext from "../../contexts/encryptionContext";
 import { useNavigate } from "react-router-dom";
 import { keyBase } from "../../config";
+import useRefreshComponent from "../../hooks/useRefreshComponent";
 
 export default function NewAccountPage() {
   const inputStyle: React.CSSProperties = {
@@ -20,6 +21,7 @@ export default function NewAccountPage() {
 
   const web3 = useWeb3();
   const encryption = useEncryptionContext();
+  const refreshComponent = useRefreshComponent();
 
   function createAccountHandler(event: React.FormEvent) {
     event.preventDefault();
@@ -36,7 +38,7 @@ export default function NewAccountPage() {
         if (!web3.client) return navigate("/");
         web3.client
           .waitForTransactionReceipt({ hash: res })
-          .then((_) => navigate("/communities"));
+          .then((_) => refreshComponent.byId("page"));
       })
       .catch(() => {
         setLoading(false);

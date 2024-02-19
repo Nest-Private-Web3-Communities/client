@@ -1,4 +1,4 @@
-const address = "0x72Dbb86421f9BD1A960E708d967bf3De86DBc217" as const;
+const address = "0xbbF5D480D1FEf4c42D852f8dF35367ae9852eeFA" as const;
 
 const abi = [
   {

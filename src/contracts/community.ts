@@ -410,14 +410,19 @@ const abi = [
     name: "posts",
     outputs: [
       {
-        internalType: "string",
-        name: "data",
-        type: "string",
-      },
-      {
         internalType: "uint256",
         name: "createdAt",
         type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "publisher",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "data",
+        type: "string",
       },
     ],
     stateMutability: "view",

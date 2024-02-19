@@ -7,6 +7,7 @@ import ModalAddNetowrk from "../../modals/ModalAddNetwork";
 import { useIsInViewport } from "../../../../../hooks/useIsInView";
 import useWeb3 from "../../../../../contexts/web3context";
 import { rangeArray } from "../../../../../utils";
+import { twMerge } from "tailwind-merge";
 
 export default function SubgroupList() {
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -55,7 +56,7 @@ function NetworkCard(props: { networkIdx: number }) {
   const cardRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const isInView = useIsInViewport(cardRef);
   const flag = useRef(false);
-  const { contract } = useCommunity();
+  const { contract, pageConfig, setPageConfig } = useCommunity();
 
   const [data, setData] = useState<{
     name: string;
@@ -81,12 +82,26 @@ function NetworkCard(props: { networkIdx: number }) {
 
   return (
     <div
+      role="button"
       ref={cardRef}
-      className=" bg-foreground bg-opacity-60 hover:bg-opacity-100 duration-200 ease-in px-3 border-front border border-opacity-20 py-4 rounded-lg flex items-center min-w-[15vw] justify-between"
+      onClick={() =>
+        data &&
+        setPageConfig((p) => ({ ...p, currentSelectedNetwork: data.name }))
+      }
+      className={twMerge(
+        "cursor-pointer bg-foreground bg-opacity-40 duration-200 ease-in px-3 border-front border border-opacity-20 py-4 rounded-lg flex items-center min-w-[15vw] justify-between",
+        pageConfig.currentSelectedNetwork == data?.name
+          ? "bg-opacity-100 border-opacity-100 outline outline-front/40 pointer-events-none select-none"
+          : "hover:bg-opacity-75"
+      )}
     >
       <div className="flex gap-x-2 items-center">
         <img
-          src={data?.imageUrl}
+          draggable={false}
+          src={
+            data?.imageUrl ||
+            "https://ps.w.org/hashtagger/assets/icon.svg?rev=2803093"
+          }
           onError={(e) =>
             (e.currentTarget.src =
               "https://ps.w.org/hashtagger/assets/icon.svg?rev=2803093")

@@ -23,6 +23,10 @@ interface GlobalContextType {
       React.SetStateAction<AbiReadResponseType<"nest", "users"> | undefined>
     >;
   };
+  refreshState: {
+    seeds: Record<string, number>;
+    setSeeds: React.Dispatch<React.SetStateAction<Record<string, number>>>;
+  };
 }
 
 const GlobalContext = createContext<GlobalContextType>({} as GlobalContextType);
@@ -31,6 +35,7 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>();
   const [modal, setModal] = useState<ReactNode | null>();
   const [user, setUser] = useState<AbiReadResponseType<"nest", "users">>();
+  const [refreshSeeds, setRefreshSeeds] = useState<Record<string, number>>({});
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("nest-theme");
@@ -56,6 +61,7 @@ export function GlobalContextProvider({ children }: { children: ReactNode }) {
     modalState: { modal, setModal },
     themeState: { theme, setTheme },
     userState: { user, setUser },
+    refreshState: { seeds: refreshSeeds, setSeeds: setRefreshSeeds },
   };
 
   return (
