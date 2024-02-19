@@ -22,7 +22,7 @@ export default function CommunitiesList() {
   }, []);
 
   return (
-    <section className="p-page flex flex-wrap gap-6">
+    <section className="p-page flex flex-wrap gap-6 min-h-[30vh]">
       {list &&
         list.map((addr, key) => (
           <CommunityCard
