@@ -9,6 +9,7 @@ import ModalShare from "../../modals/ModalShare";
 import useModal from "../../../../../hooks/useModal";
 import Icon from "../../../../../common/Icon";
 import CopyWrapper from "../../../../../common/CopyWrapper";
+import { Mutable } from "../../../../../types";
 
 export default function FeedItem(props: { postId: number }) {
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -28,8 +29,11 @@ export default function FeedItem(props: { postId: number }) {
       userImage: string;
       userAddress: Address;
       userName: string;
+      reactors: Address[];
+      commentCount: number;
     }>
   >({});
+  const [pending, setPending] = useState(false);
 
   function setProperty<K extends keyof typeof data>(
     key: K,
@@ -42,9 +46,11 @@ export default function FeedItem(props: { postId: number }) {
     if (!flag.current) flag.current = isInView;
   }, [isInView]);
 
+  const postId = BigInt(props.postId);
+
   async function loadData() {
     if (!contract) return;
-    const postData = await contract.read.posts([BigInt(props.postId)]);
+    const postData = await contract.read.posts([postId]);
     const userAddress = postData[1];
     const createdAt = Number(postData[0]);
     setProperty("userAddress", userAddress);
@@ -54,11 +60,29 @@ export default function FeedItem(props: { postId: number }) {
     web3.contracts.nest.read.getUserByAddress([userAddress]).then((res) => {
       setProperty("userImage", res.imageUrl), setProperty("userName", res.name);
     });
+
+    contract.read
+      .getCommentCountOnPost([postId])
+      .then((res) => setProperty("commentCount", Number(res)));
+
+    contract.read
+      .getReactorsOnPost([postId])
+      .then((res) => setProperty("reactors", res as Mutable<typeof res>));
   }
 
   const formattedDate = data.createdAt
     ? new Date(data.createdAt * 1000).toLocaleString()
     : "";
+
+  function reactHandler(reactionIdx: number) {
+    setPending(true);
+    contract?.write.reactToPost([postId, reactionIdx]).then((res) => {
+      web3.client?.waitForTransactionReceipt({ hash: res }).then(() => {
+        setPending(false);
+        loadData();
+      });
+    });
+  }
 
   useEffect(() => {
     if (contract && flag) loadData();
@@ -67,8 +91,12 @@ export default function FeedItem(props: { postId: number }) {
   return (
     <div
       ref={containerRef}
-      className="flex py-4 px-4 border-b border-front border-opacity-25 justify-start gap-x-3"
+      className="relative flex py-4 px-4 border-b border-front border-opacity-25 justify-start gap-x-3"
     >
+      {pending && (
+        <figure className="z-10 bg-gray-500/50 cursor-not-allowed absolute-cover animate-pulse" />
+      )}
+
       {data.userImage ? (
         <img
           src={data.userImage}
@@ -107,7 +135,14 @@ export default function FeedItem(props: { postId: number }) {
                   <div className="bg-background p-1 flex items-center gap-x-1 rounded-md border border-front border-opacity-30">
                     {emotes &&
                       emotes.map((emote, key) => (
-                        <button key={key} className="group/emote">
+                        <button
+                          key={key}
+                          className="group/emote"
+                          onClick={() => {
+                            reactHandler(key);
+                          }}
+                          disabled={pending}
+                        >
                           <Emote
                             name={emote.name as EmoteType}
                             color={`rgb(${emote.color})`}
@@ -117,15 +152,21 @@ export default function FeedItem(props: { postId: number }) {
                       ))}
                   </div>
                 </div>
-                <figure className="flex gap-x-1 items-center duration-200 ease-in">
+                <button
+                  disabled={pending}
+                  className="flex gap-x-1 items-center duration-200 ease-in"
+                >
                   <Icon icon="addReaction" className="text-[1.2rem]  " />
-                  <p className="text-xs">{23}</p>
-                </figure>
+                  <p className="text-xs">{data.reactors?.length}</p>
+                </button>
               </div>
             )}
-            <button className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in">
+            <button
+              className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in"
+              disabled={pending}
+            >
               <Icon icon="chatBubble" className="text-[1.2rem]" />
-              <p className="text-xs">{1}</p>
+              <p className="text-xs">{data.commentCount}</p>
             </button>
           </div>
           <button

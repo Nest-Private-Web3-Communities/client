@@ -15,7 +15,7 @@ import useCommunity from "../../../CommunityContext";
 export default function Header() {
   const user = useNestUser();
   const web3 = useWeb3();
-  const { contract, reload, data: communityData } = useCommunity();
+  const { contract, reload, data: communityData, pageConfig } = useCommunity();
   const encryption = useEncryptionContext();
 
   const [loading, setLoading] = useState(false);
@@ -45,7 +45,7 @@ export default function Header() {
     );
 
     contract?.write
-      .makePost(["General", encryptedData.toString()])
+      .makePost([pageConfig.currentSelectedNetwork, encryptedData.toString()])
       .then((res) =>
         web3.client
           ?.waitForTransactionReceipt({ hash: res })
@@ -98,7 +98,7 @@ export default function Header() {
                   <Icon icon="gif" />
                   <div className="group relative">
                     <Icon icon="mood" />
-                    <div className="opacity-0 group-hover:opacity-100 absolute pointer-events-none group-hover:pointer-events-auto">
+                    <div className="opacity-0 group-hover:opacity-100 absolute pointer-events-none group-hover:pointer-events-auto z-20">
                       <Picker
                         data={data}
                         onEmojiSelect={handleEmojiSelect}
