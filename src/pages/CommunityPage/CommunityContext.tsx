@@ -90,6 +90,7 @@ interface Community {
   reactions: Array<{ name: string; color: string }>;
   memberCount: number;
   networkCount: number;
+  userJoinedAt: number;
 }
 
 interface Config {

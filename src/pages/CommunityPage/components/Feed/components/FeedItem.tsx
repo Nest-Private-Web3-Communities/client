@@ -38,10 +38,13 @@ export default function FeedItem(props: { postId: number }) {
       reactors: Address[];
       commentCount: number;
       userReaction: number;
-      shouldHide: boolean;
     }>
   >({});
   const [pending, setPending] = useState(false);
+  const shouldHide =
+    data.createdAt &&
+    communityInfo.userJoinedAt &&
+    data.createdAt < communityInfo.userJoinedAt;
 
   function setProperty<K extends keyof typeof data>(
     key: K,
@@ -110,7 +113,7 @@ export default function FeedItem(props: { postId: number }) {
       ref={containerRef}
       className={twMerge(
         "relative flex py-4 px-4 border-b border-front border-opacity-25 justify-start gap-x-3",
-        data?.shouldHide && "hidden"
+        shouldHide && "hidden"
       )}
     >
       {pending && (
