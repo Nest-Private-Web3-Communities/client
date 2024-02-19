@@ -101,26 +101,28 @@ export default function FeedItem(props: { postId: number }) {
         )}
         <div className="mt-2 flex justify-between w-full">
           <div className="flex gap-x-4 relative">
-            <div className="flex gap-x-1 group/open cursor-pointer">
-              <div className="opacity-0 duration-100 pointer-events-none group-hover/open:pointer-events-auto group-hover/open:opacity-100 absolute bottom-full py-2">
-                <div className="bg-background p-1 flex items-center gap-x-1 rounded-md border border-front border-opacity-30">
-                  {emotes &&
-                    emotes.map((emote, key) => (
-                      <button key={key} className="group/emote">
-                        <Emote
-                          name={emote.name as EmoteType}
-                          color={`rgb(${emote.color})`}
-                          className="text-[1.8vw] group-hover/emote:-translate-y-3 duration-150 bg-background rounded-full"
-                        />
-                      </button>
-                    ))}
+            {emotes?.length != 0 && (
+              <div className="flex gap-x-1 group/open cursor-pointer">
+                <div className="opacity-0 duration-100 pointer-events-none group-hover/open:pointer-events-auto group-hover/open:opacity-100 absolute bottom-full py-2">
+                  <div className="bg-background p-1 flex items-center gap-x-1 rounded-md border border-front border-opacity-30">
+                    {emotes &&
+                      emotes.map((emote, key) => (
+                        <button key={key} className="group/emote">
+                          <Emote
+                            name={emote.name as EmoteType}
+                            color={`rgb(${emote.color})`}
+                            className="text-[1.8vw] group-hover/emote:-translate-y-3 duration-150 bg-background rounded-full"
+                          />
+                        </button>
+                      ))}
+                  </div>
                 </div>
+                <figure className="flex gap-x-1 items-center duration-200 ease-in">
+                  <Icon icon="addReaction" className="text-[1.2rem]  " />
+                  <p className="text-xs">{23}</p>
+                </figure>
               </div>
-              <figure className="flex gap-x-1 items-center duration-200 ease-in">
-                <Icon icon="addReaction" className="text-[1.2rem]  " />
-                <p className="text-xs">{23}</p>
-              </figure>
-            </div>
+            )}
             <button className="flex items-center gap-x-1 hover:text-primary text-front duration-150 ease-in">
               <Icon icon="chatBubble" className="text-[1.2rem]" />
               <p className="text-xs">{1}</p>

@@ -109,7 +109,7 @@ export default function ModalJoin() {
 
       {communityName && participationStage == 1 && (
         <button
-          className="px-10 py-1 text-sm rounded-md bg-primary mt-4 disabled:animate-pulse disabled:opacity-60"
+          className="px-10 py-1 text-sm rounded-md bg-primary mt-4 disabled:animate-pulse disabled:opacity-30"
           onClick={() => {
             try {
               join();
