@@ -19,6 +19,8 @@ export default function CommunityPage() {
   const { theme } = community.data;
 
   const web3 = useWeb3();
+  const { pageConfig } = useCommunity();
+  const { currentSelectedNetwork } = pageConfig;
   const encryption = useEncryptionContext();
 
   function setProperty<T extends keyof typeof community.data>(
@@ -99,7 +101,7 @@ export default function CommunityPage() {
           }
         >
           <SideNav />
-          <Feed />
+          <Feed key={currentSelectedNetwork} />
           <Chat />
           <Modal />
         </main>

@@ -27,12 +27,14 @@ export default function NetworkDetails() {
       />
 
       <div className="flex-1 pl-3">
-        <h2 className="text-sm font-medium">{currentSelectedNetwork}</h2>
+        <h2 className="text-sm font-medium truncate">
+          {currentSelectedNetwork}
+        </h2>
         <textarea
           value={desc}
           rows={2}
           disabled
-          className="text-[10px] font-light text-front/70 resize-none bg-transparent w-full"
+          className="text-[10px] font-light text-front/70 resize-none bg-transparent w-full scrollbar-none"
         />
       </div>
     </section>

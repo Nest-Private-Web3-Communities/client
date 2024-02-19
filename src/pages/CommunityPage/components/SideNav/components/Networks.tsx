@@ -102,9 +102,7 @@ function NetworkCard(props: { networkIdx: number }) {
           onError={(e) => (e.currentTarget.src = networkImagePlaceholder)}
           className="rounded-full bg-front text-background text-center w-[3vw] aspect-square object-cover"
         />
-        <h2 className="font-semibold whitespace-nowrap truncate max-w-[70%]">
-          {data?.name}
-        </h2>
+        <h2 className="font-semibold w-[70%] truncate">{data?.name}</h2>
       </div>
       <button className="bg-background rounded-full px-2 aspect-square border-front border-opacity-20 border text-primary text-opacity-100 duration-200 ease-in">
         <Icon icon="forum" className="text-[1.2rem]" />
