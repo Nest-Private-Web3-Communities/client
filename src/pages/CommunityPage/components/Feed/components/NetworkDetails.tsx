@@ -3,7 +3,7 @@ import useCommunity from "../../../CommunityContext";
 import { networkImagePlaceholder } from "../../../../../config";
 
 export default function NetworkDetails() {
-  const { data, contract, pageConfig } = useCommunity();
+  const { contract, pageConfig } = useCommunity();
   const { currentSelectedNetwork } = pageConfig;
 
   const [imageUrl, setImageUrl] = useState("");
@@ -31,6 +31,7 @@ export default function NetworkDetails() {
         <textarea
           value={desc}
           rows={2}
+          disabled
           className="text-[10px] font-light text-front/70 resize-none bg-transparent w-full"
         />
       </div>

@@ -12,7 +12,7 @@ export function useIsInViewport(ref: React.MutableRefObject<HTMLElement>) {
   );
 
   useEffect(() => {
-    observer.observe(ref.current);
+    if (ref) observer.observe(ref.current);
 
     return () => {
       observer.disconnect();

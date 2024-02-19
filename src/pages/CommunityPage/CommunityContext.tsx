@@ -18,6 +18,8 @@ interface CommunityContextType {
 
   pageConfig: Config;
   setPageConfig: React.Dispatch<React.SetStateAction<Config>>;
+
+  reload: () => void;
 }
 
 const CommunityContext = createContext<CommunityContextType>(
@@ -34,6 +36,7 @@ export function CommunityContextProvider({
 
   const account = useAccount();
 
+  const [seed, setSeed] = useState(1);
   const [contract, setContract] = useState<CommunityContract>();
   const [data, setData] = useState<ICommunity>({
     address: params.address as Address,
@@ -43,6 +46,10 @@ export function CommunityContextProvider({
     currentSelectedNetwork: "General",
     sidenavCollapse: { members: false, networks: false },
   });
+
+  function reload() {
+    setSeed(Math.random());
+  }
 
   useEffect(() => {
     if (account && contract)
@@ -58,11 +65,12 @@ export function CommunityContextProvider({
     setData,
     pageConfig,
     setPageConfig,
+    reload,
   };
 
   return (
     <CommunityContext.Provider value={value}>
-      {children}
+      <div key={seed}>{children}</div>
     </CommunityContext.Provider>
   );
 }
