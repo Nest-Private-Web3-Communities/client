@@ -12,6 +12,10 @@ import useEncryptionContext from "../../contexts/encryptionContext";
 import SideNav from "./components/SideNav/SideNav";
 import Modal from "../../common/Modal";
 import useCommunity from "./CommunityContext";
+import { generateRandomHex } from "../../utils";
+import { keyBase } from "../../config";
+import contracts from "../../contracts";
+import { AES } from "crypto-js";
 
 export default function CommunityPage() {
   const community = useCommunity();
@@ -94,6 +98,37 @@ export default function CommunityPage() {
       );
   }, [web3.client]);
 
+  const account = useAccount();
+  const params = useParams();
+
+  async function join() {
+    if (!account || !web3.client) return;
+    const contract = getContract({
+      abi: contracts.community.abi,
+      address: params.cid as Address,
+      client: web3.client,
+    });
+
+    const _Keys: string[] = [];
+    const _Users: Address[] = [];
+
+    const newKey = generateRandomHex(64);
+
+    const fellows = await contract.read.getMemberAddresses();
+    for await (let p of fellows) {
+      const usr = await web3.contracts.nest.read.users([p]);
+      const Kpub = parseInt(usr[0], keyBase);
+
+      const Kshared = Kpub ** encryption.keyPvt % encryption.dhParameters.prime;
+      const kMaster = AES.encrypt(newKey, Kshared.toString(keyBase));
+
+      _Users.push(p);
+      _Keys.push(kMaster.toString());
+    }
+
+    console.log(_Keys, _Users);
+  }
+
   return (
     <>
       {theme && contract && (
@@ -110,6 +145,7 @@ export default function CommunityPage() {
             } as React.CSSProperties
           }
         >
+          <button onClick={join}>TEST</button>
           <SideNav />
           <Feed key={currentSelectedNetwork} />
           <Chat />

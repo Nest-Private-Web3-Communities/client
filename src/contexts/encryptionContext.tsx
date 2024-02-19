@@ -150,13 +150,14 @@ export function EncryptionContextProvider({
           BigInt(i),
         ]);
 
+        console.log(e_key);
+
         key.key = CryptoJS.AES.decrypt(
           e_key,
           sharedKey.toString(keyBase)
         ).toString(CryptoJS.enc.Utf8);
 
         if (publisherAddress.toUpperCase() == account.toUpperCase()) {
-          ("ran once");
           key.key = CryptoJS.AES.decrypt(
             e_key,
             keyPvt.toString(keyBase)

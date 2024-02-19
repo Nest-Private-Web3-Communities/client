@@ -36,7 +36,7 @@ export default function ProtectedRoute(props: ProtectedRouteProps) {
   }, []);
 
   useEffect(() => {
-    if (account != undefined && timeout.current) {
+    if (account != undefined && web3.client && timeout.current) {
       clearTimeout(timeout.current);
 
       web3.contracts.nest.read
@@ -48,7 +48,7 @@ export default function ProtectedRoute(props: ProtectedRouteProps) {
           setLoading(false);
         });
     }
-  }, [account]);
+  }, [account, web3.client]);
 
   let condition = false;
   switch (props.type) {
