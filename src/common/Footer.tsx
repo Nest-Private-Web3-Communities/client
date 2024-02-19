@@ -25,9 +25,9 @@ export default function Footer() {
           <div className="w-1/3">
             <h2 className="text-lg font-medium">Resources</h2>
             <div className="flex flex-col text-sm font-light text-white/50 my-4 gap-y-3">
-              <Link to="/communities">Home</Link>
-              <Link to="/communities">Your Communities</Link>
-              <Link to="/communities/new">Create Community</Link>
+              <Link to="/#">How it works</Link>
+              <Link to="/faqs">Faqs</Link>
+              {/* <Link to="/communities/new">Create Community</Link> */}
             </div>
           </div>
           <div className="w-1/3">

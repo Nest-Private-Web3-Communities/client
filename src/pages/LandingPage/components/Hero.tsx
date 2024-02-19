@@ -24,7 +24,7 @@ export default function Hero() {
         <figure className="w-[5vw] h-[50vh] bg-primary -hue-rotate-15 absolute -translate-y-3/4 -translate-x-3/4 rounded-[100%]" />
       </div>
 
-      <figure className="absolute bottom-0 left-[4%] w-[50vw] h-[60vh] -z-1 bg-front/10 rounded-t-full blur-3xl" />
+      <figure className="absolute bottom-0 left-[4%] w-[50vw] h-[60vh] -z-1 bg-front/5 rounded-t-full blur-3xl" />
 
       <div className="basis-1/2 flex flex-col gap-y-10">
         <h1 className="bg-gray-500/20 backdrop-blur-xl px-8 py-3 text-lg font-light rounded-lg w-max">
@@ -81,6 +81,7 @@ export default function Hero() {
           />
         </div>
       </div>
+
       <div className="basis-1/2 relative">
         <div className="relative">
           <img
@@ -88,7 +89,7 @@ export default function Hero() {
             alt="web3-hand"
             className="relative z-10 rounded-b-3xl"
             style={{
-              filter: `drop-shadow(0px 0px 1px rgb(var(--color-front))) drop-shadow(-4px -10px 10px rgba(var(--color-front)/0.25))`,
+              filter: `drop-shadow(0px 0px 1px rgb(var(--color-front))) drop-shadow(-4px -10px 10px rgba(var(--color-front)/0.15))`,
             }}
           />
           <figure className="absolute bottom-0 right-0 w-[70%] h-[70vh] bg-primary rounded-t-full rounded-b-[250%]" />
