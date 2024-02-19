@@ -1,3 +1,6 @@
+import { twMerge } from "tailwind-merge";
+import useTheme from "../../../hooks/useTheme";
+
 const faqs = [
   {
     id: 1,
@@ -38,9 +41,15 @@ const faqs = [
 ];
 
 export default function Hero() {
+  const theme = useTheme();
   return (
     <section className="relative bg-background pt-16 text-front h-screen p-page">
-      <div className="absolute-cover opacity-60 blur-2xl">
+      <div
+        className={twMerge(
+          "absolute-cover opacity-60 blur-2xl",
+          theme.current == "light" && "opacity-0"
+        )}
+      >
         <video
           src="/videos/faq-gradient.mp4"
           autoPlay

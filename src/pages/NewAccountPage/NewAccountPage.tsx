@@ -4,6 +4,8 @@ import useEncryptionContext from "../../contexts/encryptionContext";
 import { useNavigate } from "react-router-dom";
 import { keyBase } from "../../config";
 import useRefreshComponent from "../../hooks/useRefreshComponent";
+import useTheme from "../../hooks/useTheme";
+import { twMerge } from "tailwind-merge";
 
 export default function NewAccountPage() {
   const inputStyle: React.CSSProperties = {
@@ -15,6 +17,7 @@ export default function NewAccountPage() {
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
 
+  const theme = useTheme();
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -48,7 +51,12 @@ export default function NewAccountPage() {
   return (
     <>
       <section className="flex items-center h-screen px-[13vw] select-none relative">
-        <div className="absolute-cover opacity-60 blur-2xl -z-1">
+        <div
+          className={twMerge(
+            theme.current == "light" ? "hidden" : "block",
+            "absolute-cover opacity-60 blur-2xl -z-1"
+          )}
+        >
           <video
             src="/videos/faq-gradient.mp4"
             autoPlay
