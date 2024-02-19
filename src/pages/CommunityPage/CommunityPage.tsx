@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Feed from "./components/Feed/Feed";
 import Chat from "./components/Chat";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
@@ -17,6 +17,7 @@ export default function CommunityPage() {
   const community = useCommunity();
   const { contract } = community;
   const { theme } = community.data;
+  const flag = useRef(false);
 
   const web3 = useWeb3();
   const { pageConfig } = useCommunity();
@@ -72,6 +73,15 @@ export default function CommunityPage() {
     loadData();
     if (contract) encryption.setCommunityContract(contract);
   }, [contract]);
+
+  useEffect(() => {
+    if (contract && web3.client) {
+      if (!flag.current) {
+        flag.current = true;
+        contract.watchEvent.KeysCycled({ onLogs: (logs) => location.reload() });
+      }
+    }
+  }, [web3.client, contract, flag]);
 
   useEffect(() => {
     if (web3.client && !contract)
