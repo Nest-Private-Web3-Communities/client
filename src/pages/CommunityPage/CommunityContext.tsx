@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ContractType } from "../../contexts/web3context";
 import contractDefinitions from "../../contracts";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Address } from "viem";
 import { useAccount } from "@particle-network/connect-react-ui";
 
@@ -35,6 +35,7 @@ export function CommunityContextProvider({
   if (!params.cid) return <Navigate to="/" />;
 
   const account = useAccount();
+  const navigate = useNavigate();
 
   const [seed, setSeed] = useState(1);
   const [contract, setContract] = useState<CommunityContract>();
@@ -53,9 +54,10 @@ export function CommunityContextProvider({
 
   useEffect(() => {
     if (account && contract)
-      contract.read
-        .participationStage([account as Address])
-        .then((res) => setData((p) => ({ ...p, userIsAdmin: res === 3 })));
+      contract.read.participationStage([account as Address]).then((res) => {
+        if (res < 2) navigate("/communities");
+        setData((p) => ({ ...p, userIsAdmin: res === 3 }));
+      });
   }, [account, contract]);
 
   const value: CommunityContextType = {
