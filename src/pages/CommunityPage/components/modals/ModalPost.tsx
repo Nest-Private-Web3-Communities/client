@@ -162,7 +162,8 @@ export default function ModalPost(props: { post: string }) {
         </button>
       </div>
 
-      {data.commentCount &&
+      {data.commentCount != undefined &&
+        data.commentCount > 0 &&
         rangeArray(data.commentCount).map((commentIdx) => (
           <CommentCard postId={postId} commentId={BigInt(commentIdx)} />
         ))}
@@ -189,5 +190,48 @@ function CommentCard(props: { commentId: bigint; postId: bigint }) {
       web3.contracts.nest.read.users([data.sender]).then((res) => setUser(res));
   }, [data]);
 
-  return <div>{data?.content}</div>;
+  const formattedDate = data?.createdAt
+    ? new Date(Number(data.createdAt) * 1000).toLocaleString()
+    : "";
+
+  return (
+    <div className="border-y flex items-start gap-x-3 border-front/20 px-5 py-3 text-sm">
+      {/* <img
+        className="w-[3vw] text-base object-cover aspect-square rounded-full"
+        src={user?.[2]}
+        alt={user?.[1]}
+      />
+
+      <div className="flex gap-x-3 flex-col">
+        <p className="">{user?.[1]}</p>
+        <span className="text-sm mt-2 text-front">{data?.content}</span>
+      </div> */}
+      {user?.[2] ? (
+        <img
+          src={user[2]}
+          className="rounded-full w-[3vw] aspect-square h-max object-cover"
+        />
+      ) : (
+        <figure className="w-[3vw] rounded-full bg-gray-500/50 animate-pulse aspect-square" />
+      )}
+
+      <div className="w-full">
+        <div className="flex items-center gap-x-2">
+          <h1 className="">{user?.[1]}</h1>
+          <div className="bg-front h-[1.4ch] w-[1px] bg-opacity-50" />
+          <CopyWrapper>
+            <h2 className="border-primary border text-front w-[5vw] truncate px-2 text-center text-xs h-max rounded-xl">
+              {data?.sender}
+            </h2>
+          </CopyWrapper>
+
+          <figure className="flex-1" role="separator" />
+
+          <p className="text-xs text-front/40 self-end">{formattedDate}</p>
+        </div>
+
+        <div className="text-opacity-80 text-front mt-1">{data?.content}</div>
+      </div>
+    </div>
+  );
 }
