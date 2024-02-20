@@ -30,7 +30,15 @@ export default function Header() {
             and secure.
           </p>
 
-          <button className="bg-background text-front w-max px-6 py-2 rounded">
+          <button
+            className="bg-background text-front w-max px-6 py-2 rounded"
+            onClick={() =>
+              window.open(
+                "https://www.youtube.com/watch?v=WqT1THswinI",
+                "_blank"
+              )
+            }
+          >
             Learn More
           </button>
         </div>

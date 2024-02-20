@@ -64,7 +64,17 @@ export default function Hero() {
               Get Started
             </span>
           </button>
-          <button className="">Learn More</button>
+          <button
+            className=""
+            onClick={() =>
+              window.open(
+                "https://www.youtube.com/watch?v=WqT1THswinI&t=380s",
+                "_blank"
+              )
+            }
+          >
+            Learn More
+          </button>
         </div>
 
         <p className="text-front/30 -mt-3 -mb-7 text-xs">Powered By</p>
