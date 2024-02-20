@@ -12,7 +12,6 @@ import LandingPage from "./LandingPage/LandingPage";
 import CommunityPage from "./CommunityPage/CommunityPage";
 import NewCommunityPage from "./NewCommunityPage/NewCommunityPage";
 import FAQsPage from "./FAQsPage/FAQsPage";
-import TestingPage from "./TestingPage/TestingPage";
 import NewAccountPage from "./NewAccountPage/NewAccountPage";
 import { CommunityContextProvider } from "./CommunityPage/CommunityContext";
 
@@ -22,7 +21,6 @@ const router = createBrowserRouter(
       <Route element={<Layout.Default />}>
         <Route index element={<LandingPage />} />
         <Route path="/faq" element={<FAQsPage />} />
-        <Route path="/testing" element={<TestingPage />} />
 
         <Route
           path="/"
