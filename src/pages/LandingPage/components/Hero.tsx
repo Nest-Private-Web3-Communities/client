@@ -94,7 +94,7 @@ export default function Hero() {
             }}
           />
           <figure className="absolute bottom-0 right-0 w-[70%] h-[70vh] bg-primary rounded-t-full rounded-b-[250%]" />
-          <figure className="absolute top-full w-1/2 right-0 h-[10vh] bg-background z-10" />
+          <figure className="absolute top-full w-1/2 right-0 translate-x-1 h-[10vh] bg-background z-10" />
         </div>
       </div>
     </section>
