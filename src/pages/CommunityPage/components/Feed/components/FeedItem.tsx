@@ -43,11 +43,11 @@ export default function FeedItem(props: { postId: number }) {
   >({});
   const [pending, setPending] = useState(false);
   const shouldHide =
-    !data.createdAt ||
-    !communityInfo.userJoinedAt ||
-    (data.createdAt &&
-      communityInfo.userJoinedAt &&
-      data.createdAt < communityInfo.userJoinedAt);
+    // !data.createdAt ||
+    // !communityInfo.userJoinedAt ||
+    data.createdAt &&
+    communityInfo.userJoinedAt &&
+    data.createdAt < communityInfo.userJoinedAt;
 
   function setProperty<K extends keyof typeof data>(
     key: K,
