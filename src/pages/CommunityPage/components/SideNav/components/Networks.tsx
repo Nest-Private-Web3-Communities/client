@@ -26,6 +26,7 @@ export default function SubgroupList() {
         className="flex flex-col max-h-[40vh] gap-y-3 flex-1 overflow-y-scroll scrollbar-primary mt-2 px-2 py-2 rounded-lg border border-opacity-25 border-front mx-4 bg-secondary"
       >
         {networkCount != undefined &&
+          networkCount > 0 &&
           rangeArray(networkCount).map((i, key) => (
             <NetworkCard networkIdx={i} key={key} />
           ))}
