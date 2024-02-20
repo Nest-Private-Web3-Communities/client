@@ -27,7 +27,7 @@ export default function SubgroupList() {
       >
         {networkCount != undefined &&
           networkCount > 0 &&
-          rangeArray(networkCount).map((i, key) => (
+          rangeArray(Number(networkCount)).map((i, key) => (
             <NetworkCard networkIdx={i} key={key} />
           ))}
         {data.userIsAdmin && (
