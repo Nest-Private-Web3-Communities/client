@@ -80,17 +80,17 @@ export default function Hero() {
               and we’ll get back to you as soon as we can.
             </p>
           </div>
-          <div className="mt-14">
-            <dl className="flex flex-wrap gap-x-6 gap-y-12 justify-around">
+          <div className="mt-8">
+            <dl className="flex flex-wrap gap-x-4 gap-y-6 justify-around">
               {faqs.map((faq) => (
                 <div
                   key={faq.id}
-                  className="border py-4 px-6 rounded-xl w-[45%] border-front border-opacity-40 bg-front bg-opacity-5 backdrop-blur-md"
+                  className="border py-4 px-6 rounded-xl w-[49%] border-front border-opacity-40 bg-front bg-opacity-5 backdrop-blur-md"
                 >
                   <dt className="text-base font-semibold leading-7 text-front">
                     {faq.question}
                   </dt>
-                  <dd className=" text-base leading-7 text-front text-opacity-50">
+                  <dd className=" leading-7 text-front text-opacity-50 text-sm">
                     {faq.answer}
                   </dd>
                 </div>
