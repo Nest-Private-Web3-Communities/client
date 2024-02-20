@@ -75,7 +75,7 @@ export default function CommunityPage() {
 
     contract.read
       .joined([account as Address])
-      .then((res) => setProperty("networkCount", Number(res)));
+      .then((res) => setProperty("userJoinedAt", Number(res)));
   }
 
   useEffect(() => {
