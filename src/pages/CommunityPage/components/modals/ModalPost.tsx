@@ -113,7 +113,7 @@ export default function ModalPost(props: { post: string }) {
     <div
       ref={modalRef}
       className={twMerge(
-        "bg-background pt-5 h-[90vh] flex flex-col items-stretch w-[35vw] rounded-t-3xl shadow-[0px_-2px_4px] shadow-front/30 duration-500",
+        "bg-background pt-5 h-[90vh] overflow-y-scroll scrollbar-primary pb-6 flex flex-col items-stretch w-[35vw] rounded-t-3xl shadow-[0px_-2px_4px] shadow-front/30 duration-500",
         loaded ? "translate-y-0" : "translate-y-full"
       )}
     >
