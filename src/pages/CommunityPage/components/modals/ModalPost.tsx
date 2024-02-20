@@ -90,13 +90,14 @@ export default function ModalPost(props: { post: string }) {
     setPending(true);
     contract?.write
       .commentOnPost([postId, commentInput])
-      .then((res) =>
+      .then((res) => {
         web3.client?.waitForTransactionReceipt({ hash: res }).finally(() => {
           setPending(false);
-          loadData();
           setCommentInput("");
-        })
-      )
+          loadData();
+        });
+        setCommentInput("");
+      })
       .catch(() => setPending(false));
   }
 
